@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.bg-shape {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 83%, 0 36%);
+  clip-path: polygon(0 0, 100% 0, 100% 83%, 0 36%);
+  background-color: #EAE9FF;
+}
+
+
+@layer utilities {
+  .form-checkbox:checked {
+    accent-color: rgb(30 58 138);
+  }
+}
