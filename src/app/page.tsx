@@ -27,7 +27,7 @@ export default function Home() {
             </label>
           </div>
 
-          <button className="mt-6 h-11 rounded bg-blue-950 font-bold text-white hover:bg-blue-900">
+          <button className="mt-6 h-11 rounded bg-btn-primary font-bold text-white hover:bg-btn-secondary">
             ENTRAR
           </button>
 
