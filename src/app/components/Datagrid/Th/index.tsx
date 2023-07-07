@@ -7,8 +7,8 @@ interface Data {
 const Th: React.FC<Data> = ({ data }) => {
   return (
     <>
-      <th className="w-full overflow-hidden whitespace-nowrap p-2">{data}</th>
-      <div className="flex h-6  border-l-2 border-gray-300  " />
+      <th className="w-4/12 overflow-hidden whitespace-nowrap p-2">{data}</th>
+      <div className="flex h-6  border-l-2 border-gray-300 " />
     </>
   )
 }

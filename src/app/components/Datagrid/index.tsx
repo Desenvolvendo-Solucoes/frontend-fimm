@@ -4,7 +4,6 @@ import { Edit2 } from 'react-feather'
 import React, { useState } from 'react'
 import Td from './Td'
 import Th from './Th'
-import Avatar from './Avatar'
 
 interface DataGridProps {
   data: Array<any>
@@ -36,9 +35,9 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
   }
 
   return (
-    <table className="flex w-auto flex-auto flex-col">
+    <table className=" flex w-auto flex-auto flex-col">
       <thead className="mb-10 ">
-        <tr className=" flex items-center  border border-gray-500">
+        <tr className=" flex items-center  border-2 border-black">
           <th className="p-2">
             <input
               type="checkbox"
@@ -46,7 +45,6 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
               onChange={handleSelectAllChange}
             />
           </th>
-          <div className="w-3/12"></div>
           <Th data={['Solicitante']} />
           <Th data={['Matrícula']} />
           <Th data={['EPI']} />
@@ -58,31 +56,23 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
           <Th data={['Ações']} />
         </tr>
       </thead>
-      <div className="rounded border border-gray-500">
+      <div className="rounded border-2 border-black">
         <tbody className="flex w-auto flex-auto flex-col">
           {data.map((item, index) => (
             <tr
               key={index}
               className={` ${
-                index === 0 ? '' : 'border-t'
-              } flex border-gray-500 text-center odd:bg-white even:bg-datagrid-primary`} /// Altera a cor das Linhas do dataGrid
+                index === 0 ? '' : 'border-t-2'
+              } flex border-black text-center odd:bg-white even:bg-purple-500`} /// Altera a cor das Linhas do dataGrid
             >
-              <td className="p-2 ">
+              <td className="p-2">
                 <input
                   type="checkbox"
                   checked={selectedRows.includes(index)}
                   onChange={() => handleCheckboxChange(index)}
                 />
               </td>
-              <div className="w-10">
-                <Avatar
-                  imageUrl={item.avatar}
-                  altText="Avatar"
-                  solicitante={item.solicitante}
-                />
-              </div>
               <Td data={item.solicitante} />
-
               <Td data={item.matricula} />
               <Td data={item.epi} />
               <Td data={item.dataSolicitada.toDateString()} />
@@ -90,7 +80,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
               <Td data={item.imagem} />
               <Td data={item.tamanho} />
               <Td data={item.status} />
-              <Td data={<Edit2 className="inline-block" color="#1E1685" />} />
+              <Td data={<Edit2 />} />
             </tr>
           ))}
         </tbody>
