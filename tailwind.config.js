@@ -21,6 +21,9 @@ module.exports = {
           secondary: '#1E3A8A',
         },
         primary: '#1E1685',
+        datagrid: {
+          primary: '#DDDCED',
+        },
       },
     },
   },
