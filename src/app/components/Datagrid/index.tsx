@@ -4,9 +4,21 @@ import { Edit2 } from 'react-feather'
 import React, { useState } from 'react'
 import Td from './Td'
 import Th from './Th'
+import AvatarIcon from '../Avatar'
 
+type DataType = {
+  solicitante: string
+  avatar: string
+  matricula: string
+  epi: string
+  dataSolicitada: string
+  quantidade: string
+  imagem: string
+  tamanho: string
+  status: string
+}
 interface DataGridProps {
-  data: Array<any>
+  data: DataType[]
 }
 
 const DataGrid: React.FC<DataGridProps> = ({ data }) => {
@@ -63,7 +75,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
               key={index}
               className={` ${
                 index === 0 ? '' : 'border-t-2'
-              } flex border-black text-center odd:bg-white even:bg-purple-500`} /// Altera a cor das Linhas do dataGrid
+              } flex border-black bg-datagrid-row text-center odd:bg-white`} /// Altera a cor das Linhas do dataGrid
             >
               <td className="p-2">
                 <input
@@ -72,15 +84,19 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
                   onChange={() => handleCheckboxChange(index)}
                 />
               </td>
-              <Td data={item.solicitante} />
+              <Td data={item.solicitante}>
+                <AvatarIcon img={item.avatar} nome={item.solicitante} />
+              </Td>
               <Td data={item.matricula} />
               <Td data={item.epi} />
-              <Td data={item.dataSolicitada.toDateString()} />
+              <Td data={item.dataSolicitada} />
               <Td data={item.quantidade} />
               <Td data={item.imagem} />
               <Td data={item.tamanho} />
               <Td data={item.status} />
-              <Td data={<Edit2 />} />
+              <Td>
+                <Edit2 className="text-primary" />
+              </Td>
             </tr>
           ))}
         </tbody>
