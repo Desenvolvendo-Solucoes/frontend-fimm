@@ -5,9 +5,9 @@ import Sidebar from '@/components/Sidebar'
 export default function Teste() {
   const data = [
     {
-      solicitante: 'John Doe',
+      solicitante: 'Mohammed',
       avatar: 'https://img.icons8.com/color/600w/000000/avatar.png',
-      matricula: '12345',
+      matricula: '102030',
       epi: 'Óculos de segurança',
       dataSolicitada: '12/07/1998',
       quantidade: '1 unidade',
@@ -19,34 +19,34 @@ export default function Teste() {
       solicitante: 'John Doe',
       avatar: 'https://img.icons8.com/color/600w/000000/avatar.png',
       matricula: '12345',
-      epi: 'Óculos de segurança',
+      epi: 'Camiseta ML',
       dataSolicitada: '12/07/1998',
       quantidade: '1 unidade',
       imagem: 'caminho/para/imagem.jpg',
       tamanho: 'M',
-      status: 'Aprovado',
+      status: 'Pendente',
     },
     {
-      solicitante: 'John Doe',
+      solicitante: 'Gustavo Aires',
       avatar: 'https://img.icons8.com/color/600w/000000/avatar.png',
-      matricula: '12345',
-      epi: 'Óculos de segurança',
+      matricula: '120798',
+      epi: 'Botina',
       dataSolicitada: '12/07/1998',
       quantidade: '1 unidade',
       imagem: 'caminho/para/imagem.jpg',
       tamanho: 'M',
-      status: 'Aprovado',
+      status: 'Pendente',
     },
     {
-      solicitante: 'John Doe',
+      solicitante: 'Ricardo Dias',
       avatar: '',
-      matricula: '12345',
+      matricula: '121212',
       epi: 'Óculos de segurança',
       dataSolicitada: '12/07/1998',
       quantidade: '1 unidade',
       imagem: 'caminho/para/imagem.jpg',
       tamanho: 'M',
-      status: 'Aprovado',
+      status: 'Pendente',
     },
     // Adicione mais itens de dados conforme necessário
   ]
@@ -54,10 +54,7 @@ export default function Teste() {
   return (
     <div className="grid h-screen w-screen grid-cols-[18%,82%] grid-rows-1 gap-0">
       <Sidebar />
-      <div className="grid h-full w-full grid-cols-1 grid-rows-[120px,auto]">
-        <div className="w-full bg-black" />
-        <DataGrid data={data} />
-      </div>
+      <DataGrid data={data} />
     </div>
   )
 }
