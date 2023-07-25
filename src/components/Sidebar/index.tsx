@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
   const [activeButton, setActiveButton] = useState('Solicitações')
 
   return (
-    <NavigationMenu.Root className="h-full w-full border-2 border-l-gray-400">
+    <NavigationMenu.Root className=" h-full w-full border border-l-gray-400">
       <Logo />
       <NavigationMenu.List>
         <NavigationMenu.Item>
