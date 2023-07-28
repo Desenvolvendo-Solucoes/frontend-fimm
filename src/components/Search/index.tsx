@@ -21,8 +21,8 @@ const Search: React.FC<SearchProps> = ({ fields, onChange }) => {
         type="text"
         value={query}
         onChange={handleSearch}
-        placeholder=" 🔍 Digite sua busca..."
-        className="flex w-96 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none focus:ring"
+        placeholder=" 🔍 Pesquisar algum EPI..."
+        className="flex w-96 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none"
       />
     </div>
   )

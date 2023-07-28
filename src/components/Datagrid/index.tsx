@@ -6,6 +6,8 @@ import Td from './Td'
 import Th from './Th'
 import AvatarIcon from '../Avatar'
 import Search from '../Search'
+import ExportCsv from '../ExportCsv'
+import Filtering from '../Filtering'
 
 type DataType = {
   solicitante: string
@@ -77,6 +79,8 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
           fields={['tamanho', 'solicitante', 'matricula', 'epi', 'status']}
           onChange={handleSearchChange}
         />
+        <Filtering />
+        <ExportCsv />
       </div>
       <table className=" ml-9 flex w-auto flex-auto flex-col">
         <thead className="mb-10 ">
