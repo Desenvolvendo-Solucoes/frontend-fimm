@@ -8,18 +8,8 @@ import AvatarIcon from '../Avatar'
 import Search from '../Search'
 import ExportCsv from '../ExportCsv'
 import Filtering from '../Filtering'
+import { DataType } from '@/types'
 
-type DataType = {
-  solicitante: string
-  avatar: string
-  matricula: string
-  epi: string
-  dataSolicitada: string
-  quantidade: string
-  imagem: string
-  tamanho: string
-  status: string
-}
 interface DataGridProps {
   data: DataType[]
 }
@@ -33,7 +23,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
     setQuery(value)
   }
 
-  const filteredData = data.filter((item) => {
+  const filteredData = data.filter((value, index, item) => {
     const searchableFields = [
       'tamanho',
       'solicitante',
@@ -42,7 +32,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
       'status',
     ] // Lista de campos para realizar a busca
     return searchableFields.some((field) =>
-      item[field].toLowerCase().includes(query.toLowerCase()),
+      value[field].toLowerCase().includes(query.toLowerCase()),
     )
   })
 
@@ -108,9 +98,10 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
             {filteredData.map((item, index) => (
               <tr
                 key={index}
-                className={` ${
-                  index === 0 ? '' : 'border-t'
-                } flex border-gray-400 bg-datagrid-row text-center odd:bg-white`} /// Altera a cor das Linhas do dataGrid
+                className={[
+                  'flex border-gray-400 bg-datagrid-row text-center odd:bg-white',
+                  `${index === 0 ? '' : 'border-t'} `,
+                ].join(' ')} /// Altera a cor das Linhas do dataGrid
               >
                 <td className="p-2">
                   <input
