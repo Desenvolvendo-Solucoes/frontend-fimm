@@ -2,7 +2,7 @@ import React from 'react'
 import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
 
-export default function Teste() {
+export default function solicitacoes() {
   const data = [
     {
       solicitante: 'Mohammed',
@@ -52,9 +52,23 @@ export default function Teste() {
   ]
 
   return (
-    <div className="grid h-screen w-screen grid-cols-[18%,82%] grid-rows-1 gap-0">
-      <Sidebar />
-      <DataGrid data={data} />
+    <div className="grid h-screen w-screen grid-cols-[18%,82%] grid-rows-1 gap-0 overflow-x-hidden">
+      <Sidebar screen="Solicitações" />
+      <DataGrid
+        screen="Solicitações"
+        data={data}
+        column={[
+          'solicitante',
+          'matricula',
+          'epi',
+          'dataSolicitada',
+          'quantidade',
+          'imagem',
+          'tamanho',
+          'status',
+          'Ações',
+        ]}
+      />
     </div>
   )
 }

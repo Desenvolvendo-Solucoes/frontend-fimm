@@ -1,14 +1,21 @@
 import React from 'react'
 
 interface Data {
-  data: Array<any>
+  data: string[] // Alterei o tipo para ser um array de strings
 }
 
 const Th: React.FC<Data> = ({ data }) => {
   return (
     <>
-      <th className="w-4/12 overflow-hidden whitespace-nowrap p-2">{data}</th>
-      <div className="flex h-6  border-l-2 border-gray-300 " />
+      {data.map((item, index) => (
+        <div
+          key={index}
+          className="flex w-4/12 items-center justify-around text-center"
+        >
+          <th className=" w-full overflow-hidden whitespace-nowrap ">{item}</th>
+          <div className=" h-6  border-l-2 border-gray-300 " />
+        </div>
+      ))}
     </>
   )
 }

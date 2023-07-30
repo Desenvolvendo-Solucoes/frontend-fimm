@@ -1,18 +1,27 @@
 import React from 'react'
-import { Download } from 'react-feather'
+import { Download, Plus } from 'react-feather'
 
-const ExportCsv: React.FC = () => {
+interface IconButtonProps {
+  screen: string
+}
+
+const ExportCsv: React.FC<IconButtonProps> = ({ screen }) => {
+  if (screen === 'Solicitações') {
+    return (
+      <div className="w-1/5 ">
+        <button className="flex w-11/12 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-white focus:border-gray-300 focus:outline-none">
+          <Download className="mr-2" />
+          Exportar para CSV
+        </button>
+      </div>
+    )
+  }
   return (
-    <div className="w-72 ">
-      <Download className="absolute top-12 ml-2 flex text-white" />
-      <input
-        type="button"
-        value="     Exportar para CSV"
-        className="flex w-3/4 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-white focus:border-gray-300 focus:outline-none"
-        onClick={() => {
-          alert('Teste')
-        }}
-      />
+    <div className="w-1/5 ">
+      <button className="flex w-11/12 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-white focus:border-gray-300 focus:outline-none">
+        <Plus className="mr-2" />
+        Adicionar Funcionário
+      </button>
     </div>
   )
 }

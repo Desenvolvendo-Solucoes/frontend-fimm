@@ -24,7 +24,7 @@ const AvatarIcon: React.FC<AvatarIterface> = ({ img, nome }) => {
   }
 
   return (
-    <Avatar.Root className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-primary align-middle text-white">
+    <Avatar.Root className="mr-2 inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-primary align-middle text-white">
       <Avatar.Image
         className="h-full w-full rounded-[inherit] object-cover"
         src={img}

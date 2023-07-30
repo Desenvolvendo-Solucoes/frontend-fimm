@@ -12,11 +12,11 @@ import { DataType } from '@/types'
 
 interface DataGridProps {
   data: DataType[]
+  column: string[]
+  screen: string
 }
 
-const DataGrid: React.FC<DataGridProps> = ({ data }) => {
-  const [selectAll, setSelectAll] = useState(false)
-  const [selectedRows, setSelectedRows] = useState<Array<number>>([])
+const DataGrid: React.FC<DataGridProps> = ({ data, column, screen }) => {
   const [query, setQuery] = useState('')
 
   const handleSearchChange = (value: string) => {
@@ -30,67 +30,33 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
       'matricula',
       'epi',
       'status',
+      'nome',
+      'cpf',
     ] // Lista de campos para realizar a busca
     return searchableFields.some((field) =>
-      value[field].toLowerCase().includes(query.toLowerCase()),
+      value[field]?.toLowerCase().includes(query.toLowerCase()),
     )
   })
-
-  const handleSelectAllChange = () => {
-    if (selectAll) {
-      setSelectedRows([])
-    } else {
-      const newSelectedRows = data.map((item, index) => index)
-      setSelectedRows(newSelectedRows)
-    }
-    setSelectAll(!selectAll)
-  }
-
-  const handleCheckboxChange = (index: number) => {
-    const selectedIndex = selectedRows.indexOf(index)
-    if (selectedIndex === -1) {
-      setSelectedRows([...selectedRows, index])
-    } else {
-      const updatedRows = [...selectedRows]
-      updatedRows.splice(selectedIndex, 1)
-      setSelectedRows(updatedRows)
-    }
-  }
 
   const totalItems = filteredData.length
 
   return (
     <div>
-      <div className="mb-10 mt-10 flex  w-full justify-around">
-        <span className="text-xl font-bold">
-          Total de: {totalItems} Solicitações{' '}
-        </span>
-        <Search
-          fields={['tamanho', 'solicitante', 'matricula', 'epi', 'status']}
-          onChange={handleSearchChange}
-        />
-        <Filtering />
-        <ExportCsv />
+      <div className="mb-10 ml-9 mt-10 flex  w-full ">
+        <div className="w-1/3">
+          <span className="text-xl font-bold">
+            Total de: {totalItems} Solicitações
+          </span>
+        </div>
+        <Search fields={column} onChange={handleSearchChange} />
+        <Filtering screen={screen} />
+        <ExportCsv screen={screen} />
       </div>
-      <table className=" ml-9 flex w-auto flex-auto flex-col">
+      <table className=" ml-9 mr-4 flex w-auto flex-auto flex-col">
         <thead className="mb-10 ">
           <tr className=" flex items-center  border border-gray-400">
-            <th className="p-2">
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAllChange}
-              />
-            </th>
-            <Th data={['Solicitante']} />
-            <Th data={['Matrícula']} />
-            <Th data={['EPI']} />
-            <Th data={['Data Solicitada']} />
-            <Th data={['Quantidade']} />
-            <Th data={['Imagem']} />
-            <Th data={['Tamanho']} />
-            <Th data={['Status']} />
-            <Th data={['Ações']} />
+            <th className="p-2"></th>
+            <Th data={column} />
           </tr>
         </thead>
         <div className="rounded border border-gray-400">
@@ -99,30 +65,49 @@ const DataGrid: React.FC<DataGridProps> = ({ data }) => {
               <tr
                 key={index}
                 className={[
-                  'flex border-gray-400 bg-datagrid-row text-center odd:bg-white',
-                  `${index === 0 ? '' : 'border-t'} `,
+                  'flex items-center border-gray-400 bg-datagrid-row text-center odd:bg-white',
+                  `${index === 0 ? '' : 'border-t '} `,
                 ].join(' ')} /// Altera a cor das Linhas do dataGrid
               >
-                <td className="p-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.includes(index)}
-                    onChange={() => handleCheckboxChange(index)}
-                  />
-                </td>
-                <Td data={item.solicitante}>
-                  <AvatarIcon img={item.avatar} nome={item.solicitante} />
-                </Td>
-                <Td data={item.matricula} />
-                <Td data={item.epi} />
-                <Td data={item.dataSolicitada} />
-                <Td data={item.quantidade} />
-                <Td data={item.imagem} />
-                <Td data={item.tamanho} />
-                <Td data={item.status} />
-                <Td>
-                  <Edit2 className="text-primary" />
-                </Td>
+                {item.solicitante ? (
+                  <Td data={item.solicitante}>
+                    <AvatarIcon img={item.avatar} nome={item.solicitante} />
+                  </Td>
+                ) : (
+                  <Td data={item.matricula} />
+                )}
+                {item.solicitante ? (
+                  <Td data={item.matricula} />
+                ) : (
+                  <Td data={item.nome} />
+                )}
+                {item.epi ? <Td data={item.epi} /> : <Td data={item.cpf} />}
+                {item.dataSolicitada ? (
+                  <Td data={item.dataSolicitada} />
+                ) : (
+                  <Td data={item.funcao} />
+                )}
+                {item.quantidade ? (
+                  <Td data={item.quantidade} />
+                ) : (
+                  <Td data={item.base} />
+                )}
+                {item.imagem ? (
+                  <Td data={item.imagem} />
+                ) : (
+                  <Td data={item.regiao} />
+                )}
+                {item.tamanho ? (
+                  <Td data={item.tamanho} />
+                ) : (
+                  <Td data={item.email} />
+                )}
+                {item.status ? <Td data={item.status} /> : null}
+                {item.status ? (
+                  <Td>
+                    <Edit2 className="text-primary" />
+                  </Td>
+                ) : null}
               </tr>
             ))}
           </tbody>

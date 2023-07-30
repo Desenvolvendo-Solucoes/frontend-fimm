@@ -1,18 +1,27 @@
 import React from 'react'
-import { Filter } from 'react-feather'
+import { Filter, Download } from 'react-feather'
 
-const Filtering: React.FC = () => {
+interface IconButtonProps {
+  screen: string
+}
+
+const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
+  if (screen === 'Solicitações') {
+    return (
+      <div className=" w-1/5 ">
+        <button className="flex w-11/12 cursor-pointer rounded-md border border-gray-300  px-4 py-2 text-gray-300 focus:border-gray-300 focus:outline-none">
+          <Filter className="mr-1" />
+          Filtro
+        </button>
+      </div>
+    )
+  }
   return (
-    <div className=" w-52 ">
-      <Filter className="absolute top-12 ml-2 flex text-gray-300" />
-      <input
-        type="button"
-        value="     Filtro"
-        className="flex w-9/12 cursor-pointer rounded-md border border-gray-300  px-4 py-2 text-gray-300 focus:border-gray-300 focus:outline-none"
-        onClick={() => {
-          alert('Teste')
-        }}
-      />
+    <div className=" w-1/5 ">
+      <button className="flex w-11/12 cursor-pointer rounded-md border border-btn-primary  px-4 py-2 text-btn-primary focus:border-gray-300 focus:outline-none">
+        <Download className="mr-1" />
+        Download Padrão
+      </button>
     </div>
   )
 }

@@ -1,12 +1,17 @@
 import React from 'react'
-import { Home } from 'react-feather'
 
 interface ButtonProps {
+  icon: React.FC<React.SVGProps<SVGSVGElement>>
   tela: string
   isActive: boolean
   onClick: () => void
 }
-const Button: React.FC<ButtonProps> = ({ tela, isActive, onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  tela,
+  isActive,
+  onClick,
+  icon: Icon,
+}) => {
   return (
     <div
       className={`mt-5 flex items-center border-l-[7px] ${
@@ -14,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({ tela, isActive, onClick }) => {
       } p-2 text-center`}
       onClick={onClick}
     >
-      <Home
+      <Icon
         className={`h-10 w-10 ${isActive ? 'text-primary' : 'text-gray-500'}`}
       />
       <span className={`ml-2 ${isActive ? 'text-primary' : 'text-gray-500'}`}>
