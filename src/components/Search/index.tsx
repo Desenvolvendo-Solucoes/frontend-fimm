@@ -16,13 +16,13 @@ const Search: React.FC<SearchProps> = ({ fields, onChange }) => {
   }
 
   return (
-    <div className="w-96 ">
+    <div className="w-1/4 ">
       <input
         type="text"
         value={query}
         onChange={handleSearch}
         placeholder=" 🔍 Pesquisar algum EPI..."
-        className="flex w-96 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none"
+        className="flex w-11/12 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none"
       />
     </div>
   )

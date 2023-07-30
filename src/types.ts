@@ -8,5 +8,11 @@ export type DataType = {
   imagem: string
   tamanho: string
   status: string
+  nome: string
+  cpf: string
+  funcao: string
+  base: string
+  regiao: string
+  email: string
   [key: string]: string
 }

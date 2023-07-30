@@ -8,14 +8,14 @@ const poppins = localFont({
   src: [
     {
       path: '../../public/fonts/Poppins-Regular.ttf',
-      weight: '400'
+      weight: '400',
     },
     {
       path: '../../public/fonts/Poppins-Bold.ttf',
-      weight: '700'
-    }
+      weight: '700',
+    },
   ],
-  variable: '--font-poppins'
+  variable: '--font-poppins',
 })
 
 export const metadata = {
