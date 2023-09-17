@@ -19,7 +19,7 @@ export default function funcionarios() {
   return (
     <Container>
       <Sidebar screen="Funcionarios" />
-      <DataGrid data={initialData} columns={columns} page="Solicitações" />
+      <DataGrid data={initialData} columns={columns} page="Funcionarios" />
     </Container>
   )
 }
