@@ -1,18 +1,20 @@
+'use client'
+import { Data } from '@/types'
 import React, { useState } from 'react'
 // import { Search } from 'react-feather'
 
 interface SearchProps {
-  fields: string[]
-  onChange: (query: string) => void
+  fields: Data[]
+  // onChange: (query: string) => void
 }
 
-const Search: React.FC<SearchProps> = ({ fields, onChange }) => {
+const Search: React.FC<SearchProps> = ({ fields }) => {
   const [query, setQuery] = useState('')
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     setQuery(value)
-    onChange(value) // Notificar o componente pai com o valor da busca
+    // onChange(value) // Notificar o componente pai com o valor da busca
   }
 
   return (

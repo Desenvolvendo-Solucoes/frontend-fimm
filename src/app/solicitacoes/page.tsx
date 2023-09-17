@@ -1,74 +1,41 @@
+'use client'
 import React from 'react'
 import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
+import Container from '@/components/Container'
+import SolicitacoesAction from '@/components/SolicitacoesAction'
 
-export default function solicitacoes() {
-  const data = [
+export default async function solicitacoes() {
+  const initialData = [
     {
-      solicitante: 'Mohammed',
-      avatar: 'https://img.icons8.com/color/600w/000000/avatar.png',
-      matricula: '102030',
-      epi: 'Óculos de segurança',
-      dataSolicitada: '12/07/1998',
-      quantidade: '1 unidade',
-      imagem: 'caminho/para/imagem.jpg',
-      tamanho: 'M',
-      status: 'Aprovado',
+      id: '1',
+      Name: 'John',
+      Age: '30',
+      Position: 'Developer',
+    },
+    { id: '2', Name: 'Jane', Age: '40', Position: 'Designer' },
+    // Adicione mais dados conforme necessário
+  ]
+
+  const columns = [
+    { Header: 'Name', accessor: 'Name' },
+    { Header: 'Age', accessor: 'Age' },
+    { Header: 'Position', accessor: 'Position' },
+    {
+      Header: 'Status',
+      accessor: 'status',
     },
     {
-      solicitante: 'John Doe',
-      avatar: 'https://img.icons8.com/color/600w/000000/avatar.png',
-      matricula: '12345',
-      epi: 'Camiseta ML',
-      dataSolicitada: '12/07/1998',
-      quantidade: '1 unidade',
-      imagem: 'caminho/para/imagem.jpg',
-      tamanho: 'M',
-      status: 'Pendente',
+      Header: 'Ações',
+      accessor: 'Ações',
+      Cell: SolicitacoesAction,
     },
-    {
-      solicitante: 'Gustavo Aires',
-      avatar: 'https://img.icons8.com/color/600w/000000/avatar.png',
-      matricula: '120798',
-      epi: 'Botina',
-      dataSolicitada: '12/07/1998',
-      quantidade: '1 unidade',
-      imagem: 'caminho/para/imagem.jpg',
-      tamanho: 'M',
-      status: 'Pendente',
-    },
-    {
-      solicitante: 'Ricardo Dias',
-      avatar: '',
-      matricula: '121212',
-      epi: 'Óculos de segurança',
-      dataSolicitada: '12/07/1998',
-      quantidade: '1 unidade',
-      imagem: 'caminho/para/imagem.jpg',
-      tamanho: 'M',
-      status: 'Pendente',
-    },
-    // Adicione mais itens de dados conforme necessário
   ]
 
   return (
-    <div className="grid h-screen w-screen grid-cols-[18%,82%] grid-rows-1 gap-0 overflow-x-hidden">
+    <Container>
       <Sidebar screen="Solicitações" />
-      <DataGrid
-        screen="Solicitações"
-        data={data}
-        column={[
-          'solicitante',
-          'matricula',
-          'epi',
-          'dataSolicitada',
-          'quantidade',
-          'imagem',
-          'tamanho',
-          'status',
-          'Ações',
-        ]}
-      />
-    </div>
+      <DataGrid data={initialData} columns={columns} page="Solicitações" />
+    </Container>
   )
 }

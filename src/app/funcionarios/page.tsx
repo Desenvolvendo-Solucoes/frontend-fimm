@@ -1,63 +1,25 @@
 import React from 'react'
 import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
+import Container from '@/components/Container'
+import { ColumnData } from '@/types'
 
 export default function funcionarios() {
-  const data = [
-    {
-      matricula: '102030',
-      nome: 'Mohammed R',
-      cpf: '39301179830',
-      funcao: 'Dev',
-      base: 'Grajaú',
-      regiao: 'São paulo',
-      email: 'Mohammedreis2015@gmail.com',
-    },
-    {
-      matricula: 'CPF',
-      nome: 'Mohammed R',
-      cpf: 'Nome',
-      funcao: 'Função',
-      base: 'Base',
-      regiao: 'REGIAO',
-      email: 'E-MAIL',
-    },
-    {
-      matricula: 'CPF',
-      nome: 'Mohammed R',
-      cpf: 'Nome',
-      funcao: 'Função',
-      base: 'Base',
-      regiao: 'REGIAO',
-      email: 'E-MAIL',
-    },
-    {
-      matricula: 'CPF',
-      nome: 'Mohammed R',
-      cpf: 'Nome',
-      funcao: 'Função',
-      base: 'Base',
-      regiao: 'REGIAO',
-      email: 'E-MAIL',
-    },
-    // Adicione mais itens de dados conforme necessário
+  const initialData = [
+    { id: '1', Name: 'John', Age: '30', Position: 'Developer' },
+    { id: '2', Name: 'Jane', Age: '40', Position: 'Designer' },
+    // Adicione mais dados conforme necessário
+  ]
+
+  const columns: ColumnData[] = [
+    { Header: 'Nome', accessor: 'Name' },
+    { Header: 'Idade', accessor: 'Age' },
+    { Header: 'Position', accessor: 'Position' },
   ]
   return (
-    <div className="grid h-screen w-screen grid-cols-[18%,82%] grid-rows-1 gap-0 overflow-x-hidden">
+    <Container>
       <Sidebar screen="Funcionarios" />
-      <DataGrid
-        screen="Funcionarios"
-        data={data}
-        column={[
-          'Matricula',
-          'Nome',
-          'CPF',
-          'Função',
-          'Base',
-          'REGIAO',
-          'E-MAIL',
-        ]}
-      />
-    </div>
+      <DataGrid data={initialData} columns={columns} page="Solicitações" />
+    </Container>
   )
 }
