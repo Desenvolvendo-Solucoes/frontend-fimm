@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type DataType = {
   solicitante: string
   avatar: string
@@ -15,4 +17,22 @@ export type DataType = {
   regiao: string
   email: string
   [key: string]: string
+}
+
+export type Data = {
+  id: string
+  [key: string]: string
+}
+
+export type ColumnData = {
+  Header: string
+  accessor: string
+  Cell?: React.FC<{
+    value: string
+    row: Data
+  }>
+}
+
+export type ResizableColumnProps = {
+  name: string
 }
