@@ -6,12 +6,22 @@ interface IconButtonProps {
 }
 
 const ExportCsv: React.FC<IconButtonProps> = ({ screen }) => {
-  if (screen === 'Solicitações') {
+  if (screen === 'Funcionarios') {
     return (
       <div className="w-1/5 ">
         <button className="flex w-11/12 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-white focus:border-gray-300 focus:outline-none">
-          <Download className="mr-2" />
-          Exportar para CSV
+          <Plus className="mr-2" />
+          Adicionar Funcionário
+        </button>
+      </div>
+    )
+  }
+  if (screen === 'Configurações') {
+    return (
+      <div className="w-1/5 ">
+        <button className="flex w-11/12 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-white focus:border-gray-300 focus:outline-none">
+          <Plus className="mr-2" />
+          Novo Epi
         </button>
       </div>
     )
@@ -19,8 +29,8 @@ const ExportCsv: React.FC<IconButtonProps> = ({ screen }) => {
   return (
     <div className="w-1/5 ">
       <button className="flex w-11/12 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-white focus:border-gray-300 focus:outline-none">
-        <Plus className="mr-2" />
-        Adicionar Funcionário
+        <Download className="mr-2" />
+        Exportar para CSV
       </button>
     </div>
   )
