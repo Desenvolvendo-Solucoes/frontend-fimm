@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 
 import Search from '../Search'
 import ExportCsv from '../ExportCsv'
@@ -13,29 +14,49 @@ interface DataGridProps {
   page: string
 }
 
+interface ColumnWidths {
+  [columnName: string]: number
+}
+
 const DataGrid: React.FC<DataGridProps> = ({ data, columns, page }) => {
-  // const [query, setQuery] = useState('')
+  const [columnWidths, setColumnWidths] = React.useState<ColumnWidths>({})
 
-  // const handleSearchChange = (value: string) => {
-  //   setQuery(value)
-  // }
+  const handleMouseDown = (e: React.MouseEvent, columnName: string) => {
+    const initialMouseX = e.clientX
+    const initialWidth = columnWidths[columnName]
 
-  // const filteredData = data.filter((value, index, item) => {
-  //   const searchableFields = [
-  //     'tamanho',
-  //     'solicitante',
-  //     'matricula',
-  //     'epi',
-  //     'status',
-  //     'nome',
-  //     'cpf',
-  //   ] // Lista de campos para realizar a busca
-  //   return searchableFields.some((field) =>
-  //     value[field]?.toLowerCase().includes(query.toLowerCase()),
-  //   )
-  // })
+    const handleMouseMove = (e: MouseEvent) => {
+      const newWidth = initialWidth + (e.clientX - initialMouseX)
+      setColumnWidths((prevWidths) => ({
+        ...prevWidths,
+        [columnName]: newWidth,
+      }))
+    }
 
-  // const totalItems = filteredData.length
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+    }
+
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseup', handleMouseUp)
+  }
+
+  const setColounWidth = () => {
+    // eslint-disable-next-line array-callback-return
+    columns.map((column) => {
+      console.log(column.accessor)
+
+      setColumnWidths((prevWidths) => ({
+        ...prevWidths,
+        [column.accessor]: column.width ? column.width : 150,
+      }))
+    })
+  }
+
+  useEffect(() => {
+    setColounWidth()
+  }, [])
 
   return (
     <div>
@@ -50,23 +71,27 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns, page }) => {
         <ExportCsv screen={page} />
       </div>
 
-      <table className="ml-9 mr-4 flex w-auto flex-auto flex-col">
+      <table className="ml-9 mr-4 flex w-auto flex-auto flex-col overflow-scroll">
         <thead className="mb-10">
-          <tr className="flex items-center  border border-gray-400">
+          <tr className="flex w-max  items-center border border-gray-400">
             {columns.map((column, index) => (
               <div
-                className="flex w-4/12 items-center justify-around text-center"
+                className="flex items-center justify-around text-center"
                 key={index}
               >
-                <th className="w-full overflow-hidden whitespace-nowrap">
+                <th
+                  style={{ width: columnWidths[column.accessor] }}
+                  className="resize-x overflow-hidden whitespace-nowrap"
+                  onMouseDown={(e) => handleMouseDown(e, column.accessor)}
+                >
                   <Column name={column.Header} />
                 </th>
               </div>
             ))}
           </tr>
         </thead>
-        <div className="rounded border border-gray-400">
-          <tbody className="flex w-auto flex-auto flex-col">
+        <div className="">
+          <tbody className="flex w-max flex-auto flex-col rounded border border-gray-400 ">
             {data.map((row, index) => (
               <tr
                 key={row.id}
@@ -79,7 +104,8 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns, page }) => {
                   const CellComponent = column.Cell || Row
                   return (
                     <td
-                      className=" flex w-4/12 items-center justify-around border border-gray-200 p-2 text-center"
+                      style={{ width: columnWidths[column.accessor] }}
+                      className={`flex resize-x items-center justify-around border border-gray-200 p-2 text-center`}
                       key={index}
                     >
                       <CellComponent value={row[column.accessor]} row={row} />

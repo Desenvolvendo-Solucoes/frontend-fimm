@@ -31,6 +31,7 @@ export type ColumnData = {
     value: string
     row: Data
   }>
+  width?: number
 }
 
 export type ResizableColumnProps = {

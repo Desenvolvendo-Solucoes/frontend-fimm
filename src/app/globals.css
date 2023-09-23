@@ -2,13 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .bg-shape {
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 83%, 0 36%);
   clip-path: polygon(0 0, 100% 0, 100% 83%, 0 36%);
-  background-color: #EAE9FF;
+  background-color: #eae9ff;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 @layer utilities {
   .form-checkbox:checked {
