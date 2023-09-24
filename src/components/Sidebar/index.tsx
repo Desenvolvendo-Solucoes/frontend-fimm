@@ -51,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="#">
+          <NavigationMenu.Link href="configuracoes">
             <Button
               icon={Settings}
               tela="Configurações"
