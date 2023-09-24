@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
       <Logo />
       <NavigationMenu.List>
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="solicitacoes" active={false}>
+          <NavigationMenu.Link href="solicitacoes">
             <Button
               icon={Home}
               tela="Solicitações"
@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="holerites">
+          <NavigationMenu.Link href="">
             <Button
               icon={FileText}
               tela="Holerites"

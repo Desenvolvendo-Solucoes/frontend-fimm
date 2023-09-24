@@ -1,24 +1,29 @@
 import React from 'react'
 import HoleriteMenuButton from '../HoleriteMenuButton'
 
-let action: Function
+type Props = {
+  setPage: React.Dispatch<React.SetStateAction<string>>
+  page: string
+}
 
-const HoleriteMenu: React.FC = () => {
+const HoleriteMenu: React.FC<Props> = ({ setPage, page }: Props) => {
   return (
     <div className="mb-2 h-8 w-full">
       <div className=" grid h-8 w-full flex-1 grid-cols-[9rem,9rem,calc(100%-18rem)] items-center">
         <HoleriteMenuButton
           text="Holerite"
-          select={true}
+          select={page === 'holerites'}
           action={() => {
-            action()
+            console.log('clicou no holerites')
+
+            setPage('holerites')
           }}
         />
         <HoleriteMenuButton
           text="Adicionar holerite"
-          select={false}
+          select={page === 'addHolerites'}
           action={() => {
-            action()
+            setPage('addHolerites')
           }}
         />
         <div className="flex h-full w-full flex-col">
