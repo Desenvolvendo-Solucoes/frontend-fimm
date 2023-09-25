@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
       <Logo />
       <NavigationMenu.List>
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="solicitacoes">
+          <NavigationMenu.Link href="/solicitacoes">
             <Button
               icon={Home}
               tela="Solicitações"
@@ -29,7 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="">
+          <NavigationMenu.Link href="/holerites">
             <Button
               icon={FileText}
               tela="Holerites"
@@ -40,7 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="funcionarios">
+          <NavigationMenu.Link href="/funcionarios">
             <Button
               icon={User}
               tela="Funcionarios"
