@@ -12,7 +12,7 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
       <div className="fixed bottom-0 left-0 right-0 top-0 bg-rgba-modal">
         <div
           className="fixed left-3/4 top-3 transform rounded-md bg-white p-3"
-          style={{ width: '400px' }}
+          style={{ width: '400px', left: '45%', top: '10%' }}
         >
           <button
             className="flex h-2 flex-row bg-black"
@@ -20,7 +20,7 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
           >
             <XCircle className="fixed" style={{ left: '90%' }} />
           </button>
-          <h2 className="p-2">Adicionar EPI</h2>
+          <h2 className="p-2 font-bold">Adicionar EPI</h2>
           <label className="mb-2 p-2 text-sm text-gray-400">
             Adicione seu EPI de forma prática
           </label>
