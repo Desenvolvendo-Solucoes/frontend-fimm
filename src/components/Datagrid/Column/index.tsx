@@ -16,7 +16,7 @@ const Column: React.FC<ResizableColumnProps> = ({ name }) => {
 
   return (
     <div ref={resizableRef}>
-      <div className="m-0 h-full w-full overflow-hidden whitespace-nowrap border-r-2 border-gray-300 p-0">
+      <div className="m-0 h-full w-full overflow-hidden whitespace-nowrap border-r-2 border-gray-300 p-0 text-[16px] font-normal">
         {name}
       </div>
     </div>
