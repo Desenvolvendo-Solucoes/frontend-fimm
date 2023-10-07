@@ -21,7 +21,7 @@ export type DataType = {
 
 export type Data = {
   id: string
-  [key: string]: string
+  [key: string]: string | (string | number)[]
 }
 
 export type ColumnData = {

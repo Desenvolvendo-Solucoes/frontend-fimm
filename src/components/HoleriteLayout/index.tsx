@@ -15,7 +15,7 @@ const HoleriteLayout: React.FC = () => {
       return (
         <>
           <h1 className="mb-4 text-[20px] font-bold">Holerites - 2023</h1>
-          <HoleriteFilter />
+          <HoleriteFilter type="filter" />
           <h1 className="mb-4 mt-4 text-[20px] ">Selecione o mês</h1>
           <div className="hide-scrollbar flex w-full flex-row flex-wrap gap-x-8 gap-y-5 overflow-scroll pb-2 pt-2 ">
             <HoleriteCard />
