@@ -4,7 +4,7 @@ import Sidebar from '@/components/Sidebar'
 import Container from '@/components/Container'
 import { ColumnData } from '@/types'
 
-export default function configuracoes() {
+export default function epi() {
   const initialData = [
     {
       id: '1',
@@ -34,8 +34,8 @@ export default function configuracoes() {
   ]
   return (
     <Container>
-      <Sidebar screen="Configurações" />
-      <DataGrid data={initialData} columns={columns} page="Configurações" />
+      <Sidebar screen="Epi" />
+      <DataGrid data={initialData} columns={columns} page="Epi" />
     </Container>
   )
 }
