@@ -33,7 +33,6 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
 
         <NavigationMenu.Item>
           <NavigationMenu.Link href="/holerites">
-
             <Button
               icon={FileText}
               tela="Holerites"
@@ -55,12 +54,12 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="configuracoes">
+          <NavigationMenu.Link href="epi">
             <Button
               icon={Settings}
-              tela="Configurações"
-              isActive={activeButton === 'Configurações'}
-              onClick={() => setActiveButton('Configurações')}
+              tela="Epi"
+              isActive={activeButton === 'Epi'}
+              onClick={() => setActiveButton('Epi')}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>
