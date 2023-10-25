@@ -17,6 +17,7 @@ const ModalLogout: React.FC<IModal> = ({ isOpen, setOpen }) => {
           <div className="flex flex-row p-2">
             <button onClick={() => setOpen(!isOpen)} className="absolute w-2/4">
               <LogOut />
+              {''}
             </button>
             <label className="ml-8">Saír da conta</label>
           </div>

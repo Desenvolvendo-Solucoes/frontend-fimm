@@ -11,7 +11,7 @@ import { ColumnData } from '@/types'
 import DatagridHolerites from '@/components/DatagridHolerite'
 
 export default function Page({ params }: { params: { mes: string } }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [page, setPage] = useState<string>('holerites')
   const router = useRouter()
   const mesano = window.location.pathname.split('/')[2]

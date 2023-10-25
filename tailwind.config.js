@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        width: 'width',
+      },
       backgroundColor: { 'rgba-modal': 'rgba(0, 0, 0, 0.724)' },
 
       backgroundImage: {
@@ -20,6 +23,7 @@ module.exports = {
       colors: {
         btn: {
           primary: '#1E1685',
+          hover_primary: '#18116A',
           secondary: '#1E3A8A',
         },
         primary: '#1E1685',

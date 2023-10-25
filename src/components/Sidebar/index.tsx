@@ -17,7 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   const [open, setOpen] = useState<boolean>(false)
 
   return (
-    <NavigationMenu.Root className=" h-full w-full border border-l-gray-400">
+    <NavigationMenu.Root className=" flex h-full w-full flex-col border border-l-gray-400 ">
       <Logo />
       <NavigationMenu.List>
         <NavigationMenu.Item>
@@ -64,8 +64,8 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
       </NavigationMenu.List>
-      <div className="flex h-2/4 w-full items-end justify-center text-center">
-        <div className="flex flex-row">
+      <div className="mb-4 flex h-2/4 w-full items-end justify-center text-center">
+        <div className="flex flex-row items-center gap-2">
           <AvatarIcon img={''} nome={'Ricardo Dias'} />
           <div className="flex flex-col">
             <label className="text-lg">Ricardo dias</label>
@@ -73,9 +73,10 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               Ricardo@cc.com.br
             </label>
           </div>
-          <div className="fixed bottom-10 left-72">
+          <div className=" bottom-10 ">
             <button onClick={() => setOpen(!open)}>
               <MoreVertical />
+              {''}
             </button>
             <ModalLogout isOpen={open} setOpen={setOpen} />
           </div>
