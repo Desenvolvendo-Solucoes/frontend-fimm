@@ -1,9 +1,5 @@
 'use client'
 import React, { useEffect } from 'react'
-
-import Search from '../Search'
-import ExportCsv from '../ExportCsv'
-import Filtering from '../Filtering'
 import { ColumnData, Data } from '@/types'
 import Row from './Row'
 import Column from './Column'
@@ -11,14 +7,13 @@ import Column from './Column'
 interface DataGridProps {
   data: Data[]
   columns: ColumnData[]
-  page: string
 }
 
 interface ColumnWidths {
   [columnName: string]: number
 }
 
-const DataGrid: React.FC<DataGridProps> = ({ data, columns, page }) => {
+const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
   const [columnWidths, setColumnWidths] = React.useState<ColumnWidths>({})
 
   const handleMouseDown = (e: React.MouseEvent, columnName: string) => {
@@ -59,21 +54,10 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns, page }) => {
   }, [])
 
   return (
-    <div>
-      <div className="mb-10 ml-9 mt-10 flex  w-full ">
-        <div className="w-1/3">
-          <span className="text-xl font-bold">
-            Total de: {data.length} Solicitações
-          </span>
-        </div>
-        <Search fields={data} />
-        <Filtering screen={page} />
-        <ExportCsv screen={page} />
-      </div>
-
-      <table className="ml-9 mr-4 flex w-auto flex-auto flex-col overflow-scroll">
-        <thead className="mb-10">
-          <tr className="flex w-max  items-center border border-gray-400">
+    <div className="h-full">
+      <table className="flex h-full w-auto flex-auto flex-col overflow-scroll">
+        <thead className="mb-2">
+          <tr className="flex w-max  items-center rounded border border-gray-400">
             {columns.map((column, index) => (
               <div
                 className="flex items-center justify-around text-center"
@@ -91,12 +75,12 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns, page }) => {
           </tr>
         </thead>
         <div className="">
-          <tbody className="flex w-max flex-auto flex-col rounded border border-gray-400 ">
+          <tbody className="flex w-max flex-auto flex-col rounded rounded border border-gray-400 ">
             {data.map((row, index) => (
               <tr
                 key={row.id}
                 className={[
-                  'flex items-center border-gray-400 bg-datagrid-row text-center odd:bg-white',
+                  'flex items-center rounded border-gray-400 bg-datagrid-row text-center odd:bg-white',
                   `${index === 0 ? '' : 'border-t '} `,
                 ].join(' ')}
               >

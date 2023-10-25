@@ -5,26 +5,41 @@ import React, { useState } from 'react'
 
 interface SearchProps {
   fields: Data[]
-  // onChange: (query: string) => void
+  setFields: React.Dispatch<React.SetStateAction<Data[]>>
 }
 
-const Search: React.FC<SearchProps> = ({ fields }) => {
+const Search: React.FC<SearchProps> = ({ fields, setFields }) => {
   const [query, setQuery] = useState('')
+  const [original] = useState(fields)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
+    console.log(value)
+
     setQuery(value)
-    // onChange(value) // Notificar o componente pai com o valor da busca
+    if (value === '') {
+      console.log('value === ""')
+
+      setFields(original)
+    } else {
+      const newFields: Data[] = original.filter((values) => {
+        return Object.values(values).some((valor) => {
+          return String(valor).toLowerCase().includes(value.toLowerCase())
+        })
+      })
+
+      setFields(newFields)
+    }
   }
 
   return (
-    <div className="w-1/4 ">
+    <div className="">
       <input
         type="text"
         value={query}
         onChange={handleSearch}
         placeholder=" 🔍 Pesquisar algum EPI..."
-        className="flex w-11/12 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none"
+        className="min-w-36 flex w-80 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none"
       />
     </div>
   )
