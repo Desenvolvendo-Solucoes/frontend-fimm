@@ -4,10 +4,8 @@ import Sidebar from '@/components/Sidebar'
 import Container from '@/components/Container'
 import { ColumnData } from '@/types'
 import NewEpi from '@/components/NewEpi'
-import Filtering from '@/components/Filtering'
-import { Search } from 'react-feather'
 
-export default function epi() {
+export default function equipamento() {
   const initialData = [
     {
       id: '1',
@@ -42,7 +40,7 @@ export default function epi() {
         <div className="mb-10 ml-9 mt-10 flex w-full  ">
           <NewEpi />
         </div>
-        <DataGrid data={initialData} columns={columns} page="Epi" />
+        <DataGrid data={initialData} columns={columns} page="Equipamento" />
       </div>
     </Container>
   )
