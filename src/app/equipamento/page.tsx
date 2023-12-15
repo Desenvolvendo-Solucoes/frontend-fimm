@@ -3,7 +3,7 @@ import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
 import Container from '@/components/Container'
 import { ColumnData } from '@/types'
-import NewEpi from '@/components/NewEpi'
+import NewEquipamento from '@/components/NewEquipamento'
 
 export default function equipamento() {
   const initialData = [
@@ -35,10 +35,10 @@ export default function equipamento() {
   ]
   return (
     <Container>
-      <Sidebar screen="Epi" />
+      <Sidebar screen="Equipamento" />
       <div className="p-6">
         <div className="mb-10 ml-9 mt-10 flex w-full  ">
-          <NewEpi />
+          <NewEquipamento />
         </div>
         <DataGrid data={initialData} columns={columns} page="Equipamento" />
       </div>

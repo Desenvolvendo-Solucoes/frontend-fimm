@@ -55,6 +55,17 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
             className="w-full rounded-md bg-primary p-4 text-white"
             onClick={() => setOpen(!isOpen)}
           >
+            Download Padrão
+          </button>
+          <input
+            className="mb-4 mt-2 w-full cursor-pointer rounded-md border border-gray-300 p-3 text-white file:border-none file:bg-white file:text-white"
+            type="file"
+            placeholder="Imagem"
+          />
+          <button
+            className="w-full rounded-md bg-primary p-4 text-white"
+            onClick={() => setOpen(!isOpen)}
+          >
             Cadastrar funcionário
           </button>
         </div>

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Plus } from 'react-feather'
-import ModalEpi from '../ModalEpi'
+import ModalFuncionarios from '../ModalFuncionarios'
 
 const NewCollaborator = () => {
   const [open, setOpen] = useState<boolean>(false)
@@ -15,7 +15,7 @@ const NewCollaborator = () => {
         <Plus className="mr-2" />
         Novo Colaborador
       </button>
-      <ModalEpi isOpen={open} setOpen={setOpen} />
+      <ModalFuncionarios isOpen={open} setOpen={setOpen} />
     </div>
   )
 }
