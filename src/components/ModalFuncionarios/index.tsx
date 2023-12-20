@@ -57,11 +57,16 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
           >
             Download Padrão
           </button>
-          <input
-            className="mb-4 mt-2 w-full cursor-pointer rounded-md border border-gray-300 p-3 text-white file:border-none file:bg-white file:text-white"
-            type="file"
-            placeholder="Imagem"
-          />
+          <div className="relative mb-4 mt-2">
+            <input
+              className="placeholder-text w-full cursor-pointer rounded-md border border-gray-300 p-3 text-center text-white file:border-none file:bg-white file:text-white"
+              type="file"
+              placeholder="Cadastro em massa"
+            />
+            <span className="pointer-events-none absolute left-0 top-0 w-full p-3 text-center text-primary">
+              Cadastro em massa
+            </span>
+          </div>
           <button
             className="w-full rounded-md bg-primary p-4 text-white"
             onClick={() => setOpen(!isOpen)}

@@ -1,49 +1,124 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
 import Container from '@/components/Container'
-import { ColumnData } from '@/types'
+import { ColumnData, Data } from '@/types'
 import NewEpi from '@/components/NewEpi'
-import Filtering from '@/components/Filtering'
-import { Search } from 'react-feather'
 
-export default function epi() {
+const Epi: React.FC = () => {
   const initialData = [
     {
       id: '1',
-      Img: 'John',
-      EPI: 'Bota',
-      Day: '10',
-      Brand: 'Fimm Brasil',
-      Action: 'False',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
     },
     {
-      id: '1',
-      Img: 'John',
-      EPI: 'Bota',
-      Day: '10',
-      Brand: 'Fimm Brasil',
-      Action: 'False',
+      id: '2',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
     },
+    {
+      id: '3',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '4',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '5',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '6',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '7',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '8',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '9',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+    {
+      id: '10',
+      img: 'John',
+      epi: 'Bota',
+      day: '10',
+      brand: 'Fimm Brasil',
+      action: 'False',
+    },
+
     // Adicione mais dados conforme necessário
   ]
 
   const columns: ColumnData[] = [
-    { Header: 'Imagem', accessor: 'Img' },
-    { Header: 'EPI', accessor: 'EPI' },
-    { Header: 'Dias', accessor: 'Day' },
-    { Header: 'Marca', accessor: 'Brand' },
-    { Header: 'Ações', accessor: 'Action' },
+    { Header: 'Imagem', accessor: 'img' },
+    { Header: 'EPI', accessor: 'epi' },
+    { Header: 'Dias', accessor: 'day' },
+    { Header: 'Marca', accessor: 'brand' },
+    { Header: 'Ações', accessor: 'action' },
   ]
+  const [rows, setRows] = useState<Data[]>(initialData)
   return (
     <Container>
       <Sidebar screen="Epi" />
-      <div className="p-6">
-        <div className="mb-10 ml-9 mt-10 flex w-full  ">
-          <NewEpi />
+      <div className=" p-6">
+        <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
+          <div className="">
+            <span className="text-xl font-bold">
+              Total de: {rows.length} Equipamentos
+            </span>
+          </div>
+          <div className="flex flex-row gap-4 ">
+            <NewEpi />
+          </div>
         </div>
-        <DataGrid data={initialData} columns={columns} page="Epi" />
+        <div className="h-[calc(100%-3.75rem)] w-full">
+          <DataGrid data={rows} columns={columns} />
+        </div>
       </div>
     </Container>
   )
 }
+export default Epi

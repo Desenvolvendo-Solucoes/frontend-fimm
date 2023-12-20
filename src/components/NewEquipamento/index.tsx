@@ -10,7 +10,7 @@ const NewEpi = () => {
     <div className="w-1/5 ">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-11/12 cursor-pointer rounded-md border border-gray-300 bg-btn-primary px-4 py-2  text-white focus:border-gray-300 focus:outline-none"
+        className="w-42 min-w-40 flex h-11 cursor-pointer items-center justify-center rounded-md border border-gray-300 bg-btn-primary px-4 py-2 text-xs text-white  hover:bg-btn-hover_primary focus:border-gray-300 focus:outline-none"
       >
         <Plus className="mr-2" />
         Novo Equipamento
