@@ -4,7 +4,9 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import Logo from '@/components/Logo'
 import Button from '@/components/Sidebar/Button'
 import React, { useState } from 'react'
-import { Home, User, FileText, Settings, MoreVertical } from 'react-feather'
+import { User, MoreVertical } from 'react-feather'
+import { BsClipboard2, BsFileEarmarkText, BsPhone } from 'react-icons/bs'
+import { FaMaskFace, FaPrint } from 'react-icons/fa6'
 import AvatarIcon from '../Avatar'
 import ModalLogout from '../ModalLogout'
 
@@ -23,8 +25,8 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         <NavigationMenu.Item>
           <NavigationMenu.Link href="/solicitacoes">
             <Button
-              icon={Home}
-              tela="Solicitações"
+              icon={BsClipboard2}
+              tela="Solicitações EPI"
               isActive={activeButton === 'Solicitações'}
               onClick={() => setActiveButton('Solicitações')}
             />
@@ -32,9 +34,20 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
+          <NavigationMenu.Link href="/solicitacoesEqui">
+            <Button
+              icon={BsPhone}
+              tela="Solicitações EQUIP"
+              isActive={activeButton === 'Solicitações Equipamentos'}
+              onClick={() => setActiveButton('Solicitações Equipamentos')}
+            />
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+
+        <NavigationMenu.Item>
           <NavigationMenu.Link href="/holerites">
             <Button
-              icon={FileText}
+              icon={BsFileEarmarkText}
               tela="Holerites"
               isActive={activeButton === 'Holerites'}
               onClick={() => setActiveButton('Holerites')}
@@ -56,10 +69,21 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         <NavigationMenu.Item>
           <NavigationMenu.Link href="epi">
             <Button
-              icon={Settings}
+              icon={FaMaskFace}
               tela="Epi"
               isActive={activeButton === 'Epi'}
               onClick={() => setActiveButton('Epi')}
+            />
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+
+        <NavigationMenu.Item>
+          <NavigationMenu.Link href="/equipamento">
+            <Button
+              icon={FaPrint}
+              tela="Equipamentos"
+              isActive={activeButton === 'Equipamento'}
+              onClick={() => setActiveButton('Equipamento')}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>

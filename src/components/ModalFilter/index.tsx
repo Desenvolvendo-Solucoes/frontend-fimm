@@ -33,7 +33,7 @@ const ModalFilter: React.FC<IModal> = ({ isOpen, setOpen }) => {
           <input
             className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Matricula"
+            placeholder="Nome"
           />
           <hr className="mb-4"></hr>
           <h2 className="p-2 font-bold">Matrícula</h2>

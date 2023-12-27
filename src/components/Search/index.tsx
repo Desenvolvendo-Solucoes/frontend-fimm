@@ -38,7 +38,7 @@ const Search: React.FC<SearchProps> = ({ fields, setFields }) => {
         type="text"
         value={query}
         onChange={handleSearch}
-        placeholder=" 🔍 Pesquisar algum EPI..."
+        placeholder=" 🔍 Pesquisar "
         className="min-w-36 flex w-80 rounded-md border border-gray-300 px-4 py-2 focus:border-gray-300 focus:outline-none"
       />
     </div>
