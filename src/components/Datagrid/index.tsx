@@ -75,7 +75,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
           </tr>
         </thead>
         <div className="">
-          <tbody className="flex w-max flex-auto flex-col rounded rounded border border-gray-400 ">
+          <tbody className="flex w-max flex-auto flex-col rounded  border border-gray-400 ">
             {data.map((row, index) => (
               <tr
                 key={row.id}
