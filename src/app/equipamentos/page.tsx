@@ -6,39 +6,36 @@ import Container from '@/components/Container'
 import { ColumnData, Data } from '@/types'
 import Search from '@/components/Search'
 import Filtering from '@/components/Filtering'
+import NewEquipamento from '@/components/NewEquipamento'
 import Loading from '@/components/Loading'
-import NewEpi from '@/components/NewEpi'
 
-const Epi: React.FC = () => {
+const Equipamentos: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const initialData = [
     {
       id: '1',
-      epi: 'Botina',
+      equipamento: 'Botina',
       dias: '001',
       marca: 'teste',
       action: 'False',
       quantidade: '10',
-      tamanho: '39',
     },
     {
       id: '2',
-      epi: 'Camisa ML',
+      equipamento: 'Camisa ML',
       dias: '001',
       marca: 'teste',
       action: 'False',
       quantidade: '10',
-      tamanho: 'M',
     },
   ]
   const [rows, setRows] = useState<Data[]>(initialData)
 
   const columns: ColumnData[] = [
-    { Header: 'EPI', accessor: 'epi' },
+    { Header: 'Equipamento', accessor: 'equipamento' },
     { Header: 'Dias', accessor: 'dias', width: 100 },
     { Header: 'Marca', accessor: 'marca' },
     { Header: 'Quantidade', accessor: 'quantidade', width: 100 },
-    { Header: 'Tamanho', accessor: 'tamanho' },
     { Header: 'Ações', accessor: 'action' },
   ]
 
@@ -50,18 +47,18 @@ const Epi: React.FC = () => {
 
   return (
     <Container>
-      <Sidebar screen="Epi" />
+      <Sidebar screen="Equipamentos" />
       <div className="p-6">
         <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
           <div className="">
             <span className="text-xl font-bold">
-              Total de: {rows.length} EPI
+              Total de: {rows.length} Equipamentos
             </span>
           </div>
           <div className="flex flex-row gap-4 ">
             <Search fields={rows} setFields={setRows} />
-            <Filtering screen="epi" />
-            <NewEpi />
+            <Filtering screen="equipamentos" />
+            <NewEquipamento />
           </div>
         </div>
         <div
@@ -75,4 +72,4 @@ const Epi: React.FC = () => {
   )
 }
 
-export default Epi
+export default Equipamentos

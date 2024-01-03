@@ -78,12 +78,12 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="/equipamento">
+          <NavigationMenu.Link href="/equipamentos">
             <Button
               icon={FaPrint}
               tela="Equipamentos"
-              isActive={activeButton === 'Equipamento'}
-              onClick={() => setActiveButton('Equipamento')}
+              isActive={activeButton === 'Equipamentos'}
+              onClick={() => setActiveButton('Equipamentos')}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>

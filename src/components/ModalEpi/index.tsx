@@ -28,33 +28,44 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
             className=" mb-4 mt-1 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Nome"
+            required={true}
           />
 
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Marca do EPI"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="number"
             placeholder="Dias parar expirar"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Tamanho"
+            required={true}
+          />
+          <input
+            className="mb-4 w-full rounded-md border border-gray-300 p-3"
+            type="text"
+            placeholder="Quantidade"
+            required={true}
           />
           <input
             className="mb-4 w-full cursor-pointer rounded-md border border-gray-300 p-3 text-white file:border-none file:bg-white file:text-white"
             type="file"
             placeholder="Imagem"
+            required={true}
           />
           <UploadCloud
             className="fixed text-primary"
-            style={{ bottom: '20%', left: '5%' }}
+            style={{ bottom: '18%', left: '5%' }}
           />
-          <label className="fixed " style={{ bottom: '20%', left: '13%' }}>
+          <label className="fixed " style={{ bottom: '18%', left: '13%' }}>
             Imagem
           </label>
           <button

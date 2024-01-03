@@ -25,31 +25,43 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Matricula"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Nome"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="CPF"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Função"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Região"
+            required={true}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Base"
+            required={true}
+          />
+          <input
+            className="mb-4 w-full rounded-md border border-gray-300 p-3"
+            type="text"
+            placeholder="Cidade"
+            required={true}
           />
           <button
             className="w-full rounded-md bg-primary p-4 text-white"

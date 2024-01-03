@@ -1,12 +1,12 @@
 import React from 'react'
-import { UploadCloud, XCircle } from 'react-feather'
+import { XCircle } from 'react-feather'
 
 interface IModal {
   isOpen: boolean
   setOpen: (isOpen: boolean) => void
 }
 
-const ModalEquipamento: React.FC<IModal> = ({ isOpen, setOpen }) => {
+const ModalFilter: React.FC<IModal> = ({ isOpen, setOpen }) => {
   // if (isOpen) {
   return (
     <div
@@ -26,61 +26,50 @@ const ModalEquipamento: React.FC<IModal> = ({ isOpen, setOpen }) => {
         </button>
 
         <div className="overflow-hidden overflow-y-scroll">
-          <h2 className="p-2 font-bold">Adicionar</h2>
-          <h2 className="p-2 font-bold">Equipamento</h2>
-          <label className="p-2 text-gray-400  ">Nome do Equipamento</label>
+          <h2 className="p-2 font-bold">Filtro</h2>
+          <h2 className="p-2 font-bold">Solicitante</h2>
+          <label className="p-2 text-gray-400  ">Filtre pelo solicitante</label>
 
           <input
             className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="EX: Impressora"
-            required={true}
+            placeholder="Nome"
           />
           <hr className="mb-4"></hr>
-          <h2 className="p-2 font-bold">Dias</h2>
-          <label className="p-2 text-gray-400  ">Quantidade de dias</label>
+          <h2 className="p-2 font-bold">Matrícula</h2>
+          <label className="p-2 text-gray-400  ">Filtre pela matricula</label>
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Ex: 90"
-            required={true}
+            placeholder="Ex: 123456"
           />
           <hr className="mb-4"></hr>
-          <h2 className="p-2 font-bold">Marca</h2>
-          <label className="p-2 text-gray-400  ">Marca</label>
+          <h2 className="p-2 font-bold">Equipamento</h2>
+          <label className="p-2 text-gray-400  ">Filtre pelo equipamento</label>
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Ex: Polo"
-            required={true}
+            placeholder="Ex: Impressora"
           />
           <hr className="mb-4"></hr>
           <h2 className="p-2 font-bold">Quantidade</h2>
-          <label className="p-2 text-gray-400  ">
-            Quantidade a ser adicionada ao estoque
-          </label>
+          <label className="p-2 text-gray-400  ">Filtre pela quantidade</label>
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Ex: 20"
-            required={true}
+            placeholder="Ex: 1"
           />
+
           <hr className="mb-4"></hr>
-          <h2 className="p-2 font-bold">Imagem</h2>
-          <label className="p-2 text-gray-400  ">Imagem do equipamento</label>
-          <div className="relative mb-4 mt-2 ">
-            <div className="relative flex items-center">
-              <input
-                className="placeholder-text w-full cursor-pointer rounded-md border border-gray-300 p-3 text-center text-white file:border-none file:bg-white file:text-white"
-                type="file"
-                placeholder="Adicionar Imagem"
-                required={true}
-              />
-              <span className="pointer-events-none absolute left-0 top-0 w-full p-3 text-center text-primary">
-                Adicionar Imagem
-              </span>
-            </div>
-          </div>
+          <h2 className="p-2 font-bold">Status</h2>
+          <label className="p-2 text-gray-400  ">
+            Filtre pelo status do EPI
+          </label>
+          <input
+            className="mb-20 w-full rounded-md border border-gray-300 p-3"
+            type="text"
+            placeholder="Ex: Aprovado"
+          />
         </div>
 
         <div
@@ -92,13 +81,13 @@ const ModalEquipamento: React.FC<IModal> = ({ isOpen, setOpen }) => {
             className="mr-6 w-full rounded-2xl  border-2 border-primary bg-white p-4 text-primary"
             onClick={() => setOpen(!isOpen)}
           >
-            Limpar campos
+            Limpar filtro
           </button>
           <button
             className="w-full rounded-2xl bg-primary p-4 text-white"
             onClick={() => setOpen(!isOpen)}
           >
-            Adicionar
+            Filtrar
           </button>
         </div>
       </div>
@@ -107,4 +96,4 @@ const ModalEquipamento: React.FC<IModal> = ({ isOpen, setOpen }) => {
   // }
 }
 
-export default ModalEquipamento
+export default ModalFilter

@@ -20,7 +20,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Capacete',
       tamanho: 'M',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '2',
@@ -30,7 +30,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Luvas',
       tamanho: 'L',
       status: 'Aprovado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '3',
@@ -60,7 +60,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Máscara',
       tamanho: 'M',
       status: 'Aprovado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '6',
@@ -70,7 +70,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Protetor Auricular',
       tamanho: 'Único',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '7',
@@ -90,7 +90,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Jaleco',
       tamanho: 'P',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '9',
@@ -100,7 +100,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Luvas',
       tamanho: 'M',
       status: 'Aprovado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '10',
@@ -120,7 +120,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Botas',
       tamanho: '42',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '12',
@@ -130,7 +130,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Óculos',
       tamanho: 'M',
       status: 'Aprovado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '13',
@@ -150,7 +150,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Protetor Auricular',
       tamanho: 'Único',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '15',
@@ -160,7 +160,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Capa',
       tamanho: 'M',
       status: 'Aprovado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '16',
@@ -180,7 +180,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Luvas',
       tamanho: 'P',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '18',
@@ -190,7 +190,7 @@ const Solicitacoes: React.FC = () => {
       epi: 'Capacete',
       tamanho: 'P',
       status: 'Aprovado',
-      reject: '',
+      reject: '-',
     },
     {
       id: '19',
@@ -210,20 +210,20 @@ const Solicitacoes: React.FC = () => {
       epi: 'Óculos',
       tamanho: 'P',
       status: 'Enviado',
-      reject: '',
+      reject: '-',
     },
   ]
   const [rows, setRows] = useState<Data[]>(initialData)
 
   const columns: ColumnData[] = [
+    { Header: 'Matricula', accessor: 'matricula', width: 100 },
     { Header: 'Solicitante', accessor: 'solicitante', width: 250 },
     { Header: 'Cidade', accessor: 'cidade' },
-    { Header: 'Matricula', accessor: 'matricula', width: 100 },
     { Header: 'Epi', accessor: 'epi' },
     { Header: 'Tamanho', accessor: 'tamanho', width: 100 },
     { Header: 'Status', accessor: 'status' },
     { Header: 'Ações', accessor: 'action' },
-    { Header: 'Rejeição', accessor: 'reject' },
+    { Header: 'Rejeição', accessor: 'reject', width: 250 },
   ]
 
   useEffect(() => {
