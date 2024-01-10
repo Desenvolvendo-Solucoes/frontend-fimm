@@ -1,9 +1,11 @@
 'use client'
 import React, { useState } from 'react'
 import { Filter } from 'react-feather'
-import ModalFilter from '../ModalFilter'
+import ModalFilterEpi from '../ModalFilterEpi'
 import ModalFilterEquip from '../ModalFilterEquip'
+import ModalFilterSolicitaEquip from '../ModalFilterSolicitaEquip'
 import ModalFilterFuncionario from '../ModalFilterFuncionario'
+import ModalFilterSolicitacao from '../ModalFilterSolicitacao'
 
 interface IconButtonProps {
   screen: string
@@ -22,7 +24,7 @@ const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
             <Filter className="mr-1" />
             Filtro
           </button>
-          <ModalFilter isOpen={open} setOpen={setOpen} />
+          <ModalFilterSolicitacao isOpen={open} setOpen={setOpen} />
         </div>
       )
     case 'solicitacoesEqui':
@@ -35,7 +37,7 @@ const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
             <Filter className="mr-1" />
             Filtro
           </button>
-          <ModalFilterEquip isOpen={open} setOpen={setOpen} />
+          <ModalFilterSolicitaEquip isOpen={open} setOpen={setOpen} />
         </div>
       )
     case 'funcionarios':
@@ -51,6 +53,19 @@ const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
           <ModalFilterFuncionario isOpen={open} setOpen={setOpen} />
         </div>
       )
+    case 'epi':
+      return (
+        <div className="">
+          <button
+            onClick={() => setOpen(!open)}
+            className=" flex h-11 w-28 cursor-pointer rounded-md border  border-gray-300 px-4 py-2 text-gray-400 hover:border-gray-400 hover:text-gray-500 focus:outline-none"
+          >
+            <Filter className="mr-1" />
+            Filtro
+          </button>
+          <ModalFilterEpi isOpen={open} setOpen={setOpen} />
+        </div>
+      )
     case 'equipamentos':
       return (
         <div className="">
@@ -61,7 +76,7 @@ const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
             <Filter className="mr-1" />
             Filtro
           </button>
-          <ModalFilterFuncionario isOpen={open} setOpen={setOpen} />
+          <ModalFilterEquip isOpen={open} setOpen={setOpen} />
         </div>
       )
   }

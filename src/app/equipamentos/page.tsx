@@ -8,24 +8,28 @@ import Search from '@/components/Search'
 import Filtering from '@/components/Filtering'
 import NewEquipamento from '@/components/NewEquipamento'
 import Loading from '@/components/Loading'
+import Edit from '@/components/Edit'
 
 const Equipamentos: React.FC = () => {
   const [loading, setLoading] = useState(true)
+  const action = () => {
+    return <Edit screen="equipamento" />
+  }
   const initialData = [
     {
       id: '1',
-      equipamento: 'Botina',
+      equipamento: 'Impressora',
       dias: '001',
       marca: 'teste',
-      action: 'False',
+      action: action(),
       quantidade: '10',
     },
     {
       id: '2',
-      equipamento: 'Camisa ML',
+      equipamento: 'SmartPhone',
       dias: '001',
       marca: 'teste',
-      action: 'False',
+      action: action(),
       quantidade: '10',
     },
   ]

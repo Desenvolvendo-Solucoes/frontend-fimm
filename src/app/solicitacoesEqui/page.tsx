@@ -8,9 +8,13 @@ import Search from '@/components/Search'
 import Filtering from '@/components/Filtering'
 import ExportCsv from '@/components/ExportCsv'
 import Loading from '@/components/Loading'
+import Edit from '@/components/Edit'
 
 const SolicitacoesEqui: React.FC = () => {
   const [loading, setLoading] = useState(true)
+  const action = () => {
+    return <Edit screen="solicitacoes" />
+  }
   const initialData = [
     {
       id: '1',
@@ -20,6 +24,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
     {
@@ -30,6 +35,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Aprovado',
+      action: action(),
       reject: '-',
     },
     {
@@ -40,6 +46,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Pendente',
+      action: action(),
       reject: 'quantidade incorreto',
     },
     {
@@ -50,6 +57,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Rejeitado',
+      action: action(),
       reject: 'Modelo errado',
     },
     {
@@ -60,6 +68,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Aprovado',
+      action: action(),
       reject: '-',
     },
     {
@@ -70,6 +79,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
     {
@@ -80,6 +90,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Pendente',
+      action: action(),
       reject: 'Material errado',
     },
     {
@@ -90,6 +101,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
     {
@@ -100,6 +112,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Aprovado',
+      action: action(),
       reject: '-',
     },
     {
@@ -110,6 +123,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Rejeitado',
+      action: action(),
       reject: 'Cor errada',
     },
     {
@@ -120,6 +134,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
     {
@@ -130,6 +145,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Aprovado',
+      action: action(),
       reject: '-',
     },
     {
@@ -140,6 +156,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Pendente',
+      action: action(),
       reject: 'Filtro errado',
     },
     {
@@ -150,6 +167,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
     {
@@ -160,6 +178,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Aprovado',
+      action: action(),
       reject: '-',
     },
     {
@@ -170,6 +189,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Rejeitado',
+      action: action(),
       reject: 'Material fraco',
     },
     {
@@ -180,6 +200,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
     {
@@ -190,6 +211,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Aprovado',
+      action: action(),
       reject: '-',
     },
     {
@@ -200,6 +222,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Smartphone',
       quantidade: '1',
       status: 'Pendente',
+      action: action(),
       reject: 'Modelo errado',
     },
     {
@@ -210,6 +233,7 @@ const SolicitacoesEqui: React.FC = () => {
       equipamento: 'Impressora',
       quantidade: '1',
       status: 'Enviado',
+      action: action(),
       reject: '-',
     },
   ]
@@ -222,8 +246,8 @@ const SolicitacoesEqui: React.FC = () => {
     { Header: 'Equipamento', accessor: 'equipamento', width: 200 },
     { Header: 'Quantidade', accessor: 'quantidade', width: 100 },
     { Header: 'Status', accessor: 'status' },
-    { Header: 'Ações', accessor: 'action' },
     { Header: 'Rejeição', accessor: 'reject', width: 250 },
+    { Header: 'Ações', accessor: 'action' },
   ]
 
   useEffect(() => {

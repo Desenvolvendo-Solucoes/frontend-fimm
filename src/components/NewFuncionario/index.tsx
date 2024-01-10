@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Plus } from 'react-feather'
 import ModalFuncionarios from '../ModalFuncionarios'
 
-const NewCollaborator = () => {
+const NewFuncionario = () => {
   const [open, setOpen] = useState<boolean>(false)
 
   return (
@@ -20,4 +20,4 @@ const NewCollaborator = () => {
   )
 }
 
-export default NewCollaborator
+export default NewFuncionario
