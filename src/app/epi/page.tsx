@@ -8,16 +8,20 @@ import Search from '@/components/Search'
 import Filtering from '@/components/Filtering'
 import Loading from '@/components/Loading'
 import NewEpi from '@/components/NewEpi'
+import Edit from '@/components/Edit'
 
 const Epi: React.FC = () => {
   const [loading, setLoading] = useState(true)
+  const action = () => {
+    return <Edit screen="epi" />
+  }
   const initialData = [
     {
       id: '1',
       epi: 'Botina',
       dias: '001',
       marca: 'teste',
-      action: 'False',
+      action: action(),
       quantidade: '10',
       tamanho: '39',
     },
@@ -26,7 +30,7 @@ const Epi: React.FC = () => {
       epi: 'Camisa ML',
       dias: '001',
       marca: 'teste',
-      action: 'False',
+      action: action(),
       quantidade: '10',
       tamanho: 'M',
     },

@@ -6,7 +6,7 @@ interface IModal {
   setOpen: (isOpen: boolean) => void
 }
 
-const ModalFilter: React.FC<IModal> = ({ isOpen, setOpen }) => {
+const ModalFilterEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
   // if (isOpen) {
   return (
     <div
@@ -22,34 +22,35 @@ const ModalFilter: React.FC<IModal> = ({ isOpen, setOpen }) => {
           className={`absolute flex h-2 flex-row bg-black ${isOpen ? '' : 'invisible'}`}
           onClick={() => setOpen(!isOpen)}
         >
-          <XCircle className="fixed" style={{ left: '90%' }} />
+          <XCircle className="fixed" style={{ left: '85%' }} />
         </button>
 
         <div className="overflow-hidden overflow-y-scroll">
           <h2 className="p-2 font-bold">Filtro</h2>
-          <h2 className="p-2 font-bold">Solicitante</h2>
-          <label className="p-2 text-gray-400  ">Filtre pelo solicitante</label>
+
+          <h2 className="p-2 font-bold">Epi</h2>
+          <label className="p-2 text-gray-400  ">Filtre por Epi</label>
+          <input
+            className="mb-4 w-full rounded-md border border-gray-300 p-3"
+            type="text"
+            placeholder="Ex: Camisa ML"
+          />
+          <hr className="mb-4"></hr>
+          <h2 className="p-2 font-bold">Dias</h2>
+          <label className="p-2 text-gray-400  ">Filtre por Dias</label>
 
           <input
             className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Nome"
+            placeholder="10"
           />
           <hr className="mb-4"></hr>
-          <h2 className="p-2 font-bold">Matrícula</h2>
-          <label className="p-2 text-gray-400  ">Filtre pela matricula</label>
+          <h2 className="p-2 font-bold">Marca</h2>
+          <label className="p-2 text-gray-400  ">Filtre por Marca</label>
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
             placeholder="Ex: 123456"
-          />
-          <hr className="mb-4"></hr>
-          <h2 className="p-2 font-bold">EPI</h2>
-          <label className="p-2 text-gray-400  ">Filtre pelo EPI</label>
-          <input
-            className="mb-4 w-full rounded-md border border-gray-300 p-3"
-            type="text"
-            placeholder="Ex: Bota"
           />
           <hr className="mb-4"></hr>
           <h2 className="p-2 font-bold">Quantidade</h2>
@@ -61,21 +62,11 @@ const ModalFilter: React.FC<IModal> = ({ isOpen, setOpen }) => {
           />
           <hr className="mb-4"></hr>
           <h2 className="p-2 font-bold">Tamanho</h2>
-          <label className="p-2 text-gray-400  ">Filtre pelo tamanho</label>
+          <label className="p-2 text-gray-400  ">Filtre por Tamanho</label>
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Ex: P"
-          />
-          <hr className="mb-4"></hr>
-          <h2 className="p-2 font-bold">Status</h2>
-          <label className="p-2 text-gray-400  ">
-            Filtre pelo status do EPI
-          </label>
-          <input
-            className="mb-20 w-full rounded-md border border-gray-300 p-3"
-            type="text"
-            placeholder="Ex: Aprovado"
+            placeholder="Ex: GG"
           />
         </div>
 
@@ -103,4 +94,4 @@ const ModalFilter: React.FC<IModal> = ({ isOpen, setOpen }) => {
   // }
 }
 
-export default ModalFilter
+export default ModalFilterEpi

@@ -1,14 +1,20 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
 import Container from '@/components/Container'
 import { ColumnData, Data } from '@/types'
 import Filtering from '@/components/Filtering'
 import Search from '@/components/Search'
-import NewCollaborator from '@/components/NewCollaborator'
+import NewFuncionario from '@/components/NewFuncionario'
+import Loading from '@/components/Loading'
+import Edit from '@/components/Edit'
 
 export default function Funcionarios() {
+  const [loading, setLoading] = useState(true)
+  const action = () => {
+    return <Edit screen="funcionarios" />
+  }
   const initialData = [
     {
       id: '1',
@@ -20,6 +26,7 @@ export default function Funcionarios() {
       base: 'Enel-SP',
       regiao: 'Sul',
       email: 'teste@example.com',
+      action: action(),
     },
     {
       id: '2',
@@ -31,6 +38,7 @@ export default function Funcionarios() {
       base: 'Enel-SP',
       regiao: 'Sul',
       email: 'teste@example.com',
+      action: action(),
     },
     {
       id: '3',
@@ -42,6 +50,7 @@ export default function Funcionarios() {
       base: 'Enel-SP',
       regiao: 'Sul',
       email: 'teste@example.com',
+      action: action(),
     },
   ]
   const [rows, setRows] = useState<Data[]>(initialData)
@@ -56,7 +65,11 @@ export default function Funcionarios() {
     { Header: 'Email', accessor: 'email', width: 250 },
     { Header: 'Ações', accessor: 'action' },
   ]
-
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1500)
+  }, [loading])
   return (
     <Container>
       <Sidebar screen="Funcionarios" />
@@ -70,11 +83,15 @@ export default function Funcionarios() {
           <div className="flex flex-row gap-4 ">
             <Search fields={rows} setFields={setRows} />
             <Filtering screen="funcionarios" />
-            <NewCollaborator />
+            <NewFuncionario />
           </div>
         </div>
-        <div className="h-[calc(100%-3.75rem)] w-full">
-          <DataGrid data={rows} columns={columns} />
+        <div
+          className={`h-[calc(100%-3.75rem)] w-full ${
+            loading ? 'flex items-center justify-center' : ''
+          }`}
+        >
+          {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
         </div>
       </div>
     </Container>
