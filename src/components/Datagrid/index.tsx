@@ -40,8 +40,6 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
   const setColounWidth = () => {
     // eslint-disable-next-line array-callback-return
     columns.map((column) => {
-      console.log(column.accessor)
-
       setColumnWidths((prevWidths) => ({
         ...prevWidths,
         [column.accessor]: column.width ? column.width : 150,

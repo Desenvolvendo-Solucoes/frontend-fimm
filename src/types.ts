@@ -28,7 +28,7 @@ export type ColumnData = {
   Header: string
   accessor: string
   Cell?: React.FC<{
-    value: string
+    id: string
     row: Data
   }>
   width?: number
@@ -36,4 +36,18 @@ export type ColumnData = {
 
 export type ResizableColumnProps = {
   name: string
+}
+
+export type TamanhosEpi = {
+  value: string
+  label: string
+}[]
+
+export type RequestCreateEpi = {
+  nome: string
+  imagem: string
+  marca: string
+  estoque: string
+  dias: string
+  tamanhos: TamanhosEpi
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UploadCloud, XCircle } from 'react-feather'
 
 interface IModal {
@@ -7,6 +7,13 @@ interface IModal {
 }
 
 const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
+  const [nome, setNome] = useState('')
+  const [marca, setMarca] = useState('')
+  const [dias, setDias] = useState('')
+  const [estoque, setEstoque] = useState('')
+  const [tamanhos, setTamanhos] = useState('')
+  const [imagem, setImagem] = useState('')
+
   if (isOpen) {
     return (
       <div className="fixed bottom-0 left-0 right-0 top-0 bg-rgba-modal">
@@ -29,6 +36,10 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
             type="text"
             placeholder="Nome"
             required={true}
+            value={nome}
+            onChange={(e) => {
+              setNome(e.target.value)
+            }}
           />
 
           <input
@@ -36,12 +47,20 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
             type="text"
             placeholder="Marca do EPI"
             required={true}
+            value={marca}
+            onChange={(e) => {
+              setMarca(e.target.value)
+            }}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="number"
             placeholder="Dias parar expirar"
             required={true}
+            value={dias}
+            onChange={(e) => {
+              setDias(e.target.value)
+            }}
           />
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
@@ -52,14 +71,22 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
           <input
             className="mb-4 w-full rounded-md border border-gray-300 p-3"
             type="text"
-            placeholder="Quantidade"
+            placeholder="Estoque"
             required={true}
+            value={estoque}
+            onChange={(e) => {
+              setEstoque(e.target.value)
+            }}
           />
           <input
             className="mb-4 w-full cursor-pointer rounded-md border border-gray-300 p-3 text-white file:border-none file:bg-white file:text-white"
             type="file"
             placeholder="Imagem"
             required={true}
+            value={imagem}
+            onChange={(e) => {
+              setImagem(e.target.value)
+            }}
           />
           <UploadCloud
             className="fixed text-primary"
