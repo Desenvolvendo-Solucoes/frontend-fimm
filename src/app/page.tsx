@@ -24,7 +24,7 @@ export default function Home() {
         // toast.error('Sessão Expirada')
         setLoading(false)
       })
-  }, [])
+  }, [push])
 
   return (
     <>

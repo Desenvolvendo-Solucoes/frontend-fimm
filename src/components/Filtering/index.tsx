@@ -6,9 +6,10 @@ import ModalFilterEquip from '../ModalFilterEquip'
 import ModalFilterSolicitaEquip from '../ModalFilterSolicitaEquip'
 import ModalFilterFuncionario from '../ModalFilterFuncionario'
 import ModalFilterSolicitacao from '../ModalFilterSolicitacao'
+import { ScreeOptions } from '@/types'
 
 interface IconButtonProps {
-  screen: string
+  screen: ScreeOptions
 }
 
 const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
@@ -66,7 +67,7 @@ const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
           <ModalFilterEpi isOpen={open} setOpen={setOpen} />
         </div>
       )
-    case 'equipamentos':
+    case 'equipamento':
       return (
         <div className="">
           <button

@@ -7,18 +7,14 @@ import { ColumnData, Data } from '@/types'
 import Search from '@/components/Search'
 import Filtering from '@/components/Filtering'
 import ExportCsv from '@/components/ExportCsv'
-// import Loading from '@/components/Loading'
 import Edit from '@/components/Edit'
 import { ValidaToken, getEpiSolicitados } from '@/api'
 import { useRouter } from 'next/navigation'
-
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Loading from '@/components/Loading'
 
 const Solicitacoes: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const { push } = useRouter()
-
   const [rows, setRows] = useState<Data[]>([])
 
   const columns: ColumnData[] = [
@@ -68,7 +64,7 @@ const Solicitacoes: React.FC = () => {
       .catch(() => {
         push('/')
       })
-  }, [loading])
+  }, [loading, push])
 
   return (
     <Container>
@@ -77,35 +73,20 @@ const Solicitacoes: React.FC = () => {
         <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
           <div className="w-80 ">
             <span className=" text-xl font-bold">
-              {loading ? (
-                <Skeleton className="h-10" />
-              ) : (
-                `Total de: ${rows.length} Solicitações`
-              )}
+              Total de: {rows.length <= 0 ? 0 : rows.length} Solicitações
             </span>
           </div>
           <div className="flex flex-row gap-4 ">
-            {loading ? (
-              <Skeleton />
-            ) : (
-              <Search fields={rows} setFields={setRows} />
-            )}
-            {loading ? <Skeleton /> : <Filtering screen="solicitacoes" />}
-            {loading ? <Skeleton /> : <ExportCsv screen="solicitacoes" />}
+            <Search fields={rows} setFields={setRows} loading={loading} />
+            <Filtering screen="solicitacoes" />
+            <ExportCsv screen="solicitacoes" />
           </div>
         </div>
         <div
           // eslint-disable-next-line prettier/prettier
-          className={`h-[calc(100%-3.75rem)] w-full }`}
+          className={`h-[calc(100%-3.75rem)] w-full } ${loading ? 'flex items-center justify-center' : ''}`}
         >
-          {loading ? (
-            <>
-              <Skeleton className="flex h-8" />
-              <Skeleton className="mt-2 flex h-[calc(100%-4rem)]" />
-            </>
-          ) : (
-            <DataGrid data={rows} columns={columns} />
-          )}
+          {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
         </div>
       </div>
     </Container>

@@ -12,24 +12,17 @@ import Edit from '@/components/Edit'
 
 const Equipamentos: React.FC = () => {
   const [loading, setLoading] = useState(true)
-  const action = () => {
-    return <Edit screen="equipamento" />
-  }
   const initialData = [
     {
       id: '1',
       equipamento: 'Impressora',
       dias: '001',
-      marca: 'teste',
-      action: action(),
       quantidade: '10',
     },
     {
       id: '2',
       equipamento: 'SmartPhone',
       dias: '001',
-      marca: 'teste',
-      action: action(),
       quantidade: '10',
     },
   ]
@@ -38,9 +31,14 @@ const Equipamentos: React.FC = () => {
   const columns: ColumnData[] = [
     { Header: 'Equipamento', accessor: 'equipamento' },
     { Header: 'Dias', accessor: 'dias', width: 100 },
-    { Header: 'Marca', accessor: 'marca' },
     { Header: 'Quantidade', accessor: 'quantidade', width: 100 },
-    { Header: 'Ações', accessor: 'action' },
+    {
+      Header: 'Ações',
+      accessor: 'action',
+      Cell: ({ id, row }) => {
+        return <Edit screen="equipamento" />
+      },
+    },
   ]
 
   useEffect(() => {
@@ -56,12 +54,12 @@ const Equipamentos: React.FC = () => {
         <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
           <div className="">
             <span className="text-xl font-bold">
-              Total de: {rows.length} Equipamentos
+              Total de: {rows.length <= 0 ? 0 : rows.length} Equipamentos
             </span>
           </div>
           <div className="flex flex-row gap-4 ">
-            <Search fields={rows} setFields={setRows} />
-            <Filtering screen="equipamentos" />
+            <Search fields={rows} setFields={setRows} loading={loading} />
+            <Filtering screen="equipamento" />
             <NewEquipamento />
           </div>
         </div>

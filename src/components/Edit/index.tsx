@@ -5,9 +5,10 @@ import EditSolicitacaoes from '../EditSolicitacaoes'
 import EditFuncionarios from '../EditFuncionarios'
 import EditEpi from '../EditEpi'
 import EditEquipamento from '../EditEquipamento'
+import { ScreeOptions } from '@/types'
 
 interface IconButtonProps {
-  screen: string
+  screen: ScreeOptions
 }
 
 const Edit: React.FC<IconButtonProps> = ({ screen }) => {

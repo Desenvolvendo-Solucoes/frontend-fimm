@@ -67,11 +67,11 @@ const Epi: React.FC = () => {
         <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
           <div className="">
             <span className="text-xl font-bold">
-              Total de: {rows.length} EPI
+              Total de: {rows.length <= 0 ? 0 : rows.length} EPI
             </span>
           </div>
           <div className="flex flex-row gap-4 ">
-            <Search fields={rows} setFields={setRows} />
+            <Search fields={rows} setFields={setRows} loading={loading} />
             <Filtering screen="epi" />
             <NewEpi />
           </div>

@@ -1,25 +1,22 @@
 'use client'
 import { Data } from '@/types'
-import React, { useState } from 'react'
-// import { Search } from 'react-feather'
+import React, { useEffect, useState } from 'react'
 
 interface SearchProps {
   fields: Data[]
   setFields: React.Dispatch<React.SetStateAction<Data[]>>
+  loading: boolean
 }
 
-const Search: React.FC<SearchProps> = ({ fields, setFields }) => {
+const Search: React.FC<SearchProps> = ({ fields, setFields, loading }) => {
   const [query, setQuery] = useState('')
-  const [original] = useState(fields)
+  const [original, setOriginal] = useState<Data[]>([])
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
-    console.log(value)
 
     setQuery(value)
     if (value === '') {
-      console.log('value === ""')
-
       setFields(original)
     } else {
       const newFields: Data[] = original.filter((values) => {
@@ -27,10 +24,14 @@ const Search: React.FC<SearchProps> = ({ fields, setFields }) => {
           return String(valor).toLowerCase().includes(value.toLowerCase())
         })
       })
-
       setFields(newFields)
     }
   }
+
+  useEffect(() => {
+    setOriginal(fields)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading])
 
   return (
     <div className="">

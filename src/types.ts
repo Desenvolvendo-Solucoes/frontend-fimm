@@ -51,3 +51,20 @@ export type RequestCreateEpi = {
   dias: string
   tamanhos: TamanhosEpi
 }
+
+export type CUser = {
+  nome: string
+  matricula: string
+  cpf: string
+  cidade: string
+  regiao: string
+  funcao: string
+  base: string
+}
+
+export type ScreeOptions =
+  | 'solicitacoes'
+  | 'funcionarios'
+  | 'epi'
+  | 'equipamento'
+  | 'solicitacoesEqui'
