@@ -27,7 +27,17 @@ export default function Home() {
   }, [push])
 
   return (
-    <>
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      setLoading(true)
+      signin(email, senha)
+        .then(() => {
+          push('/solicitacoes')
+        })
+        .catch(() => {
+          setLoading(false)
+        })
+    }}>
       <div className="bg-shape absolute -z-10 flex h-screen w-screen items-center justify-center"></div>
       <div className="z-10 flex h-screen w-screen items-center justify-center ">
         <div className="flex w-2/6 flex-col rounded-lg bg-white p-12 shadow-lg">
@@ -59,17 +69,8 @@ export default function Home() {
           </div>
 
           <button
+            type='submit'
             className="mt-6 h-11 rounded bg-btn-primary font-bold text-white hover:bg-btn-secondary"
-            onClick={() => {
-              setLoading(true)
-              signin(email, senha)
-                .then(() => {
-                  push('/solicitacoes')
-                })
-                .catch(() => {
-                  setLoading(false)
-                })
-            }}
           >
             {loading ? <Loading /> : 'ENTRAR'}
           </button>
@@ -95,6 +96,6 @@ export default function Home() {
           theme="light"
         />
       </div>
-    </>
+    </form>
   )
 }

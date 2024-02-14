@@ -12,28 +12,31 @@ import { ValidaToken, getAllUsers } from '@/api'
 import { useRouter } from 'next/navigation'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loading from '@/components/Loading'
+
+
 export default function Funcionarios() {
   const { push } = useRouter()
 
   const [loading, setLoading] = useState(true)
-  const action = () => {
-    return <Edit screen="funcionarios" />
-  }
+  const [refresh, setRefresh] = useState(0)
+
 
   const [rows, setRows] = useState<Data[]>([])
 
   const columns: ColumnData[] = [
-    { Header: 'Matricula', accessor: 'matricula', width: 100 },
-    { Header: 'Solicitante', accessor: 'solicitante' },
-    { Header: 'CPF', accessor: 'cpf', width: 250 },
-    { Header: 'Função', accessor: 'funcao' },
+    { Header: 'Matricula', accessor: 'matricula' },
+    { Header: 'Funcionário', accessor: 'nome', width: 250 },
+    { Header: 'CPF', accessor: 'cpf', width: 200 },
+    { Header: 'Função', accessor: 'funcao', width: 200 },
     { Header: 'Região', accessor: 'regiao' },
     { Header: 'Cidade', accessor: 'cidade' },
     { Header: 'Email', accessor: 'email', width: 250 },
     {
       Header: 'Ações',
       accessor: 'action',
-      Cell: (id, row) => action(),
+      Cell: ({ id, row }) => {
+        return <Edit screen="funcionarios" row={row} id={row.id} refresh={setRefresh} />
+      },
     },
   ]
 
@@ -56,7 +59,8 @@ export default function Funcionarios() {
       .catch(() => {
         push('/')
       })
-  }, [loading, push])
+  }, [loading, push, refresh])
+
   return (
     <Container>
       <Sidebar screen="Funcionarios" />
@@ -70,7 +74,7 @@ export default function Funcionarios() {
           <div className="flex flex-row gap-4 ">
             <Search fields={rows} setFields={setRows} loading={loading} />
             <Filtering screen="funcionarios" />
-            <NewFuncionario />
+            <NewFuncionario refresh={setRefresh} />
           </div>
         </div>
         <div

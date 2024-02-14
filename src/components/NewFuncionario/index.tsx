@@ -3,7 +3,13 @@ import React, { useState } from 'react'
 import { Plus } from 'react-feather'
 import ModalFuncionarios from '../ModalFuncionarios'
 
-const NewFuncionario = () => {
+interface NewFuncionarioI {
+  refresh: React.Dispatch<React.SetStateAction<number>>
+}
+
+const NewFuncionario = ({
+  refresh
+}: NewFuncionarioI) => {
   const [open, setOpen] = useState<boolean>(false)
 
   return (
@@ -15,7 +21,7 @@ const NewFuncionario = () => {
         <Plus className="mr-2" />
         Novo Colaborador
       </button>
-      <ModalFuncionarios isOpen={open} setOpen={setOpen} />
+      <ModalFuncionarios isOpen={open} setOpen={setOpen} refresh={refresh} />
     </div>
   )
 }

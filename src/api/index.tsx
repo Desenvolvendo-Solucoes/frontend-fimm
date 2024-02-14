@@ -1,9 +1,10 @@
 import { CUser, Data, RequestCreateEpi } from '@/types'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getCookie, setCookie } from 'cookies-next'
+import { headers } from 'next/headers'
 import { toast } from 'react-toastify'
 
-const intance = axios.create({
+const instance = axios.create({
   baseURL: 'http://127.0.0.1:3000',
 })
 
@@ -16,7 +17,7 @@ export const ValidaToken = () => {
     // eslint-disable-next-line prefer-promise-reject-errors
     if (token === undefined) reject({ error: 'token undefined' })
 
-    intance
+    instance
       .get('', Token)
       .then((response) => {
         resolve(true)
@@ -29,7 +30,7 @@ export const ValidaToken = () => {
 
 export const signin = (email: string, senha: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    intance
+    instance
       .post('/auth/login', null, {
         params: {
           email,
@@ -54,7 +55,7 @@ export const getEpiSolicitados = (): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const Token = tokenHeader()
 
-    intance
+    instance
       .get('/epi/solicitacoes', Token)
       .then((response) => {
         resolve(response.data)
@@ -68,7 +69,7 @@ export const getEpiSolicitados = (): Promise<Data[]> => {
 export const getEquipSolicitados = (): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
-    intance
+    instance
       .get('/equip/solicitacoes', header)
       .then((response) => {
         resolve(response.data)
@@ -83,7 +84,7 @@ export const getEpiCadastrado = (): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const Token = tokenHeader()
 
-    intance
+    instance
       .get('/epi/cadastrados', Token)
       .then((response) => {
         resolve(response.data)
@@ -97,7 +98,7 @@ export const getEpiCadastrado = (): Promise<Data[]> => {
 export const getEquipCadastrado = (): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const headers = tokenHeader()
-    intance
+    instance
       .get('/equip/cadastrados', headers)
       .then((response) => {
         resolve(response.data)
@@ -111,7 +112,7 @@ export const getEquipCadastrado = (): Promise<Data[]> => {
 export const getAllUsers = (): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
-    intance
+    instance
       .get('/user/getAll', header)
       .then((response) => {
         resolve(response.data)
@@ -122,15 +123,33 @@ export const getAllUsers = (): Promise<Data[]> => {
   })
 }
 
-export const updateStatus = (data: {
-  [key: string]: string
-}): Promise<Data[]> => {
+export const updateEpiStatus = (id: string, status: string, rejectText?: string): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
-    const Token = tokenHeader()
-    intance
-      .post('/epi/update', Token, {
-        params: data,
+    const token = tokenHeader()
+
+    instance
+      .post(`/epi/updatestatus?status=${status}&id=${id}&rejectText=${rejectText == undefined ? '-' : rejectText}`,
+        {},
+        token
+      )
+      .then((response) => {
+        resolve(response.data)
       })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export const updateEquipStatus = (id: string, status: string, rejectText?: string): Promise<Data[]> => {
+  return new Promise((resolve, reject) => {
+    const token = tokenHeader()
+
+    instance
+      .post(`/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText == undefined ? '-' : rejectText}`,
+        {},
+        token
+      )
       .then((response) => {
         resolve(response.data)
       })
@@ -150,7 +169,7 @@ export const createEpi = ({
 }: RequestCreateEpi): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
-    intance.put('/epi/create', header, {
+    instance.put('/epi/create', header, {
       params: {
         nome,
         dias,
@@ -174,18 +193,8 @@ export const createUser = ({
 }: CUser) => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
-    intance
-      .post('/user/create', header, {
-        params: {
-          base,
-          cidade,
-          cpf,
-          funcao,
-          nome,
-          matricula,
-          regiao,
-        },
-      })
+    instance
+      .post(`/user/create?nome=${nome}&base=${base}&cpf=${cpf}&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&regiao=${regiao}`, {}, header)
       .then((response) => {
         resolve(response.data)
       })

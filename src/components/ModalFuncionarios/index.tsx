@@ -8,9 +8,10 @@ import 'react-toastify/dist/ReactToastify.css'
 interface IModal {
   isOpen: boolean
   setOpen: (isOpen: boolean) => void
+  refresh: React.Dispatch<React.SetStateAction<number>>
 }
 
-const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
+const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const [nome, setNome] = useState('')
   const [matricula, setMatricula] = useState('')
   const [cpf, setCpf] = useState('')
@@ -19,8 +20,8 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
   const [funcao, setFuncao] = useState('')
   const [regiao, setRegiao] = useState('')
 
-  const onSubmit = () => {
-    const userData: CUser = {
+  const create = () => {
+    createUser({
       base,
       cidade,
       cpf,
@@ -28,23 +29,49 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
       matricula,
       nome,
       regiao,
-    }
-    createUser(userData)
+    })
       .then((response) => {
-        console.log(response)
-
         toast.success('Cadastrado com Sucesso')
-        // setOpen(!open)
+        refresh(1 + 1)
+        setOpen(false)
       })
       .catch(() => {
         toast.error('Erro ou cadastrar')
       })
   }
 
+  const cpfMask = (value: string) => {
+    return value
+      .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+      .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+      .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
+  }
+
+  const onSubmit = () => {
+    const cpfRegex = new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)
+    const matriculaRegex = new RegExp(/^[0-9]{6}$/)
+
+    if (!cpfRegex.test(cpf)) {
+      toast.error('Informe um cpf valido!')
+      return
+    }
+
+    if (!matriculaRegex.test(matricula)) {
+      toast.error('Informe uma matricula valida!')
+      return
+    }
+
+    create()
+
+  }
+
   if (isOpen) {
     return (
       <form
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault()
           onSubmit()
         }}
       >
@@ -87,7 +114,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen }) => {
               required={true}
               value={cpf}
               onChange={(e) => {
-                setCpf(e.target.value)
+                setCpf(cpfMask(e.target.value))
               }}
             />
             <input

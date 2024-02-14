@@ -1,25 +1,29 @@
-import React from 'react'
+import { Data } from '@/types'
+import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
 
 interface IModal {
   isOpen: boolean
   setOpen: (isOpen: boolean) => void
+  data: Data
 }
 
-const EditEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
+const EditEpi: React.FC<IModal> = ({ isOpen, setOpen, data }) => {
+  const [nome, setNome] = useState('')
+
   if (isOpen) {
     return (
       <div
         // eslint-disable-next-line prettier/prettier
-      className={`fixed justify-center items-center bottom-0 left-0 right-0 top-0 flex flex-row-reverse rounded bg-rgba-modal pr-4 pt-4 ${isOpen ? 'h-full md:w-full' : 'invisible h-0 w-0'} `}
+        className={`fixed justify-center items-center bottom-0 left-0 right-0 top-0 flex flex-row-reverse rounded bg-rgba-modal pr-4 pt-4 ${isOpen ? 'h-full md:w-full' : 'invisible h-0 w-0'} `}
       >
         <div
           // eslint-disable-next-line prettier/prettier
-        className={`hide-scrollbar top-3 flex  transform flex-col  rounded-md bg-white p-3 ${isOpen ? 'h-[38.5rem] md:w-[31.25rem]' : 'h-0 md:w-0 '} transition-width duration-300 `}
+          className={`hide-scrollbar top-3 flex  transform flex-col  rounded-md bg-white p-3 ${isOpen ? 'h-[38.5rem] md:w-[31.25rem]' : 'h-0 md:w-0 '} transition-width duration-300 `}
         >
           <button
             // eslint-disable-next-line prettier/prettier
-          className={`absolute flex h-2 flex-row bg-black ${isOpen ? '' : 'invisible'}`}
+            className={`absolute flex h-2 flex-row bg-black ${isOpen ? '' : 'invisible'}`}
             onClick={() => setOpen(!isOpen)}
           >
             <XCircle className="fixed" style={{ left: '88%' }} />
@@ -76,7 +80,7 @@ const EditEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
           </div>
           <div
             // eslint-disable-next-line prettier/prettier
-          className={`z-[1] flex  w-full flex-row items-center justify-around border-t p-4 ${isOpen ? '' : 'invisible'}`}
+            className={`z-[1] flex  w-full flex-row items-center justify-around border-t p-4 ${isOpen ? '' : 'invisible'}`}
             style={{ boxShadow: '0 -20px 20px -20px rgba(0,0,0,0.2)' }}
           >
             <button

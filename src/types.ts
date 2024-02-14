@@ -67,4 +67,4 @@ export type ScreeOptions =
   | 'funcionarios'
   | 'epi'
   | 'equipamento'
-  | 'solicitacoesEqui'
+  | 'solicitacoesEquip'

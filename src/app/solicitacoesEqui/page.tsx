@@ -16,22 +16,25 @@ const SolicitacoesEqui: React.FC = () => {
   const { push } = useRouter()
 
   const [loading, setLoading] = useState(true)
-  const action = () => {
-    return <Edit screen="solicitacoes" />
-  }
+  const [refresh, setRefresh] = useState(0)
+
 
   const [rows, setRows] = useState<Data[]>([])
 
   const columns: ColumnData[] = [
     { Header: 'Matricula', accessor: 'matricula' },
-    { Header: 'Solicitante', accessor: 'solicitante' },
-    { Header: 'Cidade', accessor: 'cidade', width: 250 },
-    { Header: 'Equipamento', accessor: 'equipamento', width: 200 },
+    { Header: 'Solicitante', accessor: 'solicitante', width: 250 },
+    { Header: 'Cidade', accessor: 'cidade', },
+    {
+      Header: 'Equipamento', accessor: 'equipamento', width: 200, Cell: ({ id, row }) => {
+        return <a href={row.video.toString()}>{row.equipamento}</a>
+      }
+    },
     { Header: 'Status', accessor: 'status' },
     {
       Header: 'Rejeição',
       accessor: 'reject',
-      width: 250,
+      width: 200,
       Cell: ({ id, row }) => {
         if (row.reject === undefined) {
           return '-'
@@ -43,7 +46,9 @@ const SolicitacoesEqui: React.FC = () => {
     {
       Header: 'Ações',
       accessor: 'action',
-      Cell: () => action(),
+      Cell: ({ id, row }) => {
+        return <Edit screen="solicitacoesEquip" row={row} id={row.id} refresh={setRefresh} />
+      },
     },
   ]
 
@@ -66,11 +71,12 @@ const SolicitacoesEqui: React.FC = () => {
       .catch(() => {
         push('/')
       })
-  }, [loading, push])
+  }, [loading, push, refresh])
 
   return (
     <Container>
-      <Sidebar screen="Solicitaç  ões Equipamentos" />
+
+      <Sidebar screen="Solicitações Equipamentos" />
       <div className="p-6">
         <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
           <div className="">
@@ -80,7 +86,7 @@ const SolicitacoesEqui: React.FC = () => {
           </div>
           <div className="flex flex-row gap-4 ">
             <Search fields={rows} setFields={setRows} loading={loading} />
-            <Filtering screen="solicitacoesEqui" />
+            <Filtering screen="solicitacoesEquip" />
             <ExportCsv screen="solicitacoes" />
           </div>
         </div>

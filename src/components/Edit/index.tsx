@@ -5,22 +5,36 @@ import EditSolicitacaoes from '../EditSolicitacaoes'
 import EditFuncionarios from '../EditFuncionarios'
 import EditEpi from '../EditEpi'
 import EditEquipamento from '../EditEquipamento'
-import { ScreeOptions } from '@/types'
+import { Data, ScreeOptions } from '@/types'
 
 interface IconButtonProps {
   screen: ScreeOptions
+  id: string
+  row: Data
+  rowEdit?: React.Dispatch<React.SetStateAction<boolean>>
+  refresh: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Edit: React.FC<IconButtonProps> = ({ screen }) => {
+const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) => {
   const [open, setOpen] = useState<boolean>(false)
   switch (screen) {
-    case 'solicitacoes':
+    case 'solicitacoesEquip':
       return (
         <div className=" ">
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditSolicitacaoes isOpen={open} setOpen={setOpen} />
+          <EditSolicitacaoes page={screen} isOpen={open} setOpen={setOpen} id={id} row={row} refresh={refresh} />
+        </div>
+      )
+
+    case 'solicitacoesEquip':
+      return (
+        <div className=" ">
+          <button onClick={() => setOpen(!open)}>
+            <BsPencilFill />
+          </button>
+          <EditSolicitacaoes page={screen} isOpen={open} setOpen={setOpen} id={id} row={row} refresh={refresh} />
         </div>
       )
     case 'funcionarios':
@@ -29,16 +43,17 @@ const Edit: React.FC<IconButtonProps> = ({ screen }) => {
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditFuncionarios isOpen={open} setOpen={setOpen} />
+          <EditFuncionarios isOpen={open} setOpen={setOpen} row={row} />
         </div>
       )
     case 'epi':
+      if (rowEdit) rowEdit(true)
       return (
         <div className=" ">
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditEpi isOpen={open} setOpen={setOpen} />
+          <EditEpi isOpen={open} setOpen={setOpen} data={row} />
         </div>
       )
     case 'equipamento':

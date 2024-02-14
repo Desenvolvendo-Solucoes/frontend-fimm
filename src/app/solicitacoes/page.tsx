@@ -16,12 +16,17 @@ const Solicitacoes: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const { push } = useRouter()
   const [rows, setRows] = useState<Data[]>([])
+  const [refresh, setRefresh] = useState(0)
 
   const columns: ColumnData[] = [
-    { Header: 'Matricula', accessor: 'matricula', width: 100 },
+    { Header: 'Matricula', accessor: 'matricula' },
     { Header: 'Solicitante', accessor: 'solicitante', width: 250 },
     { Header: 'Cidade', accessor: 'cidade' },
-    { Header: 'Epi', accessor: 'epi' },
+    {
+      Header: 'Epi', accessor: 'epi', Cell: ({ id, row }) => {
+        return <a href={row.foto.toString()}>{row.epi}</a>
+      }
+    },
     { Header: 'Tamanho', accessor: 'tamanho', width: 100 },
     { Header: 'Status', accessor: 'status' },
     {
@@ -37,10 +42,14 @@ const Solicitacoes: React.FC = () => {
       },
     },
     {
-      Header: 'Ações',
+      Header: 'Atualizar',
       accessor: 'action',
+      width: 100,
       Cell: ({ id, row }) => {
-        return <Edit screen="solicitacoes" />
+        if (row.status == 'Rejeitado' || row.status == 'Entregue') {
+          return <div className='w-full h-full ' />
+        }
+        return <Edit screen="solicitacoes" id={row.id} row={row} refresh={setRefresh} />
       },
     },
   ]
@@ -64,7 +73,7 @@ const Solicitacoes: React.FC = () => {
       .catch(() => {
         push('/')
       })
-  }, [loading, push])
+  }, [loading, push, refresh])
 
   return (
     <Container>
