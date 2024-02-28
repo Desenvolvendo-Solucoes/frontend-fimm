@@ -57,6 +57,7 @@ export const getEpiSolicitados = (): Promise<Data[]> => {
     instance
       .get('/epi/solicitacoes', Token)
       .then((response) => {
+        console.log(response.data);
         resolve(response.data)
       })
       .catch((err) => {
@@ -155,6 +156,18 @@ export const updateEquipStatus = (id: string, status: string, rejectText?: strin
       .catch((err) => {
         reject(err)
       })
+  })
+}
+
+export const updateFuncionario = (data: { nome: string, cpf: string, funcao: string, regiao: string, cidade: string, id: string }) => {
+  return new Promise((resolve, reject) => {
+    const token = tokenHeader()
+    instance.post(`/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&regiao=${data.regiao}&cidade=${data.cidade}&id=${data.id}`,
+      {},
+      token
+    ).then((res) => {
+      resolve(res.data)
+    }).catch((err) => reject(err))
   })
 }
 

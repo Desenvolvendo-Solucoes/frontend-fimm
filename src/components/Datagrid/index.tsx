@@ -52,8 +52,8 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
   }, [])
 
   return (
-    <div className="h-full">
-      <table className="flex h-full w-auto flex-auto flex-col overflow-scroll">
+    <div className="h-full ">
+      <table className="flex h-full w-auto flex-auto flex-col overflow-scroll hide-scrollbar">
         <thead className="mb-2">
           <tr className="flex w-max  items-center rounded border border-gray-400">
             {columns.map((column, index) => (

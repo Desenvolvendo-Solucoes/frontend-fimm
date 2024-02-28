@@ -23,13 +23,22 @@ export default function Funcionarios() {
   const [rows, setRows] = useState<Data[]>([])
 
   const columns: ColumnData[] = [
-    { Header: 'Matricula', accessor: 'matricula' },
+    { Header: 'Matricula', accessor: 'matricula', width: 120 },
     { Header: 'Funcionário', accessor: 'nome', width: 250 },
     { Header: 'CPF', accessor: 'cpf', width: 200 },
     { Header: 'Função', accessor: 'funcao', width: 200 },
     { Header: 'Região', accessor: 'regiao' },
     { Header: 'Cidade', accessor: 'cidade' },
-    { Header: 'Email', accessor: 'email', width: 250 },
+    {
+      Header: 'Email', accessor: 'email', width: 250, Cell: ({ id, row }) => {
+        if (!row.email) {
+          return (<div>-</div>)
+        }
+        else {
+          return (<div>{row.email}</div>)
+        }
+      }
+    },
     {
       Header: 'Ações',
       accessor: 'action',

@@ -96,7 +96,7 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
               className='mb-4 w-full rounded-md'
               placeholder="Tamanhos"
               value={tamanhos}
-              onChange={(e) => setTamanhos(e)}
+              onChange={(e: MultiValue<{ value: string, label: string }> | { value: string, label: string }[]) => setTamanhos(e)}
               noOptionsMessage={({ inputValue }) => {
                 const _addProblemas = (_inputValue: string) => {
                   let _problemas: {

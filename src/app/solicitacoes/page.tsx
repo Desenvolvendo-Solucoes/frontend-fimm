@@ -47,7 +47,7 @@ const Solicitacoes: React.FC = () => {
       width: 100,
       Cell: ({ id, row }) => {
         if (row.status == 'Rejeitado' || row.status == 'Entregue') {
-          return <div className='w-full h-full ' />
+          return <div className='w-full h-full ' >-</div>
         }
         return <Edit screen="solicitacoes" id={row.id} row={row} refresh={setRefresh} />
       },

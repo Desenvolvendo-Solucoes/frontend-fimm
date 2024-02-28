@@ -18,7 +18,7 @@ interface IconButtonProps {
 const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) => {
   const [open, setOpen] = useState<boolean>(false)
   switch (screen) {
-    case 'solicitacoesEquip':
+    case 'solicitacoes':
       return (
         <div className=" ">
           <button onClick={() => setOpen(!open)}>
@@ -43,7 +43,7 @@ const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) 
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditFuncionarios isOpen={open} setOpen={setOpen} row={row} />
+          <EditFuncionarios isOpen={open} setOpen={setOpen} row={row} refresh={refresh} />
         </div>
       )
     case 'epi':

@@ -1,20 +1,43 @@
+import { updateFuncionario } from '@/api'
 import { Data } from '@/types'
 import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
+import Loading from '../Loading'
 
 interface IModal {
   isOpen: boolean
   setOpen: (isOpen: boolean) => void
   row: Data
+  refresh: React.Dispatch<React.SetStateAction<number>>
 }
 
-const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row }) => {
-  const [nome, setNome] = useState(row.nome)
-  const [cpf, setCpf] = useState(row.cpf)
-  const [funcao, setFuncao] = useState(row.funcao)
-  const [regiao, setRegiao] = useState(row.regiao)
-  const [contrato, setContrato] = useState(row.base)
-  const [cidade, setCidade] = useState(row.cidade)
+const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) => {
+  const [loading, setLoading] = useState(false)
+  const [nome, setNome] = useState(row.nome.toString())
+  const [cpf, setCpf] = useState(row.cpf.toString())
+  const [funcao, setFuncao] = useState(row.funcao.toString())
+  const [regiao, setRegiao] = useState(row.regiao.toString())
+  const [contrato, setContrato] = useState(row.base.toString())
+  const [cidade, setCidade] = useState(row.cidade.toString())
+
+  const handleUpdate = () => {
+    setLoading(true)
+    let dataToUpdate: { nome: string, cpf: string, funcao: string, regiao: string, cidade: string, id: string } = {
+      nome: nome,
+      cpf: cpf,
+      funcao: funcao,
+      regiao: regiao,
+      cidade: cidade,
+      id: row.id
+    }
+
+    updateFuncionario(dataToUpdate).then((response) => {
+      setOpen(!open)
+      refresh(Math.random() * 100)
+    }).catch(() => {
+      setLoading(false)
+    })
+  }
 
   if (isOpen) {
     return (
@@ -83,17 +106,6 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row }) => {
               onChange={(e) => setRegiao(e.target.value)}
             />
             <hr className="mb-4"></hr>
-            <h2 className="p-2 font-bold">Contrato</h2>
-            <label className="p-2 text-gray-400  ">Editar Contrato</label>
-
-            <input
-              className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
-              type="text"
-              placeholder="Ex: SaneaGo"
-              value={contrato.toString()}
-              onChange={(e) => setContrato(e.target.value)}
-            />
-            <hr className="mb-4"></hr>
             <h2 className="p-2 font-bold">Cidade</h2>
             <label className="p-2 text-gray-400  ">Editar Cidade</label>
 
@@ -119,9 +131,9 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row }) => {
             </button>
             <button
               className="w-full rounded-2xl bg-primary p-4 text-white"
-              onClick={() => setOpen(!isOpen)}
+              onClick={() => handleUpdate()}
             >
-              Salvar
+              {loading ? (<Loading />) : 'Salvar'}
             </button>
           </div>
         </div>
