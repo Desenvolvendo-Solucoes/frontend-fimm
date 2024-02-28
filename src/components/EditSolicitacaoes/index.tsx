@@ -48,7 +48,7 @@ const EditSolicitacaoes: React.FC<IModal> = ({ isOpen, setOpen, row, id, refresh
                 toast.success('Status Atualizado com sucesso!')
                 setLoading(false)
                 setOpen(!open)
-                refresh(1 + 1)
+                refresh(Math.random() * 100)
               })
             }
           } else {
