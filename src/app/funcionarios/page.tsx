@@ -20,7 +20,6 @@ export default function Funcionarios() {
   const [loading, setLoading] = useState(true)
   const [refresh, setRefresh] = useState(0)
 
-
   const [rows, setRows] = useState<Data[]>([])
 
   const columns: ColumnData[] = [

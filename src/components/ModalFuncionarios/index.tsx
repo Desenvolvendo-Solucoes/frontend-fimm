@@ -88,11 +88,12 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
             </button>
             <h2 className="p-2 font-bold">Cadastrar Funcionário</h2>
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
-              type="text"
+              className="mb-4 w-full rounded-md border border-gray-300 p-3 remove-arrow"
+              type="number"
               placeholder="Matricula"
               required={true}
               value={matricula}
+              min={0}
               onChange={(e) => {
                 setMatricula(e.target.value)
               }}
@@ -169,7 +170,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
                 type="file"
                 placeholder="Cadastro em massa"
               />
-              <span className="pointer-events-none absolute left-0 top-0 w-full p-3 text-center text-primary">
+              <span className="pointer-events-none cursor-pointer absolute left-0 top-0 w-full p-3 text-center text-primary">
                 Cadastro em massa
               </span>
             </div>

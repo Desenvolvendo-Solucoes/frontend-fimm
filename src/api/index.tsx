@@ -1,7 +1,6 @@
 import { CUser, Data, RequestCreateEpi } from '@/types'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getCookie, setCookie } from 'cookies-next'
-import { headers } from 'next/headers'
 import { toast } from 'react-toastify'
 
 const instance = axios.create({
