@@ -1,14 +1,15 @@
+import { createEpi } from '@/api'
 import React, { useEffect, useState } from 'react'
 import { UploadCloud, XCircle } from 'react-feather'
 import Select, { MultiValue } from 'react-select'
-import Input from 'react-select/dist/declarations/src/components/Input'
 
 interface IModal {
   isOpen: boolean
   setOpen: (isOpen: boolean) => void
+  refresh: React.Dispatch<React.SetStateAction<number>>
 }
 
-const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
+const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const [nome, setNome] = useState('')
   const [marca, setMarca] = useState('')
   const [dias, setDias] = useState('')
@@ -23,10 +24,26 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
     }>
   >()
 
-  const onSubmit = () => {
-    console.log(tamanhos)
+  const ajustTamanhos = (): Promise<{ value: string; label: string }[]> => {
+    return new Promise(async (resolve, reject) => {
+      let _tamanhos: { value: string; label: string }[] = []
+      for (let i = 0; i < tamanhos.length; i++) {
+        _tamanhos.push({ label: tamanhos[i].value, value: tamanhos[i].value })
+      }
+      resolve(_tamanhos)
+    })
   }
 
+  const onSubmit = async () => {
+    ajustTamanhos().then((_tamanhos) => {
+      createEpi({
+        dias, estoque, imagem, marca, nome, tamanhos: JSON.stringify(_tamanhos)
+      }).then(() => {
+        setOpen(false)
+        refresh(Math.random() * 100)
+      })
+    })
+  }
 
   useEffect(() => { }, [addProblemas])
 
@@ -94,6 +111,12 @@ const ModalEpi: React.FC<IModal> = ({ isOpen, setOpen }) => {
             />
             <Select
               className='mb-4 w-full rounded-md'
+              styles={{
+                control: base => ({
+                  ...base,
+                  height: 50
+                })
+              }}
               placeholder="Tamanhos"
               value={tamanhos}
               onChange={(e: MultiValue<{ value: string, label: string }> | { value: string, label: string }[]) => setTamanhos(e)}

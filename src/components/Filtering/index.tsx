@@ -28,7 +28,7 @@ const Filtering: React.FC<IconButtonProps> = ({ screen }) => {
           <ModalFilterSolicitacao isOpen={open} setOpen={setOpen} />
         </div>
       )
-    case 'solicitacoesEqui':
+    case 'solicitacoesEquip':
       return (
         <div className="">
           <button

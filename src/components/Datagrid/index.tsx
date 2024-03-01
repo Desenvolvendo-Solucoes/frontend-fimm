@@ -37,7 +37,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
     document.addEventListener('mouseup', handleMouseUp)
   }
 
-  const setColounWidth = () => {
+  const setColoumnWidth = () => {
     // eslint-disable-next-line array-callback-return
     columns.map((column) => {
       setColumnWidths((prevWidths) => ({
@@ -48,7 +48,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
   }
 
   useEffect(() => {
-    setColounWidth()
+    setColoumnWidth()
   }, [])
 
   return (
@@ -90,7 +90,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
                       className={`flex resize-x items-center justify-around border border-gray-200 p-2 text-center`}
                       key={index}
                     >
-                      <CellComponent value={row[column.accessor]} row={row} />
+                      <CellComponent row={row} id={row.id} column={column.accessor} />
                     </td>
                   )
                 })}

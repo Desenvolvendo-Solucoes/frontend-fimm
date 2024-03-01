@@ -33,7 +33,7 @@ const Solicitacoes: React.FC = () => {
       Header: 'Rejeição',
       accessor: 'reject',
       width: 250,
-      Cell: ({ id, row }) => {
+      Cell: ({ id, row, column }) => {
         if (row.reject === undefined) {
           return '-'
         } else {

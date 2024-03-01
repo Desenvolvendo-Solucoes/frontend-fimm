@@ -141,10 +141,21 @@ export const updateEpiStatus = (id: string, status: string, rejectText?: string)
   })
 }
 
+export const updateEpiConfig = (id: string, dias: string, estoque: string, imagem: string, marca: string, nome: string, tamanhos: string) => {
+  return new Promise((resolve, reject) => {
+    const token = tokenHeader()
+    instance.
+      post(`/epi/update?id=${id}&dias=${dias}&estoque=${estoque}&imagem=${imagem}&marca=${marca}&nome${nome}&tamanhos=${tamanhos}`, {}, token).then((response) => {
+        resolve(response.data)
+      }).catch((err) => {
+        console.log(err);
+      })
+  })
+}
+
 export const updateEquipStatus = (id: string, status: string, rejectText?: string): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const token = tokenHeader()
-
     instance
       .post(`/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText == undefined ? '-' : rejectText}`,
         {},
@@ -181,16 +192,11 @@ export const createEpi = ({
 }: RequestCreateEpi): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
-    instance.put('/epi/create', header, {
-      params: {
-        nome,
-        dias,
-        estoque,
-        tamanhos,
-        imagem,
-        marca,
-      },
-    })
+    instance.put(`/epi/create?dias=${dias}&estoque=${estoque}&imagem=${imagem}&marca=${marca}&nome=${nome}&tamanhos=${tamanhos}`,
+      {}, header
+    ).then((res) => {
+      resolve(res.data)
+    }).catch((err) => reject(err))
   })
 }
 

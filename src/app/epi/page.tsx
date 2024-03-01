@@ -74,7 +74,7 @@ const Epi: React.FC = () => {
           <div className="flex flex-row gap-4 ">
             <Search fields={rows} setFields={setRows} loading={loading} />
             <Filtering screen="epi" />
-            <NewEpi />
+            <NewEpi refresh={setRefresh} />
           </div>
         </div>
         <div

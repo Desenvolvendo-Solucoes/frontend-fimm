@@ -12,6 +12,7 @@ import Edit from '@/components/Edit'
 import { ValidaToken, getEquipCadastrado } from '@/api'
 
 const Equipamentos: React.FC = () => {
+  const [refresh, setRefresh] = useState(0)
   const [loading, setLoading] = useState(true)
   const [rows, setRows] = useState<Data[]>([])
 
@@ -24,7 +25,7 @@ const Equipamentos: React.FC = () => {
       Header: 'Ações',
       accessor: 'action',
       Cell: ({ id, row }) => {
-        return <Edit screen="equipamento" id={id} row={row} />
+        return <Edit screen="equipamento" id={id} row={row} refresh={setRefresh} />
       },
     },
   ]
@@ -36,7 +37,7 @@ const Equipamentos: React.FC = () => {
         setLoading(false)
       })
     })
-  }, [loading])
+  }, [loading, refresh])
 
   return (
     <div>

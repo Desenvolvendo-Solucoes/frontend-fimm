@@ -53,7 +53,7 @@ const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) 
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditEpi isOpen={open} setOpen={setOpen} data={row} />
+          <EditEpi isOpen={open} setOpen={setOpen} row={row} refresh={refresh} />
         </div>
       )
     case 'equipamento':
