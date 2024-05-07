@@ -93,10 +93,7 @@ const DatagridHolerites: React.FC<Props> = ({ columns, data }: Props) => {
                     className={`flex h-12 resize-x ${column.accessor === 'atualizado' ? 'w-full text-left' : 'items-center'}  border-b-[1px] border-[black] p-2 text-center`}
                     key={index}
                   >
-                    <CellComponent
-                      value={row[column.accessor].toString()}
-                      row={row}
-                    />
+                    <CellComponent row={row} id={row.id} column={column.accessor} />
                   </td>
                 )
               })}

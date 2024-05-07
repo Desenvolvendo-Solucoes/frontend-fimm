@@ -3,7 +3,11 @@ import React, { useState } from 'react'
 import { Plus } from 'react-feather'
 import ModalEpi from '../ModalEpi'
 
-const NewEpi = () => {
+interface INewEpi {
+  refresh: React.Dispatch<React.SetStateAction<number>>
+}
+
+const NewEpi: React.FC<INewEpi> = ({ refresh }) => {
   const [open, setOpen] = useState<boolean>(false)
 
   return (
@@ -15,7 +19,7 @@ const NewEpi = () => {
         <Plus className="mr-2" />
         Novo Epi
       </button>
-      <ModalEpi isOpen={open} setOpen={setOpen} />
+      <ModalEpi isOpen={open} setOpen={setOpen} refresh={refresh} />
     </div>
   )
 }

@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
 
-        <NavigationMenu.Item>
+        {/* <NavigationMenu.Item>
           <NavigationMenu.Link href="/solicitacoesEqui">
             <Button
               icon={BsPhone}
@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Holerites')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        </NavigationMenu.Item> */}
 
         <NavigationMenu.Item>
           <NavigationMenu.Link href="/funcionarios">
@@ -70,14 +70,14 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           <NavigationMenu.Link href="epi">
             <Button
               icon={FaMaskFace}
-              tela="Epi"
+              tela="EPI"
               isActive={activeButton === 'Epi'}
               onClick={() => setActiveButton('Epi')}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>
 
-        <NavigationMenu.Item>
+        {/* <NavigationMenu.Item>
           <NavigationMenu.Link href="/equipamentos">
             <Button
               icon={FaPrint}
@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Equipamentos')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        </NavigationMenu.Item> */}
       </NavigationMenu.List>
       <div className="mb-4 flex h-2/4 w-full items-end justify-center text-center">
         <div className="flex flex-row items-center gap-2">

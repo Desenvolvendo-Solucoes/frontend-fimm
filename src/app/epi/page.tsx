@@ -9,48 +9,57 @@ import Filtering from '@/components/Filtering'
 import Loading from '@/components/Loading'
 import NewEpi from '@/components/NewEpi'
 import Edit from '@/components/Edit'
+import * as Avatar from '@radix-ui/react-avatar'
+import { ValidaToken, getEpiCadastrado } from '@/api'
+import { useRouter } from 'next/navigation'
 
 const Epi: React.FC = () => {
+  const { push } = useRouter()
   const [loading, setLoading] = useState(true)
-  const action = () => {
-    return <Edit screen="epi" />
-  }
-  const initialData = [
-    {
-      id: '1',
-      epi: 'Botina',
-      dias: '001',
-      marca: 'teste',
-      action: action(),
-      quantidade: '10',
-      tamanho: '39',
-    },
-    {
-      id: '2',
-      epi: 'Camisa ML',
-      dias: '001',
-      marca: 'teste',
-      action: action(),
-      quantidade: '10',
-      tamanho: 'M',
-    },
-  ]
-  const [rows, setRows] = useState<Data[]>(initialData)
+  const [refresh, setRefresh] = useState(0)
+
+  const [rows, setRows] = useState<Data[]>([])
 
   const columns: ColumnData[] = [
-    { Header: 'EPI', accessor: 'epi' },
+    {
+      Header: 'EPI',
+      accessor: 'epi',
+      Cell: ({ id, row }) => {
+        return (
+          <Avatar.Root className="flex h-full  w-full flex-row items-center justify-start gap-2">
+            <Avatar.Image
+              className="h-8 w-8 rounded-full"
+              src={row.imagem.toString()}
+            />
+            {row.epi}
+          </Avatar.Root>
+        )
+      },
+    },
     { Header: 'Dias', accessor: 'dias', width: 100 },
     { Header: 'Marca', accessor: 'marca' },
-    { Header: 'Quantidade', accessor: 'quantidade', width: 100 },
-    { Header: 'Tamanho', accessor: 'tamanho' },
-    { Header: 'Ações', accessor: 'action' },
+    { Header: 'Estoque', accessor: 'estoque', width: 100 },
+    {
+      Header: 'Ações',
+      accessor: 'action',
+      Cell: ({ id, row }) => {
+        return <Edit screen="epi" refresh={setRefresh} id={row.id} row={row} />
+      },
+    },
   ]
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 1500)
-  }, [loading])
+    ValidaToken()
+      .then(() => {
+        getEpiCadastrado().then((Rows) => {
+          setRows(Rows)
+          setLoading(false)
+        })
+      })
+      .catch(() => {
+        push('/')
+      })
+  }, [loading, refresh])
 
   return (
     <Container>
@@ -59,13 +68,13 @@ const Epi: React.FC = () => {
         <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
           <div className="">
             <span className="text-xl font-bold">
-              Total de: {rows.length} EPI
+              Total de: {rows.length <= 0 ? 0 : rows.length} EPI
             </span>
           </div>
           <div className="flex flex-row gap-4 ">
-            <Search fields={rows} setFields={setRows} />
+            <Search fields={rows} setFields={setRows} loading={loading} />
             <Filtering screen="epi" />
-            <NewEpi />
+            <NewEpi refresh={setRefresh} />
           </div>
         </div>
         <div

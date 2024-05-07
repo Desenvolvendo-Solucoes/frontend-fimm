@@ -1,8 +1,43 @@
+'use client'
 // import { Checkbox } from '@material-tailwind/react'
+import { useState, useEffect } from 'react'
+
+import { useRouter } from 'next/navigation'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { ValidaToken, signin } from '@/api'
+import Loading from '@/components/Loading'
 
 export default function Home() {
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { push } = useRouter()
+
+  useEffect(() => {
+    ValidaToken()
+      .then(() => {
+        toast.success('Usuario Logado')
+        push('/solicitacoes')
+      })
+      .catch(() => {
+        // toast.error('Sessão Expirada')
+        setLoading(false)
+      })
+  }, [push])
+
   return (
-    <>
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      setLoading(true)
+      signin(email, senha)
+        .then(() => {
+          push('/solicitacoes')
+        })
+        .catch(() => {
+          setLoading(false)
+        })
+    }}>
       <div className="bg-shape absolute -z-10 flex h-screen w-screen items-center justify-center"></div>
       <div className="z-10 flex h-screen w-screen items-center justify-center ">
         <div className="flex w-2/6 flex-col rounded-lg bg-white p-12 shadow-lg">
@@ -13,11 +48,17 @@ export default function Home() {
             type="email"
             placeholder="Matricula"
             className="mt-5 h-12 rounded border-2 border-black/20 pl-4"
+            onChange={(e) => {
+              setEmail(e.target.value)
+            }}
           />
           <input
             type="password"
             placeholder="Senha"
             className="mt-7 h-12 rounded border-2 border-black/20 pl-4"
+            onChange={(e) => {
+              setSenha(e.target.value)
+            }}
           />
 
           <div className="mt-6 flex flex-row items-center gap-2">
@@ -27,8 +68,11 @@ export default function Home() {
             </label>
           </div>
 
-          <button className="mt-6 h-11 rounded bg-btn-primary font-bold text-white hover:bg-btn-secondary">
-            ENTRAR
+          <button
+            type='submit'
+            className="mt-6 h-11 rounded bg-btn-primary font-bold text-white hover:bg-btn-secondary"
+          >
+            {loading ? <Loading /> : 'ENTRAR'}
           </button>
 
           <a
@@ -39,7 +83,19 @@ export default function Home() {
           </a>
           <span className="text-zinc-400">Versão 1.0.0</span>
         </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
-    </>
+    </form>
   )
 }

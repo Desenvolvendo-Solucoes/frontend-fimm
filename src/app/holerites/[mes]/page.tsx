@@ -106,7 +106,7 @@ export default function Page({ params }: { params: { mes: string } }) {
           <div className="flex h-full w-full flex-row justify-between">
             {dia}/{mes}/{ano} às {horas}:{minutos}:{segundos}
             <a
-              href={row.value[1]}
+              href={row.row.value.toString()}
               target="_blank"
               className="flex h-7 w-24 flex-row items-center justify-center gap-2 rounded bg-[#1E1685] text-[8px] text-[white] hover:bg-[#221f51]"
               rel="noreferrer"

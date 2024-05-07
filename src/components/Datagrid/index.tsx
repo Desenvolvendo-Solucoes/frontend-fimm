@@ -37,11 +37,9 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
     document.addEventListener('mouseup', handleMouseUp)
   }
 
-  const setColounWidth = () => {
+  const setColoumnWidth = () => {
     // eslint-disable-next-line array-callback-return
     columns.map((column) => {
-      console.log(column.accessor)
-
       setColumnWidths((prevWidths) => ({
         ...prevWidths,
         [column.accessor]: column.width ? column.width : 150,
@@ -50,12 +48,12 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
   }
 
   useEffect(() => {
-    setColounWidth()
+    setColoumnWidth()
   }, [])
 
   return (
-    <div className="h-full">
-      <table className="flex h-full w-auto flex-auto flex-col overflow-scroll">
+    <div className="h-full ">
+      <table className="flex h-full w-auto flex-auto flex-col overflow-scroll hide-scrollbar">
         <thead className="mb-2">
           <tr className="flex w-max  items-center rounded border border-gray-400">
             {columns.map((column, index) => (
@@ -92,7 +90,7 @@ const DataGrid: React.FC<DataGridProps> = ({ data, columns }) => {
                       className={`flex resize-x items-center justify-around border border-gray-200 p-2 text-center`}
                       key={index}
                     >
-                      <CellComponent value={row[column.accessor]} row={row} />
+                      <CellComponent row={row} id={row.id} column={column.accessor} />
                     </td>
                   )
                 })}

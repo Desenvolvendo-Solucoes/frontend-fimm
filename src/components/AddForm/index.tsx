@@ -4,6 +4,7 @@ import { Plus } from 'react-feather'
 import ModalFuncionarios from '../ModalFuncionarios'
 
 const AddForm = () => {
+  const [refresh, setRefresh] = useState(0)
   const [open, setOpen] = useState<boolean>(false)
 
   return (
@@ -15,7 +16,7 @@ const AddForm = () => {
         <Plus className="mr-2" />
         Adicionar Funcionário
       </button>
-      <ModalFuncionarios isOpen={open} setOpen={setOpen} />
+      <ModalFuncionarios isOpen={open} setOpen={setOpen} refresh={setRefresh} />
     </div>
   )
 }

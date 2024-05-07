@@ -1,4 +1,5 @@
 import React from 'react'
+import { MultiValue } from 'react-select'
 
 export type DataType = {
   solicitante: string
@@ -28,8 +29,9 @@ export type ColumnData = {
   Header: string
   accessor: string
   Cell?: React.FC<{
-    value: string
+    id: string
     row: Data
+    column: string
   }>
   width?: number
 }
@@ -37,3 +39,41 @@ export type ColumnData = {
 export type ResizableColumnProps = {
   name: string
 }
+
+export type TamanhosEpi = { label: string; value: string }[] | 
+  MultiValue<{
+    label: string;
+    value: string;
+  }>
+  
+export type RequestCreateEpi = {
+  nome: string
+  imagem: string
+  marca: string
+  estoque: string
+  dias: string
+  tamanhos: string
+}
+
+export type CUser = {
+  nome: string
+  matricula: string
+  cpf: string
+  cidade: string
+  regiao: string
+  funcao: string
+  base: string
+}
+
+export type ScreeOptions =
+  | 'solicitacoes'
+  | 'funcionarios'
+  | 'epi'
+  | 'equipamento'
+  | 'solicitacoesEquip'
+
+
+export type DataGridColumn = React.FC<{
+  id: string;
+  row: Data;
+}> | React.FC<Data> | string
