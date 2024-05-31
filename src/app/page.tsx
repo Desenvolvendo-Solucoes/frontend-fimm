@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { ValidaToken, signin } from '@/api'
 import Loading from '@/components/Loading'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
   const [email, setEmail] = useState('')
@@ -18,7 +18,7 @@ export default function Home() {
     ValidaToken()
       .then(() => {
         toast.success('Usuario Logado')
-        push('/solicitacoes')
+        push('/holerites')
       })
       .catch(() => {
         // toast.error('Sessão Expirada')
@@ -46,7 +46,7 @@ export default function Home() {
 
           <input
             type="email"
-            placeholder="Matricula"
+            placeholder="Email"
             className="mt-5 h-12 rounded border-2 border-black/20 pl-4"
             onChange={(e) => {
               setEmail(e.target.value)

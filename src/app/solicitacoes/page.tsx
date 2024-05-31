@@ -22,11 +22,7 @@ const Solicitacoes: React.FC = () => {
     { Header: 'Matricula', accessor: 'matricula' },
     { Header: 'Solicitante', accessor: 'solicitante', width: 250 },
     { Header: 'Cidade', accessor: 'cidade' },
-    {
-      Header: 'Epi', accessor: 'epi', Cell: ({ id, row }) => {
-        return <a href={row.foto.toString()}>{row.epi}</a>
-      }
-    },
+    { Header: 'Epi', accessor: 'epi' },
     { Header: 'Tamanho', accessor: 'tamanho', width: 100 },
     { Header: 'Status', accessor: 'status' },
     {

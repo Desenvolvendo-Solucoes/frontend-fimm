@@ -1,4 +1,4 @@
-import { CUser, Data, RequestCreateEpi } from '@/types'
+import { CUser, Data, GetAllHoleriteResponse, Holerite, RequestCreateEpi } from '@/types'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getCookie, setCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
@@ -29,6 +29,8 @@ export const ValidaToken = () => {
 
 export const signin = (email: string, senha: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
+    console.log('s');
+
     instance
       .post('/auth/login', null, {
         params: {
@@ -218,6 +220,67 @@ export const createUser = ({
       })
       .catch((err) => {
         console.log(err)
+        reject(err)
+      })
+  })
+}
+
+export const uploadHolerite = (formData: FormData) => {
+  return new Promise((resolve, reject) => {
+    const token = getCookie('access_token')
+
+    instance({
+      method: 'POST',
+      url: '/holerite/upload',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`
+      },
+      onUploadProgress: (event) => {
+        if (!event.total) return;
+        console.log(
+          `Current progress:`,
+          Math.round((event.loaded * 100) / event.total)
+        );
+      },
+    }).then((response) => {
+      console.log(response);
+
+    })
+
+  })
+
+
+}
+
+export const getAllHolerites = (): Promise<GetAllHoleriteResponse> => {
+  return new Promise((resolve, reject) => {
+    const header = tokenHeader()
+
+    instance
+      .get('/holerite/getAll', header)
+      .then((response) => {
+        resolve(response.data);
+
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
+
+export const getHoleritesMes = (mes: string): Promise<Holerite[]> => {
+  return new Promise((resolve, reject) => {
+    const header = tokenHeader()
+
+    instance
+      .get(`/holerite/getHoleritesMes?mes=${mes}`, header)
+      .then((response) => {
+        resolve(response.data);
+
+      })
+      .catch((err) => {
         reject(err)
       })
   })
