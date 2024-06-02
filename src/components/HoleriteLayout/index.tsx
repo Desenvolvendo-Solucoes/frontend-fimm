@@ -31,7 +31,8 @@ const HoleriteLayout: React.FC = () => {
     if (!e.target.files) return;
     formData.append("file", e.target.files[0]);
 
-    uploadHolerite(formData).then(() => {
+    uploadHolerite(formData).then((response) => {
+      console.log(response);
 
     })
 

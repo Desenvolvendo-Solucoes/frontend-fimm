@@ -245,7 +245,7 @@ export const uploadHolerite = (formData: FormData) => {
         );
       },
     }).then((response) => {
-      console.log(response);
+      resolve(response);
 
     })
 

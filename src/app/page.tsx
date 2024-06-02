@@ -32,7 +32,7 @@ export default function Home() {
       setLoading(true)
       signin(email, senha)
         .then(() => {
-          push('/solicitacoes')
+          push('/holerites')
         })
         .catch(() => {
           setLoading(false)
