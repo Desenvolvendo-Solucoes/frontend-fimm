@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loading from '@/components/Loading'
 
-
 export default function Funcionarios() {
   const { push } = useRouter()
 
@@ -30,20 +29,29 @@ export default function Funcionarios() {
     { Header: 'Região', accessor: 'regiao' },
     { Header: 'Cidade', accessor: 'cidade' },
     {
-      Header: 'Email', accessor: 'email', width: 250, Cell: ({ id, row }) => {
+      Header: 'Email',
+      accessor: 'email',
+      width: 250,
+      Cell: ({ id, row }) => {
         if (!row.email) {
-          return (<div>-</div>)
+          return <div>-</div>
+        } else {
+          return <div>{row.email}</div>
         }
-        else {
-          return (<div>{row.email}</div>)
-        }
-      }
+      },
     },
     {
       Header: 'Ações',
       accessor: 'action',
       Cell: ({ id, row }) => {
-        return <Edit screen="funcionarios" row={row} id={row.id} refresh={setRefresh} />
+        return (
+          <Edit
+            screen="funcionarios"
+            row={row}
+            id={row.id}
+            refresh={setRefresh}
+          />
+        )
       },
     },
   ]

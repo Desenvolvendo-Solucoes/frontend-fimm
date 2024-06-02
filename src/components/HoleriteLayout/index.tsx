@@ -10,37 +10,31 @@ import { getAllHolerites, uploadHolerite } from '@api'
 import { GetAllHoleriteResponse } from '@/types'
 
 const HoleriteLayout: React.FC = () => {
-
   const [page, setPage] = useState<string>('holerites')
   const holeriteRef = React.useRef<HTMLInputElement | null>(null)
   const [holerites, setHolerites] = useState<GetAllHoleriteResponse>()
-
+  const anoAtual = new Date().getFullYear()
 
   const openInputFile = async () => {
+    if (holeriteRef.current == null) return
 
-    if (holeriteRef.current == null) return;
-
-
-    holeriteRef.current.click();
-  };
-
+    holeriteRef.current.click()
+  }
 
   const handleUploadHolerite = (e: React.ChangeEvent<HTMLInputElement>) => {
-
-    const formData = new FormData();
-    if (!e.target.files) return;
-    formData.append("file", e.target.files[0]);
+    const formData = new FormData()
+    if (!e.target.files) return
+    formData.append('file', e.target.files[0])
 
     uploadHolerite(formData).then((response) => {
-      console.log(response);
-
+      console.log(response)
     })
-
   }
 
   const getHolerites = async () => {
     await getAllHolerites().then((res) => {
       setHolerites(res)
+      console.log(res)
     })
   }
 
@@ -48,14 +42,13 @@ const HoleriteLayout: React.FC = () => {
     if (page === 'holerites') {
       return (
         <>
-          <h1 className="mb-4 text-[20px] font-bold">Holerites - 2023</h1>
+          <h1 className="mb-4 text-[20px] font-bold">Holerites - {anoAtual}</h1>
           <HoleriteFilter type="filter" />
           <h1 className="mb-4 mt-4 text-[20px] ">Selecione o mês</h1>
           <div className="hide-scrollbar flex w-full flex-row flex-wrap gap-x-8 gap-y-5 overflow-scroll pb-2 pt-2 ">
             {holerites?.map((holerite) => (
-              <HoleriteCard data={holerite.data} />
+              <HoleriteCard data={holerite.data} status={holerite.status} />
             ))}
-
           </div>
         </>
       )
@@ -82,8 +75,6 @@ const HoleriteLayout: React.FC = () => {
             <Upload width={20} height={20} />
             Adicionar Holerite
           </button>
-
-
         </div>
       )
     }
@@ -99,12 +90,12 @@ const HoleriteLayout: React.FC = () => {
       {renderPage()}
 
       <input
-        className='hidden'
+        className="hidden"
         ref={holeriteRef}
         onChange={handleUploadHolerite}
         type="file"
         accept="application/pdf"
-        name='file'
+        name="file"
       />
     </div>
   )

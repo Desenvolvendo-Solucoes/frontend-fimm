@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Solicitações Equipamentos')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item>*/}
+        </NavigationMenu.Item> */}
 
         <NavigationMenu.Item>
           <NavigationMenu.Link href="/holerites">
@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
       </NavigationMenu.List>
       <div className="mb-4 flex h-2/4 w-full items-end justify-center text-center">
         <div className="flex flex-row items-center gap-2">
-          <AvatarIcon img={''} nome={'Ricardo Dias'} />
+          <AvatarIcon img={''} nome={'Welber Almeida'} />
           <div className="flex flex-col">
             <label className="text-lg">Welber Almeida</label>
             <label className="text-xs font-medium text-gray-500">

@@ -18,8 +18,6 @@ export default function Page({ params }: { params: { mes: string } }) {
   const mesano = window.location.pathname.split('/')[2]
   const [initialData, setInitialData] = useState<Holerite[]>([])
 
-
-
   const selectMes = (mes: string) => {
     switch (mes) {
       case '01':
@@ -69,22 +67,34 @@ export default function Page({ params }: { params: { mes: string } }) {
       },
     },
     { Header: 'Matricula', accessor: 'matricula', width: 150 },
-    { Header: 'Nome', accessor: 'nome', width: 175 },
+    {
+      Header: 'Nome',
+      accessor: 'nome',
+      width: 500,
+      Cell: (row, value) => {
+        return (
+          <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
+            <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+              {row.row.nome}
+            </td>
+          </div>
+        )
+      },
+    },
     {
       Header: 'Atualizado em',
       accessor: 'atualizado',
       width: 450,
       Cell: (row, value) => {
-        console.log(value);
+        console.log(value)
         const tamanhoMes = row.row.atualizado.toString().split('-')[0]
-        const mes = (tamanhoMes.length == 1 ? `0${tamanhoMes}` : tamanhoMes)
+        const mes = tamanhoMes.length == 1 ? `0${tamanhoMes}` : tamanhoMes
         const ano = row.row.atualizado.toString().split('-')[1]
 
-
         return (
-          <div className="flex h-full w-full flex-row justify-between cursor-pointer">
+          <div className="flex h-full w-full cursor-pointer flex-row justify-between">
             {mes}/{ano}
-            < a
+            <a
               href={`${row.row.holerite}`}
               target="_blank"
               className="flex h-7 w-24 flex-row items-center justify-center gap-2 rounded bg-[#1E1685] text-[8px] text-[white] hover:bg-[#221f51]"
@@ -93,7 +103,7 @@ export default function Page({ params }: { params: { mes: string } }) {
               <Download color="white" size={10} />
               Download
             </a>
-          </div >
+          </div>
         )
       },
     },
