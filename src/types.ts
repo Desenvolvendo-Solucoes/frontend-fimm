@@ -79,7 +79,7 @@ export type DataGridColumn = React.FC<{
 }> | React.FC<Data> | string
 
 export type GetAllHoleriteResponse = {
-  status: string,
+  status: "loading" | "finised",
   data: string
   holerites: {
     data: string
