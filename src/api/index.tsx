@@ -1,4 +1,10 @@
-import { CUser, Data, GetAllHoleriteResponse, Holerite, RequestCreateEpi } from '@/types'
+import {
+  CUser,
+  Data,
+  GetAllHoleriteResponse,
+  Holerite,
+  RequestCreateEpi,
+} from '@/types'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getCookie, setCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
@@ -29,7 +35,7 @@ export const ValidaToken = () => {
 
 export const signin = (email: string, senha: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
-    console.log('s');
+    console.log('s')
 
     instance
       .post('/auth/login', null, {
@@ -48,6 +54,10 @@ export const signin = (email: string, senha: string): Promise<boolean> => {
           toast.error('Email ou senha incorreto, favor verificar!')
           reject(err)
         }
+        if (err.response.status === 402) {
+          toast.error('Usuario não autorizado!')
+          reject(err)
+        }
       })
   })
 }
@@ -59,7 +69,7 @@ export const getEpiSolicitados = (): Promise<Data[]> => {
     instance
       .get('/epi/solicitacoes', Token)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data)
         resolve(response.data)
       })
       .catch((err) => {
@@ -125,14 +135,21 @@ export const getAllUsers = (): Promise<Data[]> => {
   })
 }
 
-export const updateEpiStatus = (id: string, status: string, rejectText?: string): Promise<Data[]> => {
+export const updateEpiStatus = (
+  id: string,
+  status: string,
+  rejectText?: string,
+): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const token = tokenHeader()
 
     instance
-      .post(`/epi/updatestatus?status=${status}&id=${id}&rejectText=${rejectText == undefined ? '-' : rejectText}`,
+      .post(
+        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${
+          rejectText == undefined ? '-' : rejectText
+        }`,
         {},
-        token
+        token,
       )
       .then((response) => {
         resolve(response.data)
@@ -143,25 +160,46 @@ export const updateEpiStatus = (id: string, status: string, rejectText?: string)
   })
 }
 
-export const updateEpiConfig = (id: string, dias: string, estoque: string, imagem: string, marca: string, nome: string, tamanhos: string) => {
+export const updateEpiConfig = (
+  id: string,
+  dias: string,
+  estoque: string,
+  imagem: string,
+  marca: string,
+  nome: string,
+  tamanhos: string,
+) => {
   return new Promise((resolve, reject) => {
     const token = tokenHeader()
-    instance.
-      post(`/epi/update?id=${id}&dias=${dias}&estoque=${estoque}&imagem=${imagem}&marca=${marca}&nome${nome}&tamanhos=${tamanhos}`, {}, token).then((response) => {
+    instance
+      .post(
+        `/epi/update?id=${id}&dias=${dias}&estoque=${estoque}&imagem=${imagem}&marca=${marca}&nome${nome}&tamanhos=${tamanhos}`,
+        {},
+        token,
+      )
+      .then((response) => {
         resolve(response.data)
-      }).catch((err) => {
-        console.log(err);
+      })
+      .catch((err) => {
+        console.log(err)
       })
   })
 }
 
-export const updateEquipStatus = (id: string, status: string, rejectText?: string): Promise<Data[]> => {
+export const updateEquipStatus = (
+  id: string,
+  status: string,
+  rejectText?: string,
+): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const token = tokenHeader()
     instance
-      .post(`/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText == undefined ? '-' : rejectText}`,
+      .post(
+        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${
+          rejectText == undefined ? '-' : rejectText
+        }`,
         {},
-        token
+        token,
       )
       .then((response) => {
         resolve(response.data)
@@ -172,15 +210,26 @@ export const updateEquipStatus = (id: string, status: string, rejectText?: strin
   })
 }
 
-export const updateFuncionario = (data: { nome: string, cpf: string, funcao: string, regiao: string, cidade: string, id: string }) => {
+export const updateFuncionario = (data: {
+  nome: string
+  cpf: string
+  funcao: string
+  regiao: string
+  cidade: string
+  id: string
+}) => {
   return new Promise((resolve, reject) => {
     const token = tokenHeader()
-    instance.post(`/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&regiao=${data.regiao}&cidade=${data.cidade}&id=${data.id}`,
-      {},
-      token
-    ).then((res) => {
-      resolve(res.data)
-    }).catch((err) => reject(err))
+    instance
+      .post(
+        `/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&regiao=${data.regiao}&cidade=${data.cidade}&id=${data.id}`,
+        {},
+        token,
+      )
+      .then((res) => {
+        resolve(res.data)
+      })
+      .catch((err) => reject(err))
   })
 }
 
@@ -194,11 +243,16 @@ export const createEpi = ({
 }: RequestCreateEpi): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
-    instance.put(`/epi/create?dias=${dias}&estoque=${estoque}&imagem=${imagem}&marca=${marca}&nome=${nome}&tamanhos=${tamanhos}`,
-      {}, header
-    ).then((res) => {
-      resolve(res.data)
-    }).catch((err) => reject(err))
+    instance
+      .put(
+        `/epi/create?dias=${dias}&estoque=${estoque}&imagem=${imagem}&marca=${marca}&nome=${nome}&tamanhos=${tamanhos}`,
+        {},
+        header,
+      )
+      .then((res) => {
+        resolve(res.data)
+      })
+      .catch((err) => reject(err))
   })
 }
 
@@ -214,7 +268,11 @@ export const createUser = ({
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
     instance
-      .post(`/user/create?nome=${nome}&base=${base}&cpf=${cpf}&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&regiao=${regiao}`, {}, header)
+      .post(
+        `/user/create?nome=${nome}&base=${base}&cpf=${cpf}&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&regiao=${regiao}`,
+        {},
+        header,
+      )
       .then((response) => {
         resolve(response.data)
       })
@@ -235,23 +293,19 @@ export const uploadHolerite = (formData: FormData) => {
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       onUploadProgress: (event) => {
-        if (!event.total) return;
+        if (!event.total) return
         console.log(
           `Current progress:`,
-          Math.round((event.loaded * 100) / event.total)
-        );
+          Math.round((event.loaded * 100) / event.total),
+        )
       },
     }).then((response) => {
-      console.log(response);
-
+      console.log(response)
     })
-
   })
-
-
 }
 
 export const getAllHolerites = (): Promise<GetAllHoleriteResponse> => {
@@ -261,8 +315,7 @@ export const getAllHolerites = (): Promise<GetAllHoleriteResponse> => {
     instance
       .get('/holerite/getAll', header)
       .then((response) => {
-        resolve(response.data);
-
+        resolve(response.data)
       })
       .catch((err) => {
         reject(err)
@@ -277,8 +330,7 @@ export const getHoleritesMes = (mes: string): Promise<Holerite[]> => {
     instance
       .get(`/holerite/getHoleritesMes?mes=${mes}`, header)
       .then((response) => {
-        resolve(response.data);
-
+        resolve(response.data)
       })
       .catch((err) => {
         reject(err)
