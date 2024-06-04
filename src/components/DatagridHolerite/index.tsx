@@ -60,12 +60,12 @@ const DatagridHolerites: React.FC<Props> = ({ columns, data }: Props) => {
           {columns.map((column, index) => (
             <div
               // eslint-disable-next-line prettier/prettier
-              className={`flex items-center justify-around ${column.accessor === 'atualizado' ? 'ml-2 text-left' : 'text-center'}`}
+              className={`flex items-center justify-around ${column.accessor === 'atualizado' ? 'ml-2 text-left' : 'text-center'} `}
               key={index}
             >
               <th
                 style={{ width: columnWidths[column.accessor] }}
-                className="resize-x overflow-hidden whitespace-nowrap"
+                className="resize-x overflow-hidden whitespace-nowrap "
                 onMouseDown={(e) => handleMouseDown(e, column.accessor)}
               >
                 <Column name={column.Header} />
@@ -90,10 +90,14 @@ const DatagridHolerites: React.FC<Props> = ({ columns, data }: Props) => {
                   <td
                     style={{ width: columnWidths[column.accessor] }}
                     // eslint-disable-next-line prettier/prettier
-                    className={`flex h-12 resize-x ${column.accessor === 'atualizado' ? 'w-full text-left' : 'items-center'}  border-b-[1px] border-[black] p-2 text-center`}
+                    className={`flex h-12 resize-x ${column.accessor === 'atualizado' ? 'w-full text-left' : 'text-right'}  border-b-[1px] border-[black] p-2 text-center`}
                     key={index}
                   >
-                    <CellComponent row={row} id={row.id} column={column.accessor} />
+                    <CellComponent
+                      row={row}
+                      id={row.id}
+                      column={column.accessor}
+                    />
                   </td>
                 )
               })}

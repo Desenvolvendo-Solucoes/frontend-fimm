@@ -7,38 +7,16 @@ import HoleriteFilter from '@/components/HoleriteLayout/HoleriteFilter'
 import HoleriteMenu from '@/components/HoleriteLayout/HoleriteMenu'
 import { ArrowLeft, Download, FileText } from 'react-feather'
 import Loading from '@/components/Loading'
-import { ColumnData } from '@/types'
+import { ColumnData, Holerite } from '@/types'
 import DatagridHolerites from '@/components/DatagridHolerite'
+import { getHoleritesMes } from '@/api'
 
 export default function Page({ params }: { params: { mes: string } }) {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [page, setPage] = useState<string>('holerites')
   const router = useRouter()
   const mesano = window.location.pathname.split('/')[2]
-  const dataAtual = new Date()
-
-  const initialData = [
-    {
-      id: '1',
-      holerites: 'teste',
-      matricula: '123456',
-      nome: 'Gustavo Aires Cavalcanti Moreira',
-      atualizado: [
-        dataAtual.getTime(),
-        'https://firebasestorage.googleapis.com/v0/b/fimmbrasil-e512a.appspot.com/o/Holerites%2F9-2023%2F102665.jpg?alt=media&token=e332c2a8-8873-453c-88c3-83a7cd3fa6bd&_gl=1*7biz8i*_ga*NTYwNjQyMjcwLjE2OTUxNTQyNjA.*_ga_CW55HF8NVT*MTY5NjU1MTM0OC40LjEuMTY5NjU1MTM2OS4zOS4wLjA.',
-      ],
-    },
-    {
-      id: '2',
-      holerites: 'teste',
-      matricula: '123456',
-      nome: 'Gustavo Aires Cavalcanti Moreira',
-      atualizado: [
-        dataAtual.getTime(),
-        'https://firebasestorage.googleapis.com/v0/b/fimmbrasil-e512a.appspot.com/o/Holerites%2F9-2023%2F102665.jpg?alt=media&token=e332c2a8-8873-453c-88c3-83a7cd3fa6bd&_gl=1*7biz8i*_ga*NTYwNjQyMjcwLjE2OTUxNTQyNjA.*_ga_CW55HF8NVT*MTY5NjU1MTM0OC40LjEuMTY5NjU1MTM2OS4zOS4wLjA.',
-      ],
-    },
-  ]
+  const [initialData, setInitialData] = useState<Holerite[]>([])
 
   const selectMes = (mes: string) => {
     switch (mes) {
@@ -74,7 +52,7 @@ export default function Page({ params }: { params: { mes: string } }) {
   const columns: ColumnData[] = [
     {
       Header: 'Holerites disponiveis',
-      accessor: 'holerites',
+      accessor: 'holerite',
       width: 280,
       Cell: () => {
         return (
@@ -89,24 +67,35 @@ export default function Page({ params }: { params: { mes: string } }) {
       },
     },
     { Header: 'Matricula', accessor: 'matricula', width: 150 },
-    { Header: 'Nome', accessor: 'nome', width: 175 },
+    {
+      Header: 'Nome',
+      accessor: 'nome',
+      width: 500,
+      Cell: (row, value) => {
+        return (
+          <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
+            <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+              {row.row.nome}
+            </td>
+          </div>
+        )
+      },
+    },
     {
       Header: 'Atualizado em',
       accessor: 'atualizado',
       width: 450,
       Cell: (row, value) => {
-        const mes = dataAtual.getMonth() + 1
-        const ano = dataAtual.getFullYear()
-        const dia = dataAtual.getDate()
-        const horas = dataAtual.getHours()
-        const minutos = dataAtual.getMinutes()
-        const segundos = dataAtual.getSeconds()
+        console.log(value)
+        const tamanhoMes = row.row.atualizado.toString().split('-')[0]
+        const mes = tamanhoMes.length == 1 ? `0${tamanhoMes}` : tamanhoMes
+        const ano = row.row.atualizado.toString().split('-')[1]
 
         return (
-          <div className="flex h-full w-full flex-row justify-between">
-            {dia}/{mes}/{ano} às {horas}:{minutos}:{segundos}
+          <div className="flex h-full w-full cursor-pointer flex-row justify-between">
+            {mes}/{ano}
             <a
-              href={row.row.value.toString()}
+              href={`${row.row.holerite}`}
               target="_blank"
               className="flex h-7 w-24 flex-row items-center justify-center gap-2 rounded bg-[#1E1685] text-[8px] text-[white] hover:bg-[#221f51]"
               rel="noreferrer"
@@ -114,7 +103,6 @@ export default function Page({ params }: { params: { mes: string } }) {
               <Download color="white" size={10} />
               Download
             </a>
-            {/* <div>{row.value}</div> */}
           </div>
         )
       },
@@ -139,10 +127,16 @@ export default function Page({ params }: { params: { mes: string } }) {
     }
   }
 
+  const getHolerites = () => {
+    getHoleritesMes(params.mes).then((response) => {
+      setInitialData(response)
+    })
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 5000)
+    if (!loading) {
+      getHolerites()
+    }
   }, [loading])
 
   return (

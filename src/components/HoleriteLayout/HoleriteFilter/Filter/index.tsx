@@ -3,10 +3,11 @@ import React from 'react'
 import { ChevronLeft, ChevronRight } from 'react-feather'
 
 const Filter: React.FC = () => {
+  const anoAtual = new Date().getFullYear()
   return (
     <div className="flex h-6 w-72 flex-row items-center justify-between bg-white pl-2">
       <p className="m-0  flex cursor-default p-0 text-[#868686]">
-        Ano base - 2023
+        Ano base - {anoAtual}
       </p>
       <div className="flex cursor-pointer flex-row">
         <ChevronLeft size={18} />

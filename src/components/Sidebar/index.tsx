@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
     <NavigationMenu.Root className=" flex h-full w-full flex-col border border-l-gray-400 ">
       <Logo />
       <NavigationMenu.List>
-        <NavigationMenu.Item>
+        {/* <NavigationMenu.Item>
           <NavigationMenu.Link href="/solicitacoes">
             <Button
               icon={BsClipboard2}
@@ -31,10 +31,10 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Solicitações')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        </NavigationMenu.Item> */}
 
         {/* <NavigationMenu.Item>
-          <NavigationMenu.Link href="/solicitacoesEqui">
+          <NavigationMenu.Link href="/solicitacoesEquip">
             <Button
               icon={BsPhone}
               tela="Solicitações EQUIP"
@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Solicitações Equipamentos')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        </NavigationMenu.Item> */}
 
         <NavigationMenu.Item>
           <NavigationMenu.Link href="/holerites">
@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Holerites')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item> */}
+        </NavigationMenu.Item>
 
         <NavigationMenu.Item>
           <NavigationMenu.Link href="/funcionarios">
@@ -66,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
 
-        <NavigationMenu.Item>
+        {/* <NavigationMenu.Item>
           <NavigationMenu.Link href="epi">
             <Button
               icon={FaMaskFace}
@@ -75,7 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Epi')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item>
+        </NavigationMenu.Item> */}
 
         {/* <NavigationMenu.Item>
           <NavigationMenu.Link href="/equipamentos">
@@ -90,17 +90,16 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
       </NavigationMenu.List>
       <div className="mb-4 flex h-2/4 w-full items-end justify-center text-center">
         <div className="flex flex-row items-center gap-2">
-          <AvatarIcon img={''} nome={'Ricardo Dias'} />
+          <AvatarIcon img={''} nome={'Welber Almeida'} />
           <div className="flex flex-col">
-            <label className="text-lg">Ricardo dias</label>
+            <label className="text-lg">Welber Almeida</label>
             <label className="text-xs font-medium text-gray-500">
-              Ricardo@cc.com.br
+              controladoria.go@fimmbra.com.br
             </label>
           </div>
-          <div className=" bottom-10 ">
+          <div className="bottom-10">
             <button onClick={() => setOpen(!open)}>
               <MoreVertical />
-              {''}
             </button>
             <ModalLogout isOpen={open} setOpen={setOpen} />
           </div>

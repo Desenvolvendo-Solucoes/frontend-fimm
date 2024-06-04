@@ -77,3 +77,23 @@ export type DataGridColumn = React.FC<{
   id: string;
   row: Data;
 }> | React.FC<Data> | string
+
+export type GetAllHoleriteResponse = {
+  status: "loading" | "finised",
+  data: string
+  holerites: {
+    data: string
+    holerite: string
+    matricula: string
+    nome: string
+  }[]
+}[]
+
+
+export type Holerite = {
+  id: string;
+  holerite: string;
+  matricula: string;
+  nome: string;
+  atualizado: string;
+}

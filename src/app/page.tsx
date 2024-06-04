@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { ValidaToken, signin } from '@/api'
 import Loading from '@/components/Loading'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
   const [email, setEmail] = useState('')
@@ -18,7 +18,7 @@ export default function Home() {
     ValidaToken()
       .then(() => {
         toast.success('Usuario Logado')
-        push('/solicitacoes')
+        push('/holerites')
       })
       .catch(() => {
         // toast.error('Sessão Expirada')
@@ -27,17 +27,19 @@ export default function Home() {
   }, [push])
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault()
-      setLoading(true)
-      signin(email, senha)
-        .then(() => {
-          push('/solicitacoes')
-        })
-        .catch(() => {
-          setLoading(false)
-        })
-    }}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        setLoading(true)
+        signin(email, senha)
+          .then(() => {
+            push('/holerites')
+          })
+          .catch(() => {
+            setLoading(false)
+          })
+      }}
+    >
       <div className="bg-shape absolute -z-10 flex h-screen w-screen items-center justify-center"></div>
       <div className="z-10 flex h-screen w-screen items-center justify-center ">
         <div className="flex w-2/6 flex-col rounded-lg bg-white p-12 shadow-lg">
@@ -46,7 +48,7 @@ export default function Home() {
 
           <input
             type="email"
-            placeholder="Matricula"
+            placeholder="Email"
             className="mt-5 h-12 rounded border-2 border-black/20 pl-4"
             onChange={(e) => {
               setEmail(e.target.value)
@@ -69,7 +71,7 @@ export default function Home() {
           </div>
 
           <button
-            type='submit'
+            type="submit"
             className="mt-6 h-11 rounded bg-btn-primary font-bold text-white hover:bg-btn-secondary"
           >
             {loading ? <Loading /> : 'ENTRAR'}
