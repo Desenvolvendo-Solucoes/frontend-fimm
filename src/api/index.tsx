@@ -54,6 +54,10 @@ export const signin = (email: string, senha: string): Promise<boolean> => {
           toast.error('Email ou senha incorreto, favor verificar!')
           reject(err)
         }
+        if (err.response.status === 402) {
+          toast.error('Usuario não autorizado!')
+          reject(err)
+        }
       })
   })
 }
