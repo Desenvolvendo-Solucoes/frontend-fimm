@@ -163,7 +163,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
             >
               Download Padrão
             </button>
-            <div className="relative mb-4 mt-2">
+            <div className="relative mb-2 mt-2">
               <input
                 className="placeholder-text w-full cursor-pointer rounded-md border border-gray-300 p-3 text-center text-white file:border-none file:bg-white file:text-white"
                 type="file"
