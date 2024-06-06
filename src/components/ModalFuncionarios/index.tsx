@@ -64,7 +64,6 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
     }
 
     create()
-
   }
 
   if (isOpen) {
@@ -88,7 +87,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
             </button>
             <h2 className="p-2 font-bold">Cadastrar Funcionário</h2>
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3 remove-arrow"
+              className="remove-arrow mb-4 w-full rounded-md border border-gray-300 p-3"
               type="number"
               placeholder="Matricula"
               required={true}
@@ -169,8 +168,9 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
                 className="placeholder-text w-full cursor-pointer rounded-md border border-gray-300 p-3 text-center text-white file:border-none file:bg-white file:text-white"
                 type="file"
                 placeholder="Cadastro em massa"
+                accept=".csv"
               />
-              <span className="pointer-events-none cursor-pointer absolute left-0 top-0 w-full p-3 text-center text-primary">
+              <span className="pointer-events-none absolute left-0 top-0 w-full cursor-pointer p-3 text-center text-primary">
                 Cadastro em massa
               </span>
             </div>

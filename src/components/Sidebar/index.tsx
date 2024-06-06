@@ -8,7 +8,6 @@ import { User } from 'react-feather'
 import { FiLogOut } from 'react-icons/fi'
 import { BsFileEarmarkText } from 'react-icons/bs'
 import AvatarIcon from '../Avatar'
-import ModalLogout from '../ModalLogout'
 import { deleteCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
 
@@ -18,7 +17,6 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   const [activeButton, setActiveButton] = useState(screen)
-  const [open, setOpen] = useState<boolean>(false)
 
   const { push } = useRouter()
 
@@ -68,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           <NavigationMenu.Link href="/funcionarios">
             <Button
               icon={User}
-              tela="Funcionarios"
+              tela="Funcionários"
               isActive={activeButton === 'Funcionarios'}
               onClick={() => setActiveButton('Funcionarios')}
             />
