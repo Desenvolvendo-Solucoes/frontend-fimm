@@ -1,9 +1,9 @@
 import { createUser } from '@/api'
-import { CUser } from '@/types'
 import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Loading from '@/components/Loading'
 
 interface IModal {
   isOpen: boolean
@@ -16,13 +16,22 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const [matricula, setMatricula] = useState('')
   const [cpf, setCpf] = useState('')
   const [cidade, setCidade] = useState('')
-  const [base, setBase] = useState('')
   const [funcao, setFuncao] = useState('')
   const [regiao, setRegiao] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const clearParametros = () => {
+    setMatricula('')
+    setNome('')
+    setCpf('')
+    setCidade('')
+    setFuncao('')
+    setRegiao('')
+  }
 
   const create = () => {
+    setLoading(true)
     createUser({
-      base,
       cidade,
       cpf,
       funcao,
@@ -32,29 +41,28 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
     })
       .then((response) => {
         toast.success('Cadastrado com Sucesso')
-        refresh(1 + 1)
+        clearParametros()
+        refresh(Math.random() * 100)
+        setLoading(false)
         setOpen(false)
       })
-      .catch(() => {
-        toast.error('Erro ou cadastrar')
+      .catch((e) => {
+        toast.error('Erro ou cadastrar', e)
       })
   }
-
-  const cpfMask = (value: string) => {
-    return value
-      .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
-      .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-      .replace(/(-\d{2})\d+?$/, '$1') // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
-  }
-
   const onSubmit = () => {
-    const cpfRegex = new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/)
+    // eslint-disable-next-line prefer-regex-literals
+    const cpfRegex = new RegExp(/^\d{3}\d{3}\d{3}\d{2}$/)
+    // eslint-disable-next-line prefer-regex-literals
     const matriculaRegex = new RegExp(/^[0-9]{6}$/)
 
     if (!cpfRegex.test(cpf)) {
       toast.error('Informe um cpf valido!')
+      return
+    }
+
+    if (!matriculaRegex.test(matricula)) {
+      toast.error('Informe uma matricula valida!')
       return
     }
 
@@ -87,77 +95,88 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
             </button>
             <h2 className="p-2 font-bold">Cadastrar Funcionário</h2>
             <input
-              className="remove-arrow mb-4 w-full rounded-md border border-gray-300 p-3"
-              type="number"
-              placeholder="Matricula"
-              required={true}
+              className="mb-4 w-full rounded-md border p-3"
+              type="text"
+              placeholder="Matrícula"
               value={matricula}
-              min={0}
               onChange={(e) => {
-                setMatricula(e.target.value)
+                const value = e.target.value
+                if (/^\d{0,6}$/.test(value)) {
+                  setMatricula(value)
+                }
               }}
+              required
             />
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
+              className="mb-4 w-full rounded-md border p-3"
               type="text"
               placeholder="Nome"
-              required={true}
+              pattern="[a-zA-ZÀ-ÿ\s]*"
               value={nome}
               onChange={(e) => {
-                setNome(e.target.value)
+                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
+                if (regex.test(e.target.value)) {
+                  setNome(e.target.value)
+                }
               }}
+              required
             />
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
+              className="mb-4 w-full rounded-md border p-3"
               type="text"
               placeholder="CPF"
-              required={true}
+              pattern="[0-9]*"
+              maxLength={11}
               value={cpf}
               onChange={(e) => {
-                setCpf(cpfMask(e.target.value))
+                const value = e.target.value
+                if (/^\d{0,11}$/.test(value)) {
+                  setCpf(value)
+                }
               }}
+              required
             />
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
+              className="mb-4 w-full rounded-md border p-3"
               type="text"
               placeholder="Função"
-              required={true}
+              maxLength={40}
               value={funcao}
-              onChange={(e) => {
-                setFuncao(e.target.value)
-              }}
+              onChange={(e) => setFuncao(e.target.value)}
+              required
             />
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
+              className="mb-4 w-full rounded-md border p-3"
               type="text"
               placeholder="Região"
-              required={true}
+              pattern="[a-zA-ZÀ-ÿ\s]*"
+              maxLength={40}
               value={regiao}
               onChange={(e) => {
-                setRegiao(e.target.value)
+                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
+                if (regex.test(e.target.value)) {
+                  setRegiao(e.target.value)
+                }
               }}
+              required
             />
+
             <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
-              type="text"
-              placeholder="Base"
-              required={true}
-              value={base}
-              onChange={(e) => {
-                setBase(e.target.value)
-              }}
-            />
-            <input
-              className="mb-4 w-full rounded-md border border-gray-300 p-3"
+              className="mb-4 w-full rounded-md border p-3"
               type="text"
               placeholder="Cidade"
-              required={true}
+              pattern="[a-zA-ZÀ-ÿ\s]*"
+              maxLength={40}
               value={cidade}
               onChange={(e) => {
-                setCidade(e.target.value)
+                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
+                if (regex.test(e.target.value)) {
+                  setCidade(e.target.value)
+                }
               }}
+              required
             />
-            <button
+            {/* <button
               className="w-full rounded-md bg-primary p-4 text-white"
               onClick={() => setOpen(!isOpen)}
             >
@@ -173,9 +192,9 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
               <span className="pointer-events-none absolute left-0 top-0 w-full cursor-pointer p-3 text-center text-primary">
                 Cadastro em massa
               </span>
-            </div>
+            </div> */}
             <button className="w-full rounded-md bg-primary p-4 text-white">
-              Cadastrar funcionário
+              {loading ? <Loading /> : 'Cadastrar funcionário'}
             </button>
           </div>
         </div>

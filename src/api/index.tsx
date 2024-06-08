@@ -257,7 +257,6 @@ export const createEpi = ({
 }
 
 export const createUser = ({
-  base,
   cidade,
   cpf,
   funcao,
@@ -269,7 +268,7 @@ export const createUser = ({
     const header = tokenHeader()
     instance
       .post(
-        `/user/create?nome=${nome}&base=${base}&cpf=${cpf}&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&regiao=${regiao}`,
+        `/user/create?nome=${nome}&cpf=${cpf}&base=base&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&regiao=${regiao}`,
         {},
         header,
       )
