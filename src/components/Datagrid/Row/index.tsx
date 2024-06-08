@@ -1,4 +1,4 @@
-import { Data, DataGridColumn } from '@/types'
+import { Data } from '@/types'
 import React from 'react'
 
 type Props = {

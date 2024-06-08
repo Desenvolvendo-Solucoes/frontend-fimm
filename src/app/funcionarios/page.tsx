@@ -4,7 +4,6 @@ import DataGrid from '@/components/Datagrid'
 import Sidebar from '@/components/Sidebar'
 import Container from '@/components/Container'
 import { ColumnData, Data } from '@/types'
-import Filtering from '@/components/Filtering'
 import Search from '@/components/Search'
 import NewFuncionario from '@/components/NewFuncionario'
 import Edit from '@/components/Edit'
@@ -36,7 +35,13 @@ export default function Funcionarios() {
         if (!row.email) {
           return <div>-</div>
         } else {
-          return <div>{row.email}</div>
+          return (
+            <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-center">
+              <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+                {row.email}
+              </td>
+            </div>
+          )
         }
       },
     },
@@ -81,15 +86,15 @@ export default function Funcionarios() {
     <Container>
       <Sidebar screen="Funcionarios" />
       <div className="p-6">
-        <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-1rem)] flex-row items-center justify-between">
+        <div className="mb-5 ml-1 mr-4  flex w-[calc(100%-1rem)] flex-row items-center justify-between">
           <div className="w-80">
             <span className="text-xl font-bold">
-              Total de: {rows.length <= 0 ? 0 : rows.length} Solicitações
+              Total de: {rows.length <= 0 ? 0 : rows.length} Funcionários
             </span>
           </div>
           <div className="flex flex-row gap-4 ">
             <Search fields={rows} setFields={setRows} loading={loading} />
-            <Filtering screen="funcionarios" />
+            {/* <Filtering screen="funcionarios" /> */}
             <NewFuncionario refresh={setRefresh} />
           </div>
         </div>

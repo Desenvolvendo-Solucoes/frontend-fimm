@@ -40,12 +40,13 @@ export type ResizableColumnProps = {
   name: string
 }
 
-export type TamanhosEpi = { label: string; value: string }[] | 
-  MultiValue<{
-    label: string;
-    value: string;
-  }>
-  
+export type TamanhosEpi =
+  | { label: string; value: string }[]
+  | MultiValue<{
+      label: string
+      value: string
+    }>
+
 export type RequestCreateEpi = {
   nome: string
   imagem: string
@@ -72,14 +73,16 @@ export type ScreeOptions =
   | 'equipamento'
   | 'solicitacoesEquip'
 
-
-export type DataGridColumn = React.FC<{
-  id: string;
-  row: Data;
-}> | React.FC<Data> | string
+export type DataGridColumn =
+  | React.FC<{
+      id: string
+      row: Data
+    }>
+  | React.FC<Data>
+  | string
 
 export type GetAllHoleriteResponse = {
-  status: "loading" | "finised",
+  status: 'loading' | 'finised'
   data: string
   holerites: {
     data: string
@@ -89,11 +92,10 @@ export type GetAllHoleriteResponse = {
   }[]
 }[]
 
-
 export type Holerite = {
-  id: string;
-  holerite: string;
-  matricula: string;
-  nome: string;
-  atualizado: string;
+  id: string
+  holerite: string
+  matricula: string
+  nome: string
+  atualizado: string
 }

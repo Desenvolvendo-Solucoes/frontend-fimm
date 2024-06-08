@@ -4,11 +4,12 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import Logo from '@/components/Logo'
 import Button from '@/components/Sidebar/Button'
 import React, { useState } from 'react'
-import { User, MoreVertical } from 'react-feather'
-import { BsClipboard2, BsFileEarmarkText, BsPhone } from 'react-icons/bs'
-import { FaMaskFace, FaPrint } from 'react-icons/fa6'
+import { User } from 'react-feather'
+import { FiLogOut } from 'react-icons/fi'
+import { BsFileEarmarkText } from 'react-icons/bs'
 import AvatarIcon from '../Avatar'
-import ModalLogout from '../ModalLogout'
+import { deleteCookie } from 'cookies-next'
+import { useRouter } from 'next/navigation'
 
 interface SidebarProps {
   screen: string
@@ -16,7 +17,13 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   const [activeButton, setActiveButton] = useState(screen)
-  const [open, setOpen] = useState<boolean>(false)
+
+  const { push } = useRouter()
+
+  const Logout = () => {
+    deleteCookie('access_token')
+    push('/')
+  }
 
   return (
     <NavigationMenu.Root className=" flex h-full w-full flex-col border border-l-gray-400 ">
@@ -59,9 +66,20 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           <NavigationMenu.Link href="/funcionarios">
             <Button
               icon={User}
-              tela="Funcionarios"
+              tela="Funcionários"
               isActive={activeButton === 'Funcionarios'}
               onClick={() => setActiveButton('Funcionarios')}
+            />
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+
+        <NavigationMenu.Item>
+          <NavigationMenu.Link href="/">
+            <Button
+              icon={FiLogOut}
+              tela="Sair"
+              isActive={activeButton === 'Sair'}
+              onClick={Logout}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>
@@ -93,15 +111,6 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           <AvatarIcon img={''} nome={'Welber Almeida'} />
           <div className="flex flex-col">
             <label className="text-lg">Welber Almeida</label>
-            <label className="text-xs font-medium text-gray-500">
-              controladoria.go@fimmbra.com.br
-            </label>
-          </div>
-          <div className="bottom-10">
-            <button onClick={() => setOpen(!open)}>
-              <MoreVertical />
-            </button>
-            <ModalLogout isOpen={open} setOpen={setOpen} />
           </div>
         </div>
       </div>
