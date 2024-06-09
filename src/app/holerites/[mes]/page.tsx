@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation'
 import Container from '@/components/Container'
 import Sidebar from '@/components/Sidebar'
 import HoleriteFilter from '@/components/HoleriteLayout/HoleriteFilter'
-import HoleriteMenu from '@/components/HoleriteLayout/HoleriteMenu'
 import { ArrowLeft, Download, FileText } from 'react-feather'
 import Loading from '@/components/Loading'
 import { ColumnData, Holerite } from '@/types'
@@ -13,7 +12,6 @@ import { getHoleritesMes, ValidaToken } from '@/api'
 
 export default function Page({ params }: { params: { mes: string } }) {
   const [loading, setLoading] = useState(false)
-  const [page, setPage] = useState<string>('holerites')
   const router = useRouter()
   const mesano = window.location.pathname.split('/')[2]
   const [initialData, setInitialData] = useState<Holerite[]>([])

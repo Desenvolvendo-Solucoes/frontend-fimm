@@ -21,11 +21,61 @@ export default function Funcionarios() {
 
   const columns: ColumnData[] = [
     { Header: 'Matricula', accessor: 'matricula', width: 120 },
-    { Header: 'Funcionário', accessor: 'nome', width: 250 },
+    {
+      Header: 'Funcionário',
+      accessor: 'nome',
+      width: 250,
+      Cell: (row, value) => {
+        return (
+          <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
+            <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+              {row.row.nome}
+            </td>
+          </div>
+        )
+      },
+    },
     { Header: 'CPF', accessor: 'cpf', width: 200 },
-    { Header: 'Função', accessor: 'funcao', width: 200 },
-    { Header: 'Região', accessor: 'regiao' },
-    { Header: 'Cidade', accessor: 'cidade' },
+    {
+      Header: 'Função',
+      accessor: 'funcao',
+      width: 200,
+      Cell: (row, value) => {
+        return (
+          <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
+            <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+              {row.row.funcao}
+            </td>
+          </div>
+        )
+      },
+    },
+    {
+      Header: 'Região',
+      accessor: 'regiao',
+      Cell: (row, value) => {
+        return (
+          <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
+            <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+              {row.row.regiao}
+            </td>
+          </div>
+        )
+      },
+    },
+    {
+      Header: 'Cidade',
+      accessor: 'cidade',
+      Cell: (row, value) => {
+        return (
+          <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
+            <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
+              {row.row.cidade}
+            </td>
+          </div>
+        )
+      },
+    },
     {
       Header: 'Email',
       accessor: 'email',
@@ -35,7 +85,7 @@ export default function Funcionarios() {
           return <div>-</div>
         } else {
           return (
-            <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-center">
+            <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
               <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
                 {row.email}
               </td>
