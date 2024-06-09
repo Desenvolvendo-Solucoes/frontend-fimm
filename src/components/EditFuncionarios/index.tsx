@@ -11,32 +11,45 @@ interface IModal {
   refresh: React.Dispatch<React.SetStateAction<number>>
 }
 
-const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) => {
+const EditFuncionarios: React.FC<IModal> = ({
+  isOpen,
+  setOpen,
+  row,
+  refresh,
+}) => {
   const [loading, setLoading] = useState(false)
   const [nome, setNome] = useState(row.nome.toString())
   const [cpf, setCpf] = useState(row.cpf.toString())
   const [funcao, setFuncao] = useState(row.funcao.toString())
   const [regiao, setRegiao] = useState(row.regiao.toString())
-  const [contrato, setContrato] = useState(row.base.toString())
   const [cidade, setCidade] = useState(row.cidade.toString())
 
   const handleUpdate = () => {
     setLoading(true)
-    let dataToUpdate: { nome: string, cpf: string, funcao: string, regiao: string, cidade: string, id: string } = {
-      nome: nome,
-      cpf: cpf,
-      funcao: funcao,
-      regiao: regiao,
-      cidade: cidade,
-      id: row.id
+    const dataToUpdate: {
+      nome: string
+      cpf: string
+      funcao: string
+      regiao: string
+      cidade: string
+      id: string
+    } = {
+      nome,
+      cpf,
+      funcao,
+      regiao,
+      cidade,
+      id: row.id,
     }
 
-    updateFuncionario(dataToUpdate).then((response) => {
-      setOpen(!open)
-      refresh(Math.random() * 100)
-    }).catch(() => {
-      setLoading(false)
-    })
+    updateFuncionario(dataToUpdate)
+      .then((response) => {
+        setOpen(!open)
+        refresh(Math.random() * 100)
+      })
+      .catch(() => {
+        setLoading(false)
+      })
   }
 
   if (isOpen) {
@@ -68,9 +81,14 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) =
               className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
               type="text"
               placeholder="Nome"
+              pattern="[a-zA-ZÀ-ÿ\s]*"
               value={nome.toString()}
-              onChange={(e) => setNome(e.target.value)}
-
+              onChange={(e) => {
+                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
+                if (regex.test(e.target.value)) {
+                  setNome(e.target.value)
+                }
+              }}
             />
             <hr className="mb-4"></hr>
             <h2 className="p-2 font-bold">CPF</h2>
@@ -80,8 +98,15 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) =
               className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
               type="text"
               placeholder="Ex: 12345678901"
+              pattern="[0-9]*"
+              maxLength={11}
               value={cpf.toString()}
-              onChange={(e) => setCpf(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value
+                if (/^\d{0,11}$/.test(value)) {
+                  setCpf(value)
+                }
+              }}
             />
             <hr className="mb-4"></hr>
             <h2 className="p-2 font-bold">Função</h2>
@@ -91,6 +116,7 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) =
               className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
               type="text"
               placeholder="Ex: Agente Comercial"
+              maxLength={40}
               value={funcao.toString()}
               onChange={(e) => setFuncao(e.target.value)}
             />
@@ -102,8 +128,15 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) =
               className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
               type="text"
               placeholder="Ex: Piruibe"
+              pattern="[a-zA-ZÀ-ÿ\s]*"
+              maxLength={40}
               value={regiao.toString()}
-              onChange={(e) => setRegiao(e.target.value)}
+              onChange={(e) => {
+                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
+                if (regex.test(e.target.value)) {
+                  setRegiao(e.target.value)
+                }
+              }}
             />
             <hr className="mb-4"></hr>
             <h2 className="p-2 font-bold">Cidade</h2>
@@ -112,9 +145,16 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) =
             <input
               className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
               type="text"
+              pattern="[a-zA-ZÀ-ÿ\s]*"
+              maxLength={40}
               placeholder="Ex: São Paulo"
               value={cidade.toString()}
-              onChange={(e) => setCidade(e.target.value)}
+              onChange={(e) => {
+                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
+                if (regex.test(e.target.value)) {
+                  setCidade(e.target.value)
+                }
+              }}
             />
           </div>
 
@@ -133,7 +173,7 @@ const EditFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, row, refresh }) =
               className="w-full rounded-2xl bg-primary p-4 text-white"
               onClick={() => handleUpdate()}
             >
-              {loading ? (<Loading />) : 'Salvar'}
+              {loading ? <Loading /> : 'Salvar'}
             </button>
           </div>
         </div>

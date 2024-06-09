@@ -63,7 +63,6 @@ export type CUser = {
   cidade: string
   regiao: string
   funcao: string
-  base: string
 }
 
 export type ScreeOptions =
