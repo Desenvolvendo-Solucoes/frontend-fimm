@@ -9,7 +9,7 @@ import { ArrowLeft, Download, FileText } from 'react-feather'
 import Loading from '@/components/Loading'
 import { ColumnData, Holerite } from '@/types'
 import DatagridHolerites from '@/components/DatagridHolerite'
-import { getHoleritesMes } from '@/api'
+import { getHoleritesMes, ValidaToken } from '@/api'
 
 export default function Page({ params }: { params: { mes: string } }) {
   const [loading, setLoading] = useState(false)
@@ -17,6 +17,7 @@ export default function Page({ params }: { params: { mes: string } }) {
   const router = useRouter()
   const mesano = window.location.pathname.split('/')[2]
   const [initialData, setInitialData] = useState<Holerite[]>([])
+  const { push } = useRouter()
 
   const selectMes = (mes: string) => {
     switch (mes) {
@@ -136,15 +137,18 @@ export default function Page({ params }: { params: { mes: string } }) {
   useEffect(() => {
     if (!loading) {
       getHolerites()
+      ValidaToken().catch(() => {
+        push('/')
+      })
     }
-  }, [loading])
+  }, [loading, push])
 
   return (
     <Container>
       <Sidebar screen="Holerites" />
       <div className="h-full w-full bg-[#F9FBFD]/[0.30] p-8">
-        <HoleriteMenu setPage={setPage} page={page} />
-        <h1 className="mb-4 text-[20px] font-bold">Holerites - 2023</h1>
+        {/* <HoleriteMenu setPage={setPage} page={page} /> */}
+        <h1 className="mb-4 text-[20px] font-bold">Holerites - 2024</h1>
         <HoleriteFilter type="search" />
         <p
           className="m-0 mb-6 mt-2 flex w-auto flex-1 cursor-pointer items-center gap-2 p-0 text-base font-bold text-[#1E1685]"

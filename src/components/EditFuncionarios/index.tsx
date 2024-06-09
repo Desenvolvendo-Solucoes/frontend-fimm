@@ -3,6 +3,8 @@ import { Data } from '@/types'
 import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
 import Loading from '../Loading'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface IModal {
   isOpen: boolean
@@ -24,8 +26,71 @@ const EditFuncionarios: React.FC<IModal> = ({
   const [regiao, setRegiao] = useState(row.regiao.toString())
   const [cidade, setCidade] = useState(row.cidade.toString())
 
+  const isValidCPF = (cpf: string) => {
+    let soma = 0
+    let resto
+
+    for (let i = 1; i <= 9; i++) {
+      soma += parseInt(cpf.substring(i - 1, i)) * (11 - i)
+    }
+    resto = (soma * 10) % 11
+
+    if (resto === 10 || resto === 11) {
+      resto = 0
+    }
+    if (resto !== parseInt(cpf.substring(9, 10))) {
+      return false
+    }
+
+    soma = 0
+    for (let i = 1; i <= 10; i++) {
+      soma += parseInt(cpf.substring(i - 1, i)) * (12 - i)
+    }
+    resto = (soma * 10) % 11
+
+    if (resto === 10 || resto === 11) {
+      resto = 0
+    }
+    if (resto !== parseInt(cpf.substring(10, 11))) {
+      return false
+    }
+
+    return true
+  }
+
   const handleUpdate = () => {
     setLoading(true)
+    if (
+      nome === '' ||
+      cpf === '' ||
+      funcao === '' ||
+      regiao === '' ||
+      cidade === ''
+    ) {
+      toast.error('Por favor, preencha todos os campos!')
+      setLoading(false)
+      return
+    }
+    // eslint-disable-next-line prefer-regex-literals
+    const cpfRegex = new RegExp(/^\d{3}\d{3}\d{3}\d{2}$/)
+    // eslint-disable-next-line prefer-regex-literals
+
+    if (!cpfRegex.test(cpf)) {
+      setLoading(false)
+      toast.error('Informe um cpf valido!')
+      return
+    }
+    if (/^(\d)\1+$/.test(cpf)) {
+      setLoading(false)
+      toast.error('Informe um cpf valido!')
+      return
+    }
+    if (isValidCPF(cpf) === false) {
+      setLoading(false)
+      toast.error('Informe um cpf valido!')
+      return
+    }
+
     const dataToUpdate: {
       nome: string
       cpf: string
@@ -44,7 +109,7 @@ const EditFuncionarios: React.FC<IModal> = ({
 
     updateFuncionario(dataToUpdate)
       .then((response) => {
-        setOpen(!open)
+        toast.success('Dados atualizados com sucesso!')
         refresh(Math.random() * 100)
       })
       .catch(() => {
@@ -82,6 +147,7 @@ const EditFuncionarios: React.FC<IModal> = ({
               type="text"
               placeholder="Nome"
               pattern="[a-zA-ZÀ-ÿ\s]*"
+              maxLength={60}
               value={nome.toString()}
               onChange={(e) => {
                 const regex = /^[a-zA-ZÀ-ÿ\s]*$/
@@ -177,6 +243,18 @@ const EditFuncionarios: React.FC<IModal> = ({
             </button>
           </div>
         </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     )
   }
