@@ -17,7 +17,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const [cpf, setCpf] = useState('')
   const [cidade, setCidade] = useState('')
   const [funcao, setFuncao] = useState('')
-  const [regiao, setRegiao] = useState('')
+  const [contrato, setContrato] = useState('')
   const [loading, setLoading] = useState(false)
 
   const clearParametros = () => {
@@ -26,7 +26,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
     setCpf('')
     setCidade('')
     setFuncao('')
-    setRegiao('')
+    setContrato('')
   }
 
   const create = () => {
@@ -37,7 +37,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
       funcao,
       matricula,
       nome,
-      regiao,
+      contrato,
     })
       .then(() => {
         clearParametros()
@@ -184,14 +184,14 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
             <input
               className="mb-4 w-full rounded-md border p-3"
               type="text"
-              placeholder="Região"
+              placeholder="Contrato"
               pattern="[a-zA-ZÀ-ÿ\s]*"
               maxLength={40}
-              value={regiao}
+              value={contrato}
               onChange={(e) => {
                 const regex = /^[a-zA-ZÀ-ÿ\s]*$/
                 if (regex.test(e.target.value)) {
-                  setRegiao(e.target.value)
+                  setContrato(e.target.value)
                 }
               }}
               required

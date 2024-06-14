@@ -15,7 +15,13 @@ interface IconButtonProps {
   refresh: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) => {
+const Edit: React.FC<IconButtonProps> = ({
+  screen,
+  id,
+  row,
+  rowEdit,
+  refresh,
+}) => {
   const [open, setOpen] = useState<boolean>(false)
   switch (screen) {
     case 'solicitacoes':
@@ -24,7 +30,14 @@ const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) 
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditSolicitacaoes page={screen} isOpen={open} setOpen={setOpen} id={id} row={row} refresh={refresh} />
+          <EditSolicitacaoes
+            page={screen}
+            isOpen={open}
+            setOpen={setOpen}
+            id={id}
+            row={row}
+            refresh={refresh}
+          />
         </div>
       )
 
@@ -34,7 +47,14 @@ const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) 
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditSolicitacaoes page={screen} isOpen={open} setOpen={setOpen} id={id} row={row} refresh={refresh} />
+          <EditSolicitacaoes
+            page={screen}
+            isOpen={open}
+            setOpen={setOpen}
+            id={id}
+            row={row}
+            refresh={refresh}
+          />
         </div>
       )
     case 'funcionarios':
@@ -43,7 +63,12 @@ const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) 
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditFuncionarios isOpen={open} setOpen={setOpen} row={row} refresh={refresh} />
+          <EditFuncionarios
+            isOpen={open}
+            setOpen={setOpen}
+            row={row}
+            refresh={refresh}
+          />
         </div>
       )
     case 'epi':
@@ -53,7 +78,12 @@ const Edit: React.FC<IconButtonProps> = ({ screen, id, row, rowEdit, refresh }) 
           <button onClick={() => setOpen(!open)}>
             <BsPencilFill />
           </button>
-          <EditEpi isOpen={open} setOpen={setOpen} row={row} refresh={refresh} />
+          <EditEpi
+            isOpen={open}
+            setOpen={setOpen}
+            row={row}
+            refresh={refresh}
+          />
         </div>
       )
     case 'equipamento':
