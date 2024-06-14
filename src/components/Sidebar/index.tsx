@@ -8,8 +8,7 @@ import { User } from 'react-feather'
 import { FiLogOut } from 'react-icons/fi'
 import { BsFileEarmarkText } from 'react-icons/bs'
 import AvatarIcon from '../Avatar'
-import { deleteCookie } from 'cookies-next'
-import { useRouter } from 'next/navigation'
+import Logout from '@/components/Logout'
 
 interface SidebarProps {
   screen: string
@@ -17,13 +16,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   const [activeButton, setActiveButton] = useState(screen)
-
-  const { push } = useRouter()
-
-  const Logout = () => {
-    deleteCookie('access_token')
-    push('/')
-  }
+  const [open, setOpen] = useState<boolean>(false)
 
   return (
     <NavigationMenu.Root className=" flex h-full w-full flex-col border border-l-gray-400 ">
@@ -74,13 +67,14 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Link href="/">
+          <NavigationMenu.Link className="cursor-pointer">
             <Button
               icon={FiLogOut}
               tela="Sair"
               isActive={activeButton === 'Sair'}
-              onClick={Logout}
+              onClick={() => setOpen(true)}
             />
+            <Logout isOpen={open} setOpen={setOpen} />
           </NavigationMenu.Link>
         </NavigationMenu.Item>
 

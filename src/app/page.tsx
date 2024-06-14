@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { ValidaToken, signin } from '@/api'
 import Loading from '@/components/Loading'
-import 'react-toastify/dist/ReactToastify.css'
 
 export default function Home() {
   const [email, setEmail] = useState('')

@@ -25,8 +25,6 @@ const HoleriteCard: React.FC<Props> = ({ data, status }: Props) => {
 
   const [mes, setMes] = useState('')
   const [dataFormatada, setDataFormatada] = useState('')
-  const [_mes, _setMes] = useState('')
-  const [_ano, _setAno] = useState('')
   const linkRef = useRef<HTMLAnchorElement | null>(null)
 
   const formataData = () => {

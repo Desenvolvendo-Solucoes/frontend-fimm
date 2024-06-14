@@ -6,11 +6,12 @@ import HoleriteCard from './HoleriteCard'
 import addHoleriteImage from '../../assets/addHoleritesImage.svg'
 import Image from 'next/image'
 import { Upload } from 'react-feather'
-import { getAllHolerites, uploadHolerite } from '@api'
+import { ValidaToken, getAllHolerites, uploadHolerite } from '@api'
 import { GetAllHoleriteResponse } from '@/types'
 import Loading from '../Loading'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const HoleriteLayout: React.FC = () => {
   const [page, setPage] = useState<string>('holerites')
@@ -18,6 +19,7 @@ const HoleriteLayout: React.FC = () => {
   const [holerites, setHolerites] = useState<GetAllHoleriteResponse>()
   const [isUpload, setIsupload] = useState<boolean>(false)
   const anoAtual = new Date().getFullYear()
+  const { push } = useRouter()
 
   const openInputFile = async () => {
     if (holeriteRef.current == null) return
@@ -99,7 +101,10 @@ const HoleriteLayout: React.FC = () => {
 
   useEffect(() => {
     getHolerites()
-  }, [page])
+    ValidaToken().catch(() => {
+      push('/')
+    })
+  }, [page, push])
 
   return (
     <div className="h-full w-full bg-[#F9FBFD]/[0.30] p-8">
