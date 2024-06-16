@@ -282,13 +282,13 @@ export const createUser = ({
   })
 }
 
-export const uploadHolerite = (formData: FormData) => {
+export const uploadHolerite = (formData: FormData, contrato: string) => {
   return new Promise((resolve, reject) => {
     const token = getCookie('access_token')
 
     instance({
       method: 'POST',
-      url: '/holerite/upload',
+      url: `/holerite/upload?contrato=${contrato}`,
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
