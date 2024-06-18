@@ -1,8 +1,11 @@
+'use client'
 import './globals.css'
-
 import { ReactNode } from 'react'
-
 import localFont from '@next/font/local'
+import { UserProvider } from '@context/userContext'
+import Sidebar from '@/components/Sidebar'
+import Container from '@/components/Container'
+import { usePathname } from 'next/navigation'
 
 const poppins = localFont({
   src: [
@@ -24,9 +27,33 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname()
+
+  if (pathname === '/') {
+    return (
+      <html lang="pt-br">
+        <body className={`${poppins.variable} font-sans`}>
+          <UserProvider>
+            <Container>
+              {children}
+            </Container>
+          </UserProvider>
+        </body>
+      </html>
+    )
+  }
+
+
   return (
     <html lang="pt-br">
-      <body className={`${poppins.variable} font-sans`}>{children}</body>
+      <body className={`${poppins.variable} font-sans`}>
+        <UserProvider>
+          <Container>
+            <Sidebar screen="Holerites" />
+            {children}
+          </Container>
+        </UserProvider>
+      </body>
     </html>
   )
 }

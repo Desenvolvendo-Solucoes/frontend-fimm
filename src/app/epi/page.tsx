@@ -62,29 +62,29 @@ const Epi: React.FC = () => {
   }, [loading, refresh])
 
   return (
-    <Container>
-      <Sidebar screen="Epi" />
-      <div className="p-6">
-        <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
-          <div className="">
-            <span className="text-xl font-bold">
-              Total de: {rows.length <= 0 ? 0 : rows.length} EPI
-            </span>
-          </div>
-          <div className="flex flex-row gap-4 ">
-            <Search fields={rows} setFields={setRows} loading={loading} />
-            <Filtering screen="epi" />
-            <NewEpi refresh={setRefresh} />
-          </div>
+
+
+    <div className="p-6">
+      <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
+        <div className="">
+          <span className="text-xl font-bold">
+            Total de: {rows.length <= 0 ? 0 : rows.length} EPI
+          </span>
         </div>
-        <div
-          // eslint-disable-next-line prettier/prettier
-          className={`h-[calc(100%-3.75rem)] w-full ${loading ? 'flex items-center justify-center' : ''}`}
-        >
-          {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
+        <div className="flex flex-row gap-4 ">
+          <Search fields={rows} setFields={setRows} loading={loading} />
+          <Filtering screen="epi" />
+          <NewEpi refresh={setRefresh} />
         </div>
       </div>
-    </Container>
+      <div
+        // eslint-disable-next-line prettier/prettier
+        className={`h-[calc(100%-3.75rem)] w-full ${loading ? 'flex items-center justify-center' : ''}`}
+      >
+        {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
+      </div>
+    </div>
+
   )
 }
 
