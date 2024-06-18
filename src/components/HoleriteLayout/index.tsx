@@ -6,13 +6,14 @@ import HoleriteCard from './HoleriteCard'
 import addHoleriteImage from '../../assets/addHoleritesImage.svg'
 import Image from 'next/image'
 import { Upload, XCircle } from 'react-feather'
-import { ValidaToken, getAllHolerites, uploadHolerite } from '@api'
+import { ValidaToken, getAllHolerites, getUserData, uploadHolerite } from '@api'
 import { GetAllHoleriteResponse } from '@/types'
 import Loading from '../Loading'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import Dropdown from '../Dropdown'
+import { useUser } from '@/context/userContext'
 
 const HoleriteLayout: React.FC = () => {
   const [page, setPage] = useState<string>('holerites')
@@ -30,6 +31,7 @@ const HoleriteLayout: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(true)
   const anoAtual = new Date().getFullYear()
   const { push } = useRouter()
+  const { onSetUser } = useUser()
 
   const openInputFile = async () => {
     console.log(selectedOption)
@@ -59,7 +61,6 @@ const HoleriteLayout: React.FC = () => {
   const getHolerites = async () => {
     await getAllHolerites().then((res) => {
       setHolerites(res)
-      console.log(res)
     })
   }
 
@@ -84,11 +85,11 @@ const HoleriteLayout: React.FC = () => {
         return (
           <div
             // eslint-disable-next-line prettier/prettier
-          className={`fixed justify-center items-center bottom-0 left-0 right-0 top-0 flex flex-row-reverse rounded bg-rgba-modal pr-4 pt-4 ${isOpen ? 'h-full md:w-full' : 'invisible h-0 w-0'} `}
+            className={`fixed justify-center items-center bottom-0 left-0 right-0 top-0 flex flex-row-reverse rounded bg-rgba-modal pr-4 pt-4 ${isOpen ? 'h-full md:w-full' : 'invisible h-0 w-0'} `}
           >
             <div
               // eslint-disable-next-line prettier/prettier
-            className={`flex  transform flex-col items-center rounded-md bg-white p-3 ${isOpen ? 'h-4/6 w-2/5' : 'h-0 md:w-0 '} transition-width duration-300 `}
+              className={`flex  transform flex-col items-center rounded-md bg-white p-3 ${isOpen ? 'h-4/6 w-2/5' : 'h-0 md:w-0 '} transition-width duration-300 `}
             >
               <div className="flex h-full w-full flex-col items-center justify-start gap-3">
                 <button
@@ -137,14 +138,20 @@ const HoleriteLayout: React.FC = () => {
     }
   }
 
+
   useEffect(() => {
     if (page === 'addHolerites') {
       setIsOpen(true)
     }
-    getHolerites()
-    ValidaToken().catch(() => {
+    ValidaToken().then(() => {
+      getUserData().then((user) => {
+        onSetUser!(user)
+      })
+    }).catch(() => {
       push('/')
     })
+    getHolerites()
+
   }, [page, push])
 
   return (

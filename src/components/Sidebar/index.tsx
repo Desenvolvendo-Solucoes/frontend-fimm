@@ -3,20 +3,37 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import Logo from '@/components/Logo'
 import Button from '@/components/Sidebar/Button'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { User } from 'react-feather'
 import { FiLogOut } from 'react-icons/fi'
 import { BsFileEarmarkText } from 'react-icons/bs'
 import AvatarIcon from '../Avatar'
 import Logout from '@/components/Logout'
+import { useUser } from '@/context/userContext'
 
 interface SidebarProps {
   screen: string
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
+  const { userState, page, setPage } = useUser()
   const [activeButton, setActiveButton] = useState(screen)
   const [open, setOpen] = useState<boolean>(false)
+  const [nome, setNome] = useState('')
+
+  const Name = (name: string) => {
+    if (!name) return ''
+    const nameSplit = name.split(' ')
+    const _name = nameSplit[0] + ' ' + nameSplit[nameSplit.length - 1]
+    return _name
+  }
+
+  useEffect(() => {
+    console.log(userState?.nome);
+
+    setNome(Name(userState?.nome!))
+
+  }, [userState])
 
   return (
     <NavigationMenu.Root className=" flex h-full w-full flex-col border border-l-gray-400 ">
@@ -49,8 +66,8 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
             <Button
               icon={BsFileEarmarkText}
               tela="Holerites"
-              isActive={activeButton === 'Holerites'}
-              onClick={() => setActiveButton('Holerites')}
+              isActive={page === 'Holerites'}
+              onClick={() => setPage!('Holerites')}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>
@@ -60,8 +77,8 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
             <Button
               icon={User}
               tela="Funcionários"
-              isActive={activeButton === 'Funcionarios'}
-              onClick={() => setActiveButton('Funcionarios')}
+              isActive={page === 'Funcionarios'}
+              onClick={() => setPage!('Funcionarios')}
             />
           </NavigationMenu.Link>
         </NavigationMenu.Item>
@@ -102,9 +119,9 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
       </NavigationMenu.List>
       <div className="mb-4 flex h-2/4 w-full items-end justify-center text-center">
         <div className="flex flex-row items-center gap-2">
-          <AvatarIcon img={''} nome={'Welber Almeida'} />
+          <AvatarIcon img={''} nome={nome} />
           <div className="flex flex-col">
-            <label className="text-lg">Welber Almeida</label>
+            <label className="text-lg">{nome}</label>
           </div>
         </div>
       </div>

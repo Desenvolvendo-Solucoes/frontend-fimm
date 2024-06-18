@@ -4,9 +4,11 @@ import {
   GetAllHoleriteResponse,
   Holerite,
   RequestCreateEpi,
+  UserContextType,
 } from '@/types'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getCookie, setCookie } from 'cookies-next'
+import { headers } from 'next/headers'
 import { toast } from 'react-toastify'
 
 const instance = axios.create({
@@ -121,6 +123,18 @@ export const getEquipCadastrado = (): Promise<Data[]> => {
   })
 }
 
+export const getUserData = (): Promise<UserContextType> => {
+  return new Promise(async (resolve, reject) => {
+    const headers = tokenHeader()
+
+    instance.get('/user/getUserData', headers).then((response) => {
+      console.log(response.data);
+
+      resolve(response.data)
+    })
+  })
+}
+
 export const getAllUsers = (): Promise<Data[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
@@ -145,8 +159,7 @@ export const updateEpiStatus = (
 
     instance
       .post(
-        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${
-          rejectText === undefined ? '-' : rejectText
+        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -195,8 +208,7 @@ export const updateEquipStatus = (
     const token = tokenHeader()
     instance
       .post(
-        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${
-          rejectText === undefined ? '-' : rejectText
+        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,

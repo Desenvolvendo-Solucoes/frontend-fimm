@@ -7,13 +7,15 @@ import { ColumnData, Data } from '@/types'
 import Search from '@/components/Search'
 import NewFuncionario from '@/components/NewFuncionario'
 import Edit from '@/components/Edit'
-import { ValidaToken, getAllUsers } from '@/api'
+import { ValidaToken, getAllUsers, getUserData } from '@/api'
 import { useRouter } from 'next/navigation'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loading from '@/components/Loading'
+import { useUser } from '@/context/userContext'
 
 export default function Funcionarios() {
   const { push } = useRouter()
+  const { onSetUser } = useUser()
 
   const [loading, setLoading] = useState(true)
   const [refresh, setRefresh] = useState(0)
@@ -125,6 +127,9 @@ export default function Funcionarios() {
           setRows(rowData)
           setLoading(false)
         })
+        getUserData().then((user) => {
+          onSetUser!(user)
+        })
       })
       .catch(() => {
         push('/')
@@ -132,28 +137,26 @@ export default function Funcionarios() {
   }, [loading, push, refresh])
 
   return (
-    <Container>
-      <Sidebar screen="Funcionarios" />
-      <div className="p-6">
-        <div className="mb-5 ml-1 mr-4  flex w-[calc(100%-1rem)] flex-row items-center justify-between">
-          <div className="w-80">
-            <span className="text-xl font-bold">
-              Total de: {rows.length <= 0 ? 0 : rows.length} Funcionários
-            </span>
-          </div>
-          <div className="flex flex-row gap-4 ">
-            <Search fields={rows} setFields={setRows} loading={loading} />
-            {/* <Filtering screen="funcionarios" /> */}
-            <NewFuncionario refresh={setRefresh} />
-          </div>
+
+    <div className="p-6">
+      <div className="mb-5 ml-1 mr-4  flex w-[calc(100%-1rem)] flex-row items-center justify-between">
+        <div className="w-80">
+          <span className="text-xl font-bold">
+            Total de: {rows.length <= 0 ? 0 : rows.length} Funcionários
+          </span>
         </div>
-        <div
-          // eslint-disable-next-line prettier/prettier
-          className={`h-[calc(100%-3.75rem)] w-full ${loading ? 'flex items-center justify-center' : ''}`}
-        >
-          {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
+        <div className="flex flex-row gap-4 ">
+          <Search fields={rows} setFields={setRows} loading={loading} />
+          {/* <Filtering screen="funcionarios" /> */}
+          <NewFuncionario refresh={setRefresh} />
         </div>
       </div>
-    </Container>
+      <div
+        // eslint-disable-next-line prettier/prettier
+        className={`h-[calc(100%-3.75rem)] w-full ${loading ? 'flex items-center justify-center' : ''}`}
+      >
+        {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
+      </div>
+    </div>
   )
 }

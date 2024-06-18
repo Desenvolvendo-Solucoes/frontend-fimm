@@ -98,3 +98,16 @@ export type Holerite = {
   nome: string
   atualizado: string
 }
+
+export type UserContextType = {
+  nome: string | null
+  funcao: string | null
+  regiao: string | null
+  matricula: string | null
+  base: string | null
+  cidade: string | null
+  cpf: string | null
+  rh: boolean | null
+  email: string | null
+  contrato: string | null
+}
