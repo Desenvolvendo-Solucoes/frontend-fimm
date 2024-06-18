@@ -51,13 +51,13 @@ export default function Funcionarios() {
       },
     },
     {
-      Header: 'Região',
-      accessor: 'regiao',
+      Header: 'Contrato',
+      accessor: 'contrato',
       Cell: (row, value) => {
         return (
           <div className=" ml-2 mr-2 flex w-full items-center overflow-hidden whitespace-nowrap text-start">
             <td className=" w-11/12 overflow-hidden truncate whitespace-nowrap ">
-              {row.row.regiao}
+              {row.row.contrato}
             </td>
           </div>
         )

@@ -15,7 +15,7 @@ export type DataType = {
   cpf: string
   funcao: string
   base: string
-  regiao: string
+  contrato: string
   email: string
   [key: string]: string
 }
@@ -61,7 +61,7 @@ export type CUser = {
   matricula: string
   cpf: string
   cidade: string
-  regiao: string
+  contrato: string
   funcao: string
 }
 

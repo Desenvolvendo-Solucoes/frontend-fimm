@@ -146,7 +146,7 @@ export const updateEpiStatus = (
     instance
       .post(
         `/epi/updatestatus?status=${status}&id=${id}&rejectText=${
-          rejectText == undefined ? '-' : rejectText
+          rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -196,7 +196,7 @@ export const updateEquipStatus = (
     instance
       .post(
         `/equip/updatestatus?status=${status}&id=${id}&rejectText=${
-          rejectText == undefined ? '-' : rejectText
+          rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -214,7 +214,7 @@ export const updateFuncionario = (data: {
   nome: string
   cpf: string
   funcao: string
-  regiao: string
+  contrato: string
   cidade: string
   id: string
 }) => {
@@ -222,7 +222,7 @@ export const updateFuncionario = (data: {
     const token = tokenHeader()
     instance
       .post(
-        `/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&regiao=${data.regiao}&cidade=${data.cidade}&id=${data.id}`,
+        `/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&contrato=${data.contrato}&cidade=${data.cidade}&id=${data.id}`,
         {},
         token,
       )
@@ -262,13 +262,13 @@ export const createUser = ({
   funcao,
   nome,
   matricula,
-  regiao,
+  contrato,
 }: CUser) => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
     instance
       .post(
-        `/user/create?nome=${nome}&cpf=${cpf}&base=base&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&regiao=${regiao}`,
+        `/user/create?nome=${nome}&cpf=${cpf}&base=base&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&contrato=${contrato}`,
         {},
         header,
       )
@@ -282,13 +282,13 @@ export const createUser = ({
   })
 }
 
-export const uploadHolerite = (formData: FormData) => {
+export const uploadHolerite = (formData: FormData, contrato: string) => {
   return new Promise((resolve, reject) => {
     const token = getCookie('access_token')
 
     instance({
       method: 'POST',
-      url: '/holerite/upload',
+      url: `/holerite/upload?contrato=${contrato}`,
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',

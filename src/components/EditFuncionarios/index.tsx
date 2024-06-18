@@ -23,7 +23,7 @@ const EditFuncionarios: React.FC<IModal> = ({
   const [nome, setNome] = useState(row.nome.toString())
   const [cpf, setCpf] = useState(row.cpf.toString())
   const [funcao, setFuncao] = useState(row.funcao.toString())
-  const [regiao, setRegiao] = useState(row.regiao.toString())
+  const [contrato, setContrato] = useState(row.contrato.toString())
   const [cidade, setCidade] = useState(row.cidade.toString())
 
   const isValidCPF = (cpf: string) => {
@@ -64,7 +64,7 @@ const EditFuncionarios: React.FC<IModal> = ({
       nome === '' ||
       cpf === '' ||
       funcao === '' ||
-      regiao === '' ||
+      contrato === '' ||
       cidade === ''
     ) {
       toast.error('Por favor, preencha todos os campos!')
@@ -95,14 +95,14 @@ const EditFuncionarios: React.FC<IModal> = ({
       nome: string
       cpf: string
       funcao: string
-      regiao: string
+      contrato: string
       cidade: string
       id: string
     } = {
       nome,
       cpf,
       funcao,
-      regiao,
+      contrato,
       cidade,
       id: row.id,
     }
@@ -187,8 +187,8 @@ const EditFuncionarios: React.FC<IModal> = ({
               onChange={(e) => setFuncao(e.target.value)}
             />
             <hr className="mb-4"></hr>
-            <h2 className="p-2 font-bold">Região</h2>
-            <label className="p-2 text-gray-400  ">Editar Região</label>
+            <h2 className="p-2 font-bold">Contrato</h2>
+            <label className="p-2 text-gray-400  ">Editar Contrato</label>
 
             <input
               className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
@@ -196,11 +196,11 @@ const EditFuncionarios: React.FC<IModal> = ({
               placeholder="Ex: Piruibe"
               pattern="[a-zA-ZÀ-ÿ\s]*"
               maxLength={40}
-              value={regiao.toString()}
+              value={contrato.toString()}
               onChange={(e) => {
                 const regex = /^[a-zA-ZÀ-ÿ\s]*$/
                 if (regex.test(e.target.value)) {
-                  setRegiao(e.target.value)
+                  setContrato(e.target.value)
                 }
               }}
             />

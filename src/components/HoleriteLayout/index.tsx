@@ -5,23 +5,35 @@ import HoleriteFilter from './HoleriteFilter'
 import HoleriteCard from './HoleriteCard'
 import addHoleriteImage from '../../assets/addHoleritesImage.svg'
 import Image from 'next/image'
-import { Upload } from 'react-feather'
+import { Upload, XCircle } from 'react-feather'
 import { ValidaToken, getAllHolerites, uploadHolerite } from '@api'
 import { GetAllHoleriteResponse } from '@/types'
 import Loading from '../Loading'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import Dropdown from '../Dropdown'
 
 const HoleriteLayout: React.FC = () => {
   const [page, setPage] = useState<string>('holerites')
   const holeriteRef = React.useRef<HTMLInputElement | null>(null)
   const [holerites, setHolerites] = useState<GetAllHoleriteResponse>()
   const [isUpload, setIsupload] = useState<boolean>(false)
+  const [selectedOption, setSelectedOption] = useState<string>('')
+  const dropdownOptions: string[] = [
+    'Copasa Leitura Interior Leste',
+    'Copasa Leitura Interior Oeste',
+    'Copasa Leitura Interior Norte',
+    'Copasa Leitura Interior Sul',
+  ]
+
+  const [isOpen, setIsOpen] = useState<boolean>(true)
   const anoAtual = new Date().getFullYear()
   const { push } = useRouter()
 
   const openInputFile = async () => {
+    console.log(selectedOption)
+
     if (holeriteRef.current == null) return
 
     holeriteRef.current.click()
@@ -32,11 +44,16 @@ const HoleriteLayout: React.FC = () => {
     if (!e.target.files) return
     formData.append('file', e.target.files[0])
     setIsupload(true)
-    uploadHolerite(formData).then((response) => {
+    uploadHolerite(formData, selectedOption).then((response) => {
       console.log(response)
       setIsupload(false)
       toast.success('Holerite enviado com sucesso!')
     })
+  }
+  const navegacao = () => {
+    setIsOpen(!isOpen)
+    setSelectedOption('')
+    setPage('holerites')
   }
 
   const getHolerites = async () => {
@@ -65,28 +82,49 @@ const HoleriteLayout: React.FC = () => {
     if (page === 'addHolerites') {
       if (!isUpload) {
         return (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-3">
-            <Image
-              src={addHoleriteImage}
-              alt="add Holerite Image"
-              width={222}
-              height={165}
-            />
-            <div className="flex flex-col items-center justify-center gap-2">
-              <p className="text-xl font-medium">
-                Nenhum holerite selecionado.
-              </p>
-              <p className="text-lg text-[#868686]">
-                Por favor, faça um upload do seu holerite.
-              </p>
-            </div>
-            <button
-              className="flex h-11 w-auto flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53]"
-              onClick={openInputFile}
+          <div
+            // eslint-disable-next-line prettier/prettier
+          className={`fixed justify-center items-center bottom-0 left-0 right-0 top-0 flex flex-row-reverse rounded bg-rgba-modal pr-4 pt-4 ${isOpen ? 'h-full md:w-full' : 'invisible h-0 w-0'} `}
+          >
+            <div
+              // eslint-disable-next-line prettier/prettier
+            className={`flex  transform flex-col items-center rounded-md bg-white p-3 ${isOpen ? 'h-4/6 w-2/5' : 'h-0 md:w-0 '} transition-width duration-300 `}
             >
-              <Upload width={20} height={20} />
-              Adicionar Holerite
-            </button>
+              <div className="flex h-full w-full flex-col items-center justify-start gap-3">
+                <button
+                  className="flex h-2 flex-row bg-black"
+                  onClick={() => navegacao()}
+                >
+                  <XCircle className="fixed" style={{ left: '90%' }} />
+                </button>
+                <Image
+                  src={addHoleriteImage}
+                  alt="add Holerite Image"
+                  width={222}
+                  height={165}
+                />
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <p className="text-xl font-medium">
+                    Nenhum holerite selecionado.
+                  </p>
+                  <p className="text-lg text-[#868686]">
+                    Por favor, faça um upload do seu holerite.
+                  </p>
+                </div>
+                <Dropdown
+                  options={dropdownOptions}
+                  setSelectedOption={setSelectedOption}
+                />
+                <button
+                  className="flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53]"
+                  onClick={openInputFile}
+                  disabled={selectedOption === ''}
+                >
+                  <Upload width={20} height={20} />
+                  Adicionar Holerite
+                </button>
+              </div>
+            </div>
           </div>
         )
       } else {
@@ -100,6 +138,9 @@ const HoleriteLayout: React.FC = () => {
   }
 
   useEffect(() => {
+    if (page === 'addHolerites') {
+      setIsOpen(true)
+    }
     getHolerites()
     ValidaToken().catch(() => {
       push('/')
