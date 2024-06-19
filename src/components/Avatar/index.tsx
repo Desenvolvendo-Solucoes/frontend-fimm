@@ -24,13 +24,15 @@ const AvatarIcon: React.FC<AvatarIterface> = ({ img, nome }) => {
   }
 
   return (
-    <Avatar.Root className="mr-2 inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-primary align-middle text-white">
+    <Avatar.Root className="mr-2 inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary align-middle text-white">
       <Avatar.Image
         className="h-full w-full rounded-[inherit] object-cover"
         src={img}
         alt="Avatar"
       />
-      <Avatar.Fallback>{obterIniciais(nome)}</Avatar.Fallback>
+      <Avatar.Fallback className="text-base">
+        {obterIniciais(nome)}
+      </Avatar.Fallback>
     </Avatar.Root>
   )
 }
