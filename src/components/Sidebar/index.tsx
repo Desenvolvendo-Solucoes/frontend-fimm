@@ -24,14 +24,17 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   const Name = (name: string) => {
     if (!name) return ''
     const nameSplit = name.split(' ')
+    if (nameSplit.length === 1) return nameSplit[0] // Handle single-word names
     const _name = nameSplit[0] + ' ' + nameSplit[nameSplit.length - 1]
     return _name
   }
 
   useEffect(() => {
-
-    setNome(Name(userState?.nome!.trim()!))
-
+    if (userState?.nome) {
+      setNome(Name(userState.nome.trim()))
+    } else {
+      setNome('') // Handle case where userState?.nome is null or undefined
+    }
   }, [userState])
 
   return (

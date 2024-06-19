@@ -138,20 +138,20 @@ const HoleriteLayout: React.FC = () => {
     }
   }
 
-
   useEffect(() => {
     if (page === 'addHolerites') {
       setIsOpen(true)
     }
-    ValidaToken().then(() => {
-      getUserData().then((user) => {
-        onSetUser!(user)
+    ValidaToken()
+      .then(() => {
+        getUserData().then((user) => {
+          onSetUser!(user)
+        })
       })
-    }).catch(() => {
-      push('/')
-    })
+      .catch(() => {
+        push('/')
+      })
     getHolerites()
-
   }, [page, push])
 
   return (
