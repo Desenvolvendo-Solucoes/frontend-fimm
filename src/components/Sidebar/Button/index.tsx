@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
     >
       <Icon
-        className={`h-10 w-10 ${isActive ? 'text-primary' : 'text-gray-500'}`}
+        className={`h-7 w-7 ${isActive ? 'text-primary' : 'text-gray-500'}`}
       />
       <span className={`ml-2 ${isActive ? 'text-primary' : 'text-gray-500'}`}>
         {tela}

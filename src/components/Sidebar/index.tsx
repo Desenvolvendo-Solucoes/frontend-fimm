@@ -123,7 +123,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         <div className="flex flex-row items-center gap-2">
           <AvatarIcon img={''} nome={nome} />
           <div className="flex flex-col">
-            <label className="text-lg">{nome}</label>
+            <label className="text-base">{nome}</label>
           </div>
         </div>
       </div>
