@@ -89,15 +89,15 @@ const HoleriteLayout: React.FC = () => {
           >
             <div
               // eslint-disable-next-line prettier/prettier
-              className={`flex  transform flex-col items-center rounded-md bg-white p-3 ${isOpen ? 'h-4/6 w-2/5' : 'h-0 md:w-0 '} transition-width duration-300 `}
+              className={`flex  transform flex-col items-center rounded-md bg-white p-3 ${isOpen ? 'h-3/6 w-1/3' : 'h-0 md:w-0 '} transition-width duration-100 `}
             >
-              <div className="flex h-full w-full flex-col items-center justify-start gap-3">
-                <button
-                  className="flex h-2 flex-row bg-black"
-                  onClick={() => navegacao()}
-                >
-                  <XCircle className="fixed" style={{ left: '90%' }} />
-                </button>
+              <button
+                className="flex h-2 flex-row bg-black"
+                onClick={() => navegacao()}
+              >
+                <XCircle className="fixed" style={{ left: '90%' }} />
+              </button>
+              <div className="flex h-full w-full flex-col items-center justify-center gap-3">
                 <Image
                   src={addHoleriteImage}
                   alt="add Holerite Image"
@@ -117,7 +117,11 @@ const HoleriteLayout: React.FC = () => {
                   setSelectedOption={setSelectedOption}
                 />
                 <button
-                  className="flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53]"
+                  className={`flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53] ${
+                    selectedOption === ''
+                      ? 'hover:cursor-not-allowed'
+                      : 'hover:cursor-pointer'
+                  }`}
                   onClick={openInputFile}
                   disabled={selectedOption === ''}
                 >
