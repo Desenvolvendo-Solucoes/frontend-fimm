@@ -29,9 +29,8 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   }
 
   useEffect(() => {
-    console.log(userState?.nome);
 
-    setNome(Name(userState?.nome!))
+    setNome(Name(userState?.nome!.trim()!))
 
   }, [userState])
 
