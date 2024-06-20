@@ -334,12 +334,12 @@ export const getAllHolerites = (): Promise<GetAllHoleriteResponse> => {
   })
 }
 
-export const getHoleritesMes = (mes: string): Promise<Holerite[]> => {
+export const getHoleritesMes = (mes: string, contrato: string): Promise<Holerite[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
 
     instance
-      .get(`/holerite/getHoleritesMes?mes=${mes}`, header)
+      .get(`/holerite/getHoleritesMes?mes=${mes}&contrato=${contrato}`, header)
       .then((response) => {
         resolve(response.data)
       })

@@ -89,6 +89,7 @@ export type GetAllHoleriteResponse = {
     matricula: string
     nome: string
   }[]
+  contrato: string
 }[]
 
 export type Holerite = {
