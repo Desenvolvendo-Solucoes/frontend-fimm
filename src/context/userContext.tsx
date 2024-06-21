@@ -1,25 +1,30 @@
 'use client'
-import { getUserData } from '@/api';
-import { UserContextType } from '@/types';
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { UserContextType } from '@/types'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react'
 
 interface UserProp {
-  onSetUser?: (user: UserContextType) => void;
-  userState?: UserContextType;
-  page: "Holerites" | "Funcionarios";
-  setPage?: React.Dispatch<React.SetStateAction<"Holerites" | "Funcionarios">>;
+  onSetUser?: (user: UserContextType) => void
+  userState?: UserContextType
+  page: 'Holerites' | 'Funcionarios'
+  setPage?: React.Dispatch<React.SetStateAction<'Holerites' | 'Funcionarios'>>
 }
 
 const userContext = createContext<UserProp>({
-  page: "Holerites",
-});
+  page: 'Holerites',
+})
 
 export const useUser = () => {
-  return useContext(userContext);
+  return useContext(userContext)
 }
 
 interface UserProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
@@ -34,38 +39,38 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     funcao: null,
     matricula: null,
     regiao: null,
-  });
+  })
 
-  const [page, setPage] = useState<"Holerites" | "Funcionarios">("Holerites");
+  const [page, setPage] = useState<'Holerites' | 'Funcionarios'>('Holerites')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('userState');
-      const savedPage = localStorage.getItem('page');
+      const savedUser = localStorage.getItem('userState')
+      const savedPage = localStorage.getItem('page')
 
       if (savedUser) {
-        setUserState(JSON.parse(savedUser));
+        setUserState(JSON.parse(savedUser))
       }
-      if (savedPage === "Holerites" || savedPage === "Funcionarios") {
-        setPage(savedPage);
+      if (savedPage === 'Holerites' || savedPage === 'Funcionarios') {
+        setPage(savedPage)
       }
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('userState', JSON.stringify(userState));
+      localStorage.setItem('userState', JSON.stringify(userState))
     }
-  }, [userState]);
+  }, [userState])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('page', page);
+      localStorage.setItem('page', page)
     }
-  }, [page]);
+  }, [page])
 
   const onSetUser = (user: UserContextType) => {
-    setUserState(user);
+    setUserState(user)
   }
 
   const value = {
@@ -73,11 +78,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     userState,
     page,
     setPage,
-  };
+  }
 
-  return (
-    <userContext.Provider value={value}>
-      {children}
-    </userContext.Provider>
-  );
+  return <userContext.Provider value={value}>{children}</userContext.Provider>
 }
