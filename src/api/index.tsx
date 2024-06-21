@@ -11,7 +11,7 @@ import { getCookie, setCookie } from 'cookies-next'
 import { toast } from 'react-toastify'
 
 const instance = axios.create({
-  baseURL: 'https://fimm-api.8corp.com.br',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 })
 
 export const ValidaToken = () => {
