@@ -1,8 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Container from '@/components/Container'
-import Sidebar from '@/components/Sidebar'
+import { useRouter, useSearchParams } from 'next/navigation'
 import HoleriteFilter from '@/components/HoleriteLayout/HoleriteFilter'
 import { ArrowLeft, Download, FileText } from 'react-feather'
 import Loading from '@/components/Loading'
@@ -13,9 +11,11 @@ import { getHoleritesMes, ValidaToken } from '@/api'
 export default function Page({ params }: { params: { mes: string } }) {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const { push } = useRouter()
   const mesano = window.location.pathname.split('/')[2]
   const [initialData, setInitialData] = useState<Holerite[]>([])
-  const { push } = useRouter()
+  const searchParams = useSearchParams();
+  const contrato = searchParams.get('contrato')
 
   const selectMes = (mes: string) => {
     switch (mes) {
@@ -127,7 +127,7 @@ export default function Page({ params }: { params: { mes: string } }) {
   }
 
   const getHolerites = () => {
-    getHoleritesMes(params.mes).then((response) => {
+    getHoleritesMes(params.mes, contrato ? contrato : '').then((response) => {
       setInitialData(response)
     })
   }
@@ -142,11 +142,9 @@ export default function Page({ params }: { params: { mes: string } }) {
   }, [loading, push])
 
   return (
-
-
     <div className="h-full w-full bg-[#F9FBFD]/[0.30] p-8">
       {/* <HoleriteMenu setPage={setPage} page={page} /> */}
-      <h1 className="mb-4 text-[20px] font-bold">Holerites - 2024</h1>
+      <h1 className="mb-4 text-[20px] font-bold">Holerites - {params.mes} - {contrato} </h1>
       <HoleriteFilter type="search" />
       <p
         className="m-0 mb-6 mt-2 flex w-auto flex-1 cursor-pointer items-center gap-2 p-0 text-base font-bold text-[#1E1685]"

@@ -22,10 +22,10 @@ const HoleriteLayout: React.FC = () => {
   const [isUpload, setIsupload] = useState<boolean>(false)
   const [selectedOption, setSelectedOption] = useState<string>('')
   const dropdownOptions: string[] = [
-    'Copasa Leitura Interior Leste',
-    'Copasa Leitura Interior Oeste',
-    'Copasa Leitura Interior Norte',
-    'Copasa Leitura Interior Sul',
+    'Copasa Leste',
+    'Copasa Oeste',
+    'Copasa Norte',
+    'Copasa Sul',
   ]
 
   const [isOpen, setIsOpen] = useState<boolean>(true)
@@ -74,7 +74,7 @@ const HoleriteLayout: React.FC = () => {
           <div className="hide-scrollbar flex w-full flex-row flex-wrap gap-x-8 gap-y-5 overflow-scroll pb-2 pt-2 ">
             {holerites?.map((holerite) => (
               // eslint-disable-next-line react/jsx-key
-              <HoleriteCard data={holerite.data} status={holerite.status} />
+              <HoleriteCard data={holerite.data} status={holerite.status} contrato={holerite.contrato} />
             ))}
           </div>
         </>
@@ -117,11 +117,10 @@ const HoleriteLayout: React.FC = () => {
                   setSelectedOption={setSelectedOption}
                 />
                 <button
-                  className={`flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53] ${
-                    selectedOption === ''
-                      ? 'hover:cursor-not-allowed'
-                      : 'hover:cursor-pointer'
-                  }`}
+                  className={`flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53] ${selectedOption === ''
+                    ? 'hover:cursor-not-allowed'
+                    : 'hover:cursor-pointer'
+                    }`}
                   onClick={openInputFile}
                   disabled={selectedOption === ''}
                 >

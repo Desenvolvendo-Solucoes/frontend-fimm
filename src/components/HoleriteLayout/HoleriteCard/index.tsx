@@ -5,9 +5,10 @@ import Loading from '@/components/Loading'
 interface Props {
   data: string
   status: 'loading' | 'finised'
+  contrato: string
 }
 
-const HoleriteCard: React.FC<Props> = ({ data, status }: Props) => {
+const HoleriteCard: React.FC<Props> = ({ data, status, contrato }: Props) => {
   const meses = [
     'Janeiro',
     'Fevereiro',
@@ -55,9 +56,9 @@ const HoleriteCard: React.FC<Props> = ({ data, status }: Props) => {
       {status === 'loading' ? <Loading /> : <Calendar />}
       <div className="flex flex-col items-center justify-center">
         <p className="text-[30px] font-bold">{dataFormatada}</p>
-        <p>{mes}</p>
+        <p>{contrato}</p>
       </div>
-      <a href={`/holerites/${data}`} ref={linkRef} hidden />
+      <a href={`/holerites/${data}?contrato=${contrato}`} ref={linkRef} hidden />
     </div>
   )
 }
