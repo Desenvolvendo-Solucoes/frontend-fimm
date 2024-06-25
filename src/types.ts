@@ -60,9 +60,9 @@ export type CUser = {
   nome: string
   matricula: string
   cpf: string
-  cidade: string
   contrato: string
   funcao: string
+  cidade: string
 }
 
 export type ScreeOptions =

@@ -8,7 +8,6 @@ import {
 } from '@/types'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getCookie, setCookie } from 'cookies-next'
-import { headers } from 'next/headers'
 import { toast } from 'react-toastify'
 
 const instance = axios.create({
@@ -124,11 +123,11 @@ export const getEquipCadastrado = (): Promise<Data[]> => {
 }
 
 export const getUserData = (): Promise<UserContextType> => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const headers = tokenHeader()
 
     instance.get('/user/getUserData', headers).then((response) => {
-      console.log(response.data);
+      console.log(response.data)
 
       resolve(response.data)
     })
@@ -159,7 +158,8 @@ export const updateEpiStatus = (
 
     instance
       .post(
-        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
+        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${
+          rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -208,7 +208,8 @@ export const updateEquipStatus = (
     const token = tokenHeader()
     instance
       .post(
-        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
+        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${
+          rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -269,18 +270,18 @@ export const createEpi = ({
 }
 
 export const createUser = ({
-  cidade,
   cpf,
   funcao,
   nome,
   matricula,
   contrato,
+  cidade,
 }: CUser) => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
     instance
       .post(
-        `/user/create?nome=${nome}&cpf=${cpf}&base=base&funcao=${funcao}&cidade=${cidade}&matricula=${matricula}&contrato=${contrato}`,
+        `/user/create?nome=${nome}&cpf=${cpf}&base=base&funcao=${funcao}&regiao=regiao&matricula=${matricula}&contrato=${contrato}&cidade=${cidade}`,
         {},
         header,
       )
@@ -334,7 +335,10 @@ export const getAllHolerites = (): Promise<GetAllHoleriteResponse> => {
   })
 }
 
-export const getHoleritesMes = (mes: string, contrato: string): Promise<Holerite[]> => {
+export const getHoleritesMes = (
+  mes: string,
+  contrato: string,
+): Promise<Holerite[]> => {
   return new Promise((resolve, reject) => {
     const header = tokenHeader()
 

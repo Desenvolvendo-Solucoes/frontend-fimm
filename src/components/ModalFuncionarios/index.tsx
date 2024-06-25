@@ -15,10 +15,10 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const [nome, setNome] = useState('')
   const [matricula, setMatricula] = useState('')
   const [cpf, setCpf] = useState('')
-  const [cidade, setCidade] = useState('')
   const [funcao, setFuncao] = useState('')
   const [contrato, setContrato] = useState('')
   const [loading, setLoading] = useState(false)
+  const [cidade, setCidade] = useState('')
 
   const clearParametros = () => {
     setMatricula('')
@@ -32,12 +32,12 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const create = () => {
     setLoading(true)
     createUser({
-      cidade,
       cpf,
       funcao,
       matricula,
       nome,
       contrato,
+      cidade,
     })
       .then(() => {
         clearParametros()
@@ -47,6 +47,7 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
       })
       .catch((e) => {
         toast.error('Erro ou cadastrar', e)
+        setLoading(false)
       })
   }
 
