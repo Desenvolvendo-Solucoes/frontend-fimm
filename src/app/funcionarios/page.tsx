@@ -1,8 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import DataGrid from '@/components/Datagrid'
-import Sidebar from '@/components/Sidebar'
-import Container from '@/components/Container'
 import { ColumnData, Data } from '@/types'
 import Search from '@/components/Search'
 import NewFuncionario from '@/components/NewFuncionario'
@@ -134,10 +132,10 @@ export default function Funcionarios() {
       .catch(() => {
         push('/')
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, push, refresh])
 
   return (
-
     <div className="p-6">
       <div className="mb-5 ml-1 mr-4  flex w-[calc(100%-1rem)] flex-row items-center justify-between">
         <div className="w-80">
