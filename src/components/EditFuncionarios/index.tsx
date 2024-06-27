@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
 import Loading from '../Loading'
 import { ToastContainer, toast } from 'react-toastify'
+import Dropdown from '@/components/Dropdown'
 import 'react-toastify/dist/ReactToastify.css'
 
 interface IModal {
@@ -25,6 +26,12 @@ const EditFuncionarios: React.FC<IModal> = ({
   const [funcao, setFuncao] = useState(row.funcao.toString())
   const [contrato, setContrato] = useState(row.contrato.toString())
   const [cidade, setCidade] = useState(row.cidade.toString())
+  const dropdownOptions: string[] = [
+    'COPASA INTERIOR LESTE',
+    'COPASA INTERIOR OESTE',
+    'COPASA INTERIOR NORTE',
+    'COPASA INTERIOR SUL',
+  ]
 
   const isValidCPF = (cpf: string) => {
     let soma = 0
@@ -190,20 +197,13 @@ const EditFuncionarios: React.FC<IModal> = ({
             <h2 className="p-2 font-bold">Contrato</h2>
             <label className="p-2 text-gray-400  ">Editar Contrato</label>
 
-            <input
-              className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
-              type="text"
-              placeholder="Ex: Piruibe"
-              pattern="[a-zA-ZÀ-ÿ\s]*"
-              maxLength={40}
-              value={contrato.toString()}
-              onChange={(e) => {
-                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
-                if (regex.test(e.target.value)) {
-                  setContrato(e.target.value)
-                }
-              }}
-            />
+            <div className="mb-4 w-full rounded-md border">
+              <Dropdown
+                options={dropdownOptions}
+                setSelectedOption={setContrato}
+                page={'addFuncionarios'}
+              />
+            </div>
             <hr className="mb-4"></hr>
             <h2 className="p-2 font-bold">Cidade</h2>
             <label className="p-2 text-gray-400  ">Editar Cidade</label>

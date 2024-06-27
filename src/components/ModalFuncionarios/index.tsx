@@ -4,6 +4,7 @@ import { XCircle } from 'react-feather'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from '@/components/Loading'
+import Dropdown from '@/components/Dropdown'
 
 interface IModal {
   isOpen: boolean
@@ -16,9 +17,15 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
   const [matricula, setMatricula] = useState('')
   const [cpf, setCpf] = useState('')
   const [funcao, setFuncao] = useState('')
-  const [contrato, setContrato] = useState('')
+  const [contrato, setContrato] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [cidade, setCidade] = useState('')
+  const dropdownOptions: string[] = [
+    'COPASA INTERIOR LESTE',
+    'COPASA INTERIOR OESTE',
+    'COPASA INTERIOR NORTE',
+    'COPASA INTERIOR SUL',
+  ]
 
   const clearParametros = () => {
     setMatricula('')
@@ -91,9 +98,13 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
 
     if (!cpfRegex.test(cpf)) {
       toast.error('Informe um cpf valido!')
+
       return
     }
-
+    if (contrato === '') {
+      toast.error('Selecione um contrato')
+      return
+    }
     if (!matriculaRegex.test(matricula)) {
       toast.error('Informe uma matricula valida!')
       return
@@ -106,7 +117,6 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
       toast.error('Informe um cpf valido!')
       return
     }
-
     create()
   }
 
@@ -125,7 +135,10 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
           >
             <button
               className="flex h-2 flex-row bg-black"
-              onClick={() => setOpen(!isOpen)}
+              onClick={() => {
+                clearParametros()
+                setOpen(!isOpen)
+              }}
             >
               <XCircle className="fixed" style={{ left: '90%' }} />
             </button>
@@ -182,21 +195,6 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
               onChange={(e) => setFuncao(e.target.value)}
               required
             />
-            <input
-              className="mb-4 w-full rounded-md border p-3"
-              type="text"
-              placeholder="Contrato"
-              pattern="[a-zA-ZÀ-ÿ\s]*"
-              maxLength={40}
-              value={contrato}
-              onChange={(e) => {
-                const regex = /^[a-zA-ZÀ-ÿ\s]*$/
-                if (regex.test(e.target.value)) {
-                  setContrato(e.target.value)
-                }
-              }}
-              required
-            />
 
             <input
               className="mb-4 w-full rounded-md border p-3"
@@ -213,6 +211,13 @@ const ModalFuncionarios: React.FC<IModal> = ({ isOpen, setOpen, refresh }) => {
               }}
               required
             />
+            <div className="mb-4 w-full rounded-md border">
+              <Dropdown
+                options={dropdownOptions}
+                setSelectedOption={setContrato}
+                page={'addFuncionarios'}
+              />
+            </div>
             {/* <button
               className="w-full rounded-md bg-primary p-4 text-white"
               onClick={() => setOpen(!isOpen)}
