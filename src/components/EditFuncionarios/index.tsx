@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
 import Loading from '../Loading'
 import { ToastContainer, toast } from 'react-toastify'
+import { Toggle } from 'react-toggle-component'
 import Dropdown from '@/components/Dropdown'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -26,6 +27,7 @@ const EditFuncionarios: React.FC<IModal> = ({
   const [funcao, setFuncao] = useState(row.funcao.toString())
   const [contrato, setContrato] = useState(row.contrato.toString())
   const [cidade, setCidade] = useState(row.cidade.toString())
+  const [checked, setChecked] = useState<boolean>(false)
   const dropdownOptions: string[] = [
     'COPASA INTERIOR LESTE',
     'COPASA INTERIOR OESTE',
@@ -222,6 +224,24 @@ const EditFuncionarios: React.FC<IModal> = ({
                 }
               }}
             />
+            
+              <hr className="mb-4"></hr>
+              <h2 className="p-2 font-bold">Desabilitar</h2>
+              <div className="flex flex-row justify-between items-center w-11/12">
+              <label className="p-2 text-gray-400  ">desabilitar Usuario</label>
+              <Toggle
+              rightBackgroundColor="#39c85c"
+              leftBackgroundColor="#ccc"
+              borderColor="#fff"
+              knobColor="white"
+              knobHeight='25px'
+              knobWidth='25px'
+              name="toggle-1" 
+              width='60px'
+              height='35px'
+              onToggle={e => console.log("onToggle", e.target.checked)}
+              />
+            </div>
           </div>
 
           <div
