@@ -143,9 +143,7 @@ export default function Page({ params }: { params: { mes: string } }) {
 
   return (
     <div className="h-full w-full bg-[#F9FBFD]/[0.30] p-8">
-      {/* <HoleriteMenu setPage={setPage} page={page} /> */}
       <h1 className="mb-4 text-[20px] font-bold">Holerites - {params.mes} - {contrato} </h1>
-      <HoleriteFilter type="search" />
       <p
         className="m-0 mb-6 mt-2 flex w-auto flex-1 cursor-pointer items-center gap-2 p-0 text-base font-bold text-[#1E1685]"
         onClick={(e) => {
