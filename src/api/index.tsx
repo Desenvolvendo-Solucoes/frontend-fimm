@@ -127,8 +127,6 @@ export const getUserData = (): Promise<UserContextType> => {
     const headers = tokenHeader()
 
     instance.get('/user/getUserData', headers).then((response) => {
-      console.log(response.data)
-
       resolve(response.data)
     })
   })
@@ -158,8 +156,7 @@ export const updateEpiStatus = (
 
     instance
       .post(
-        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${
-          rejectText === undefined ? '-' : rejectText
+        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -208,8 +205,7 @@ export const updateEquipStatus = (
     const token = tokenHeader()
     instance
       .post(
-        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${
-          rejectText === undefined ? '-' : rejectText
+        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,

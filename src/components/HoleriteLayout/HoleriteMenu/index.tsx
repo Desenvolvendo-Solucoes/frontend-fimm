@@ -12,7 +12,7 @@ const HoleriteMenu: React.FC<Props> = ({ setPage, page }: Props) => {
   return (
     <>
       {userState?.rh ? (
-        <div className="mb-2 h-8 w-full">
+        <div className="mb-6 h-8 w-full ">
           <div className=" grid h-8 w-full flex-1 grid-cols-[9rem,9rem,calc(100%-18rem)] items-center">
             <HoleriteMenuButton
               text="Holerite"

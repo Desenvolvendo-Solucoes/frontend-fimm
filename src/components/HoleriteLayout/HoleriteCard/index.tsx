@@ -56,7 +56,7 @@ const HoleriteCard: React.FC<Props> = ({ data, status, contrato }: Props) => {
       {status === 'loading' ? <Loading /> : <Calendar />}
       <div className="flex flex-col items-center justify-center">
         <p className="text-[30px] font-bold">{dataFormatada}</p>
-        <p>{contrato}</p>
+        {/* <p>{mes}</p> */}
       </div>
       <a href={`/holerites/${data}?contrato=${contrato}`} ref={linkRef} hidden />
     </div>
