@@ -16,7 +16,6 @@ import Dropdown from '@/components/Dropdown'
 import { useUser } from '@/context/userContext'
 import { getCookie } from 'cookies-next'
 
-
 const HoleriteLayout: React.FC = () => {
   const [page, setPage] = useState<string>('holerites')
   const holeriteRef = React.useRef<HTMLInputElement | null>(null)
@@ -80,7 +79,9 @@ const HoleriteLayout: React.FC = () => {
 
   useEffect(() => {
     const cookieContrato = getCookie('contratoSelecionado')
-    cookieContrato ? setContrato(cookieContrato) : setContrato('COPASA INTERIOR LESTE')
+    cookieContrato
+      ? setContrato(cookieContrato)
+      : setContrato('COPASA INTERIOR LESTE')
     const cookieAno = getCookie('anoSelecionado')
     cookieAno ? setAnoFiltro(cookieAno) : setAnoFiltro(anoAtual.toString())
 
@@ -106,7 +107,7 @@ const HoleriteLayout: React.FC = () => {
 
   const renderPage = () => {
     if (loading) {
-      <Loading />
+      ;<Loading />
     } else {
       if (page === 'holerites') {
         return (
@@ -123,14 +124,20 @@ const HoleriteLayout: React.FC = () => {
             />
             <h1 className="mb-2 mt-4 text-[20px] ">Selecione o mês</h1>
             <div className="hide-scrollbar flex w-full flex-row flex-wrap gap-x-8 gap-y-5 overflow-scroll pb-2 pt-2 ">
-              {holerites?.filter((holerite) => holerite.contrato === contrato && holerite.data.split('-')[1] === anoFiltro)?.map((holerite) => (
-                // eslint-disable-next-line react/jsx-key
-                <HoleriteCard
-                  data={holerite.data}
-                  status={holerite.status}
-                  contrato={holerite.contrato}
-                />
-              ))}
+              {holerites
+                ?.filter(
+                  (holerite) =>
+                    holerite.contrato === contrato &&
+                    holerite.data.split('-')[1] === anoFiltro,
+                )
+                ?.map((holerite) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <HoleriteCard
+                    data={holerite.data}
+                    status={holerite.status}
+                    contrato={holerite.contrato}
+                  />
+                ))}
             </div>
           </>
         )
@@ -173,10 +180,11 @@ const HoleriteLayout: React.FC = () => {
                     page={'holerite'}
                   />
                   <button
-                    className={`flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53] ${selectedOption === ''
-                      ? 'hover:cursor-not-allowed'
-                      : 'hover:cursor-pointer'
-                      }`}
+                    className={`flex h-11 w-64 flex-row items-center justify-center gap-3 rounded-lg bg-[#1E1685] p-3  text-[white] hover:bg-[#120d53] ${
+                      selectedOption === ''
+                        ? 'hover:cursor-not-allowed'
+                        : 'hover:cursor-pointer'
+                    }`}
                     onClick={openInputFile}
                     disabled={selectedOption === ''}
                   >
@@ -196,7 +204,6 @@ const HoleriteLayout: React.FC = () => {
         }
       }
     }
-
   }
 
   return (

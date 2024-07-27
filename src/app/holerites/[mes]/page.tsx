@@ -14,8 +14,9 @@ export default function Page({ params }: { params: { mes: string } }) {
   const { push } = useRouter()
   const mesano = window.location.pathname.split('/')[2]
   const [initialData, setInitialData] = useState<Holerite[]>([])
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
   const contrato = searchParams.get('contrato')
+  const [titutloMod, setTitutloMod] = useState(String)
 
   const selectMes = (mes: string) => {
     switch (mes) {
@@ -127,13 +128,15 @@ export default function Page({ params }: { params: { mes: string } }) {
   }
 
   const getHolerites = () => {
-    getHoleritesMes(params.mes, contrato ? contrato : '').then((response) => {
+    getHoleritesMes(params.mes, contrato || '').then((response) => {
       setInitialData(response)
     })
   }
 
   useEffect(() => {
     if (!loading) {
+      const titulo = params.mes.split('-')
+      setTitutloMod(titulo.join('/'))
       getHolerites()
       ValidaToken().catch(() => {
         push('/')
@@ -143,7 +146,9 @@ export default function Page({ params }: { params: { mes: string } }) {
 
   return (
     <div className="h-full w-full bg-[#F9FBFD]/[0.30] p-8">
-      <h1 className="mb-4 text-[20px] font-bold">Holerites - {params.mes} - {contrato} </h1>
+      <h1 className="mb-4 text-[20px] font-bold">
+        Holerites - {titutloMod} - {contrato}{' '}
+      </h1>
       <p
         className="m-0 mb-6 mt-2 flex w-auto flex-1 cursor-pointer items-center gap-2 p-0 text-base font-bold text-[#1E1685]"
         onClick={(e) => {
@@ -155,6 +160,5 @@ export default function Page({ params }: { params: { mes: string } }) {
       </p>
       {renderContent()}
     </div>
-
   )
 }
