@@ -35,6 +35,7 @@ const HoleriteCard: React.FC<Props> = ({ data, status, contrato }: Props) => {
 
     setDataFormatada(`${_mes}/${_ano}`)
     setMes(meses[parseInt(_mes) - 1])
+    console.log(dataFormatada)
   }
 
   const redirect = async () => {
@@ -58,7 +59,11 @@ const HoleriteCard: React.FC<Props> = ({ data, status, contrato }: Props) => {
         <p className="text-[30px] font-bold">{dataFormatada}</p>
         {/* <p>{mes}</p> */}
       </div>
-      <a href={`/holerites/${data}?contrato=${contrato}`} ref={linkRef} hidden />
+      <a
+        href={`/holerites/${data}?contrato=${contrato}`}
+        ref={linkRef}
+        hidden
+      />
     </div>
   )
 }
