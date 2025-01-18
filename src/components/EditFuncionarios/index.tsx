@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { XCircle } from 'react-feather'
 import Loading from '../Loading'
 import { ToastContainer, toast } from 'react-toastify'
-import { Toggle } from 'react-toggle-component'
+// import { Toggle } from 'react-toggle-component'
 import Dropdown from '@/components/Dropdown'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -27,6 +27,8 @@ const EditFuncionarios: React.FC<IModal> = ({
   const [funcao, setFuncao] = useState(row.funcao.toString())
   const [contrato, setContrato] = useState(row.contrato.toString())
   const [cidade, setCidade] = useState(row.cidade.toString())
+  const [email, setEmail] = useState(row.email?.toString())
+
   // const [checked, setChecked] = useState<boolean>(false)
   const dropdownOptions: string[] = [
     'COPASA INTERIOR LESTE',
@@ -83,7 +85,13 @@ const EditFuncionarios: React.FC<IModal> = ({
     // eslint-disable-next-line prefer-regex-literals
     const cpfRegex = new RegExp(/^\d{3}\d{3}\d{3}\d{2}$/)
     // eslint-disable-next-line prefer-regex-literals
-
+    const emailRegex = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,}$/)
+    // eslint-disable-next-line prefer-regex-literals
+    if (!emailRegex.test(email)) {
+      setLoading(false)
+      toast.error('Informe um email valido!')
+      return
+    }
     if (!cpfRegex.test(cpf)) {
       setLoading(false)
       toast.error('Informe um cpf valido!')
@@ -107,12 +115,14 @@ const EditFuncionarios: React.FC<IModal> = ({
       contrato: string
       cidade: string
       id: string
+      email: string
     } = {
       nome,
       cpf,
       funcao,
       contrato,
       cidade,
+      email,
       id: row.id,
     }
 
@@ -226,7 +236,7 @@ const EditFuncionarios: React.FC<IModal> = ({
             />
 
             <hr className="mb-4"></hr>
-            <h2 className="p-2 font-bold">Desabilitar</h2>
+            {/*             <h2 className="p-2 font-bold">Desabilitar</h2>
             <div className="flex w-11/12 flex-row items-center justify-between">
               <label className="p-2 text-gray-400  ">desabilitar Usuario</label>
               <Toggle
@@ -241,7 +251,23 @@ const EditFuncionarios: React.FC<IModal> = ({
                 height="35px"
                 // onToggle={e => console.log("onToggle", e.target.checked)}
               />
-            </div>
+            </div> */}
+            <h2 className="p-2 font-bold">E-mail</h2>
+            <label className="p-2 text-gray-400  ">
+              Editar e-mail do colaborador
+            </label>
+
+            <input
+              className="mb-4 mt-4 w-full rounded-md border border-gray-300 p-3"
+              type="text"
+              placeholder="Nome"
+              pattern="[a-zA-ZÀ-ÿ\s]*"
+              maxLength={60}
+              value={email?.toString()}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              }}
+            />
           </div>
 
           <div

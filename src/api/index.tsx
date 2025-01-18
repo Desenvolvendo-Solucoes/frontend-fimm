@@ -156,7 +156,8 @@ export const updateEpiStatus = (
 
     instance
       .post(
-        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
+        `/epi/updatestatus?status=${status}&id=${id}&rejectText=${
+          rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -205,7 +206,8 @@ export const updateEquipStatus = (
     const token = tokenHeader()
     instance
       .post(
-        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${rejectText === undefined ? '-' : rejectText
+        `/equip/updatestatus?status=${status}&id=${id}&rejectText=${
+          rejectText === undefined ? '-' : rejectText
         }`,
         {},
         token,
@@ -225,13 +227,14 @@ export const updateFuncionario = (data: {
   funcao: string
   contrato: string
   cidade: string
+  email: string
   id: string
 }) => {
   return new Promise((resolve, reject) => {
     const token = tokenHeader()
     instance
       .post(
-        `/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&contrato=${data.contrato}&cidade=${data.cidade}&id=${data.id}`,
+        `/user/update?nome=${data.nome}&cpf=${data.cpf}&funcao=${data.funcao}&contrato=${data.contrato}&cidade=${data.cidade}&email=${data.email}&id=${data.id}`,
         {},
         token,
       )
