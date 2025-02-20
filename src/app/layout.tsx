@@ -28,9 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <html lang="pt-br">
         <body className={`${poppins.variable} font-sans`}>
           <UserProvider>
-            <Container>
-              {children}
-            </Container>
+            <Container>{children}</Container>
           </UserProvider>
         </body>
       </html>

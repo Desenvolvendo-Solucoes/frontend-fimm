@@ -11,8 +11,10 @@ import React, {
 interface UserProp {
   onSetUser?: (user: UserContextType) => void
   userState?: UserContextType
-  page: 'Holerites' | 'Funcionarios'
-  setPage?: React.Dispatch<React.SetStateAction<'Holerites' | 'Funcionarios'>>
+  page: 'Holerites' | 'Funcionarios' | 'Epi' | 'solicitacoes'
+  setPage?: React.Dispatch<
+    React.SetStateAction<'Holerites' | 'Funcionarios' | 'Epi' | 'solicitacoes'>
+  >
 }
 
 const userContext = createContext<UserProp>({
@@ -41,7 +43,9 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     regiao: null,
   })
 
-  const [page, setPage] = useState<'Holerites' | 'Funcionarios'>('Holerites')
+  const [page, setPage] = useState<
+    'Holerites' | 'Funcionarios' | 'Epi' | 'solicitacoes'
+  >('Holerites')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -51,7 +55,16 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       if (savedUser) {
         setUserState(JSON.parse(savedUser))
       }
-      if (savedPage === 'Holerites' || savedPage === 'Funcionarios') {
+
+      // Se o usuário já estava salvo, mantém a última página; senão, força para 'Holerites'
+      if (!savedUser) {
+        setPage('Holerites')
+      } else if (
+        savedPage === 'Holerites' ||
+        savedPage === 'Funcionarios' ||
+        savedPage === 'Epi' ||
+        savedPage === 'solicitacoes'
+      ) {
         setPage(savedPage)
       }
     }
