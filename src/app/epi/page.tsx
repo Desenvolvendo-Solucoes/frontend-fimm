@@ -1,8 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import DataGrid from '@/components/Datagrid'
-import Sidebar from '@/components/Sidebar'
-import Container from '@/components/Container'
 import { ColumnData, Data } from '@/types'
 import Search from '@/components/Search'
 import Filtering from '@/components/Filtering'
@@ -62,8 +60,6 @@ const Epi: React.FC = () => {
   }, [loading, refresh])
 
   return (
-
-
     <div className="p-6">
       <div className="mb-5 ml-4 mr-4  flex w-[calc(100%-2rem)] flex-row items-center justify-between">
         <div className="">
@@ -84,7 +80,6 @@ const Epi: React.FC = () => {
         {loading ? <Loading /> : <DataGrid data={rows} columns={columns} />}
       </div>
     </div>
-
   )
 }
 

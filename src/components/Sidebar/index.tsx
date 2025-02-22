@@ -3,13 +3,15 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import Logo from '@/components/Logo'
 import Button from '@/components/Sidebar/Button'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { FaMaskFace } from 'react-icons/fa6'
 import { User } from 'react-feather'
 import { FiLogOut } from 'react-icons/fi'
-import { BsFileEarmarkText } from 'react-icons/bs'
+import { BsClipboard2, BsFileEarmarkText } from 'react-icons/bs'
 import AvatarIcon from '../Avatar'
 import Logout from '@/components/Logout'
 import { useUser } from '@/context/userContext'
+import { usePathname } from 'next/navigation' // Importe isso para capturar a URL
 
 interface SidebarProps {
   screen: string
@@ -17,7 +19,8 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
   const { userState, page, setPage } = useUser()
-  const [activeButton, setActiveButton] = useState(screen)
+  const pathname = usePathname() // Obtém a URL atual da página
+  const [activeButton] = useState(screen)
   const [open, setOpen] = useState<boolean>(false)
   const [nome, setNome] = useState('')
 
@@ -37,20 +40,28 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
     }
   }, [userState])
 
+  useEffect(() => {
+    if (!setPage) return
+    if (pathname.includes('solicitacoes')) setPage('solicitacoes')
+    if (pathname.includes('holerites')) setPage('Holerites')
+    if (pathname.includes('funcionarios')) setPage('Funcionarios')
+    if (pathname.includes('epi')) setPage('Epi')
+  }, [pathname, setPage])
+
   return (
     <NavigationMenu.Root className=" flex h-full w-full flex-col border border-l-gray-400 ">
       <Logo />
       <NavigationMenu.List>
-        {/* <NavigationMenu.Item>
+        <NavigationMenu.Item>
           <NavigationMenu.Link href="/solicitacoes">
             <Button
               icon={BsClipboard2}
-              tela="Solicitações EPI"
-              isActive={activeButton === 'Solicitações'}
-              onClick={() => setActiveButton('Solicitações')}
+              tela="Solicitações"
+              isActive={page === 'solicitacoes'}
+              onClick={() => setPage!('solicitacoes')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item> */}
+        </NavigationMenu.Item>
 
         {/* <NavigationMenu.Item>
           <NavigationMenu.Link href="/solicitacoesEquip">
@@ -86,6 +97,17 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
+          <NavigationMenu.Link href="epi">
+            <Button
+              icon={FaMaskFace}
+              tela="EPI"
+              isActive={page === 'Epi'}
+              onClick={() => setPage!('Epi')}
+            />
+          </NavigationMenu.Link>
+        </NavigationMenu.Item>
+
+        <NavigationMenu.Item>
           <NavigationMenu.Link className="cursor-pointer">
             <Button
               icon={FiLogOut}
@@ -97,18 +119,7 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
 
-        {/* <NavigationMenu.Item>
-          <NavigationMenu.Link href="epi">
-            <Button
-              icon={FaMaskFace}
-              tela="EPI"
-              isActive={activeButton === 'Epi'}
-              onClick={() => setActiveButton('Epi')}
-            />
-          </NavigationMenu.Link>
-        </NavigationMenu.Item> */}
-
-        {/* <NavigationMenu.Item>
+        {/*        <NavigationMenu.Item>
           <NavigationMenu.Link href="/equipamentos">
             <Button
               icon={FaPrint}
@@ -117,7 +128,8 @@ const Sidebar: React.FC<SidebarProps> = ({ screen }) => {
               onClick={() => setActiveButton('Equipamentos')}
             />
           </NavigationMenu.Link>
-        </NavigationMenu.Item> */}
+        </NavigationMenu.Item>
+        */}
       </NavigationMenu.List>
       <div className="mb-4 flex h-2/4 w-full items-end justify-center text-center">
         <div className="flex flex-row items-center gap-2">
